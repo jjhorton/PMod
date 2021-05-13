@@ -1,5 +1,8 @@
+#include <stdio.h>
+#include <string.h>
 #include "pico/stdlib.h"
 #include "hardware/spi.h"
+#include "pico/binary_info.h"
 
 // for PMOD0 output
 #define SPI_RX_PIN 12
@@ -14,6 +17,20 @@
 #define SPI_TX_PIN 19
 #define SPI_CSN_PIN 17
 */
+
+#define READ_BIT 0x80
+
+static inline void cs_select() {
+    asm volatile("nop \n nop \n nop");
+    gpio_put(PICO_DEFAULT_SPI_CSN_PIN, 0);  // Active low
+    asm volatile("nop \n nop \n nop");
+}
+
+static inline void cs_deselect() {
+    asm volatile("nop \n nop \n nop");
+    gpio_put(PICO_DEFAULT_SPI_CSN_PIN, 1);
+    asm volatile("nop \n nop \n nop");
+}
 
 // write to a SPI register
 static void write_register(uint8_t reg, uint8_t data) {
@@ -50,7 +67,7 @@ int main(){
 	spi_init(spi_default, 500 * 1000);
   gpio_set_function(SPI_RX_PIN, GPIO_FUNC_SPI);
   gpio_set_function(SPI_SCK_PIN, GPIO_FUNC_SPI);
-  gpio_set_function(TX_PIN, GPIO_FUNC_SPI);
+  gpio_set_function(SPI_TX_PIN, GPIO_FUNC_SPI);
 
 	bi_decl(bi_3pins_with_func(SPI_RX_PIN, SPI_TX_PIN, SPI_SCK_PIN, GPIO_FUNC_SPI));
 
@@ -60,4 +77,10 @@ int main(){
 	gpio_put(SPI_CSN_PIN, 1);
 	// Make the CS pin available to picotool
 	bi_decl(bi_1pin_with_name(SPI_CSN_PIN, "SPI CS"));
+
+	// See if SPI is working - interrograte the device for its I2C ID number, should be 0x60
+	uint8_t id;
+	read_registers(0xD0, &id, 1);
+	printf("Chip ID is 0x%x\n", id);
+
 }

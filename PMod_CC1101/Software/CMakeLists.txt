@@ -22,7 +22,7 @@ add_executable(${NAME}
 # Don't forget to link the libraries you need!
 target_link_libraries(${NAME}
 	 pico_stdlib
-	 pico_spi
+	 hardware_spi
 )
 
 # create map/bin/hex file etc.
