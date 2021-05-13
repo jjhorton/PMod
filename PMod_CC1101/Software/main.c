@@ -60,7 +60,8 @@ static void read_registers(uint8_t reg, uint8_t *buf, uint16_t len) {
 
 // the main function
 int main(){
-
+	stdio_init_all();
+	sleep_ms(5000);
 	printf("Hello, Reading raw data from registers via SPI...\n");
 
 	// initalise the required pins
@@ -80,7 +81,9 @@ int main(){
 
 	// See if SPI is working - interrograte the device for its I2C ID number, should be 0x60
 	uint8_t id;
-	read_registers(0xD0, &id, 1);
-	printf("Chip ID is 0x%x\n", id);
-
+	while(1){
+		read_registers(0x00, &id, 1);
+		printf("Chip ID is 0x%x\n", id);
+		sleep_ms(1000);
+	}
 }

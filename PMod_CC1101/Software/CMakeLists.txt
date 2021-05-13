@@ -25,5 +25,13 @@ target_link_libraries(${NAME}
 	 hardware_spi
 )
 
+# Serial through USB
+pico_enable_stdio_uart(${NAME} 0)
+pico_enable_stdio_usb(${NAME} 1)
+
+# Serial through pin outs
+#pico_enable_stdio_uart(${project_name} 1)
+#pico_enable_stdio_usb(${project_name} 0)
+
 # create map/bin/hex file etc.
 pico_add_extra_outputs(${NAME})
