@@ -1,7 +1,21 @@
 #include "pico/stdlib.h"
 #include "hardware/spi.h"
 
-// write to a register
+// for PMOD0 output
+#define SPI_RX_PIN 12
+#define SPI_SCK_PIN 10
+#define SPI_TX_PIN 11
+#define SPI_CSN_PIN 13
+
+/*
+// for PMOD1 output
+#define SPI_RX_PIN 16
+#define SPI_SCK_PIN 18
+#define SPI_TX_PIN 19
+#define SPI_CSN_PIN 17
+*/
+
+// write to a SPI register
 static void write_register(uint8_t reg, uint8_t data) {
     uint8_t buf[2];
     buf[0] = reg & 0x7f;  // remove read bit as this is a write
@@ -12,7 +26,7 @@ static void write_register(uint8_t reg, uint8_t data) {
     sleep_ms(10);
 }
 
-//read from a register
+//read from a SPI register
 static void read_registers(uint8_t reg, uint8_t *buf, uint16_t len) {
     // For this particular device, we send the device the register we want to read
     // first, then subsequently read from the device. The register is auto incrementing
@@ -32,4 +46,18 @@ int main(){
 
 	printf("Hello, Reading raw data from registers via SPI...\n");
 
+	// initalise the required pins
+	spi_init(spi_default, 500 * 1000);
+  gpio_set_function(SPI_RX_PIN, GPIO_FUNC_SPI);
+  gpio_set_function(SPI_SCK_PIN, GPIO_FUNC_SPI);
+  gpio_set_function(TX_PIN, GPIO_FUNC_SPI);
+
+	bi_decl(bi_3pins_with_func(SPI_RX_PIN, SPI_TX_PIN, SPI_SCK_PIN, GPIO_FUNC_SPI));
+
+	// Chip select is active-low, so we'll initialise it to a driven-high state
+	gpio_init(SPI_CSN_PIN);
+	gpio_set_dir(SPI_CSN_PIN, GPIO_OUT);
+	gpio_put(SPI_CSN_PIN, 1);
+	// Make the CS pin available to picotool
+	bi_decl(bi_1pin_with_name(SPI_CSN_PIN, "SPI CS"));
 }
