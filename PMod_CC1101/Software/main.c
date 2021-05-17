@@ -3,6 +3,7 @@
 #include "pico/stdlib.h"
 #include "hardware/spi.h"
 #include "pico/binary_info.h"
+#include "cc1101.h"
 
 // for PMOD0 output
 #define SPI_RX_PIN 12

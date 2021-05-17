@@ -17,6 +17,7 @@ pico_sdk_init()
 # Add your source files
 add_executable(${NAME}
     main.c # <-- Add source files here!
+		cc1101.h
 )
 
 # Don't forget to link the libraries you need!
