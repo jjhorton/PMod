@@ -19,16 +19,17 @@
 */
 
 #define READ_BIT 0x80
+#define READ_BURST 0xC0
 
 static inline void cs_select() {
     asm volatile("nop \n nop \n nop");
-    gpio_put(PICO_DEFAULT_SPI_CSN_PIN, 0);  // Active low
+    gpio_put(SPI_CSN_PIN, 0);  // Active low
     asm volatile("nop \n nop \n nop");
 }
 
 static inline void cs_deselect() {
     asm volatile("nop \n nop \n nop");
-    gpio_put(PICO_DEFAULT_SPI_CSN_PIN, 1);
+    gpio_put(SPI_CSN_PIN, 1);
     asm volatile("nop \n nop \n nop");
 }
 
@@ -38,7 +39,7 @@ static void write_register(uint8_t reg, uint8_t data) {
     buf[0] = reg & 0x7f;  // remove read bit as this is a write
     buf[1] = data;
     cs_select();
-    spi_write_blocking(spi_default, buf, 2);
+    spi_write_blocking(spi1, buf, 2);
     cs_deselect();
     sleep_ms(10);
 }
@@ -50,9 +51,9 @@ static void read_registers(uint8_t reg, uint8_t *buf, uint16_t len) {
     // so we don't need to keep sending the register we want, just the first.
     reg |= READ_BIT;
     cs_select();
-    spi_write_blocking(spi_default, &reg, 1);
+    spi_write_blocking(spi1, &reg, 1);
     sleep_ms(10);
-    spi_read_blocking(spi_default, 0, buf, len);
+    spi_read_blocking(spi1, 0, buf, len);
     cs_deselect();
     sleep_ms(10);
 }
@@ -65,7 +66,7 @@ int main(){
 	printf("Hello, Reading raw data from registers via SPI...\n");
 
 	// initalise the required pins
-	spi_init(spi_default, 500 * 1000);
+	spi_init(spi1, 500 * 1000);
   gpio_set_function(SPI_RX_PIN, GPIO_FUNC_SPI);
   gpio_set_function(SPI_SCK_PIN, GPIO_FUNC_SPI);
   gpio_set_function(SPI_TX_PIN, GPIO_FUNC_SPI);
@@ -82,8 +83,32 @@ int main(){
 	// See if SPI is working - interrograte the device for its I2C ID number, should be 0x60
 	uint8_t id;
 	while(1){
-		read_registers(0x00, &id, 1);
-		printf("Chip ID is 0x%x\n", id);
+		read_registers(0x30, &id,1);
+		printf("Partnum is 0x%2x\n", id);
+		read_registers(0x31, &id,2);
+		printf("Version is 0x%2x\n", id);
+		read_registers(0x32, &id,1);
+		printf("Freqtest is 0x%2x\n", id);
+
+
+		write_register(0x0B,0x12);
+		read_registers(0x0B, &id,1);
+		printf("CC1101_IOCFG2 0x%x\n", id);
+
+
+		write_register(0x00,0x1);
+		read_registers(0x00, &id,1);
+		printf("CC1101_IOCFG2 0x%x\n", id);
+
+		read_registers(0x34, &id,1);
+		printf("FSCTRL1 0x%x\n", id);
+		write_register(0x36,0x34);
+		read_registers(0x36, &id,1);
+		printf("FSCTRL1 0x%x\n", id);
+
+
+		write_register(0x0C,0x00);
+
 		sleep_ms(1000);
 	}
 }
