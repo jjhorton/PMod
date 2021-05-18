@@ -59,6 +59,83 @@ static void read_registers(uint8_t reg, uint8_t *buf, uint16_t len) {
     sleep_ms(10);
 }
 
+// initalise the CC1101
+static void setup_cc1101(){
+	write_register(CC1101_FSCTRL1,  0x08);
+	write_register(CC1101_FSCTRL0,  0x00);
+	write_register(CC1101_FREQ2,    F2_433);
+	write_register(CC1101_FREQ1,    F1_433);
+	write_register(CC1101_FREQ0,    F0_433);
+	write_register(CC1101_MDMCFG4,  0x5B);
+	write_register(CC1101_MDMCFG3,  0xF8);
+	write_register(CC1101_MDMCFG2,  0x03);
+	write_register(CC1101_MDMCFG1,  0x22);
+	write_register(CC1101_MDMCFG0,  0xF8);
+	write_register(CC1101_CHANNR,   0x00);
+	write_register(CC1101_DEVIATN,  0x47);
+	write_register(CC1101_FREND1,   0xB6);
+	write_register(CC1101_FREND0,   0x10);
+	write_register(CC1101_MCSM0 ,   0x18);
+	write_register(CC1101_FOCCFG,   0x1D);
+	write_register(CC1101_BSCFG,    0x1C);
+	write_register(CC1101_AGCCTRL2, 0xC7);
+	write_register(CC1101_AGCCTRL1, 0x00);
+	write_register(CC1101_AGCCTRL0, 0xB2);
+	write_register(CC1101_FSCAL3,   0xEA);
+	write_register(CC1101_FSCAL2,   0x2A);
+	write_register(CC1101_FSCAL1,   0x00);
+	write_register(CC1101_FSCAL0,   0x11);
+	write_register(CC1101_FSTEST,   0x59);
+	write_register(CC1101_TEST2,    0x81);
+	write_register(CC1101_TEST1,    0x35);
+	write_register(CC1101_TEST0,    0x09);
+	write_register(CC1101_IOCFG2,   0x0B); 	//serial clock.synchronous to the data in synchronous serial mode
+	write_register(CC1101_IOCFG0,   0x06);  	//asserts when sync word has been sent/received, and de-asserts at the end of the packet
+	write_register(CC1101_PKTCTRL1, 0x04);		//two status bytes will be appended to the payload of the packet,including RSSI LQI and CRC OK
+									//No address check
+	write_register(CC1101_PKTCTRL0, 0x05);		//whitening off;CRC Enable£»variable length packets, packet length configured by the first byte after sync word
+	write_register(CC1101_ADDR,     0x00);		//address used for packet filtration.
+	write_register(CC1101_PKTLEN,   0x3D); 	//61 bytes max length
+}
+
+static void setupread_cc1101(){
+	uint8_t id;
+	read_registers(CC1101_FSCTRL1, &id,1); 	printf("CC1101_FSCTRL1 	0x%2x\n", id);
+	read_registers(CC1101_FSCTRL0, &id,1); 	printf("CC1101_FSCTRL0 	0x%2x\n", id);
+	read_registers(CC1101_FREQ2, &id,1); 		printf("CC1101_FREQ2 	0x%2x\n", id);
+	read_registers(CC1101_FREQ1, &id,1); 		printf("CC1101_FREQ1 	0x%2x\n", id);
+	read_registers(CC1101_FREQ0, &id,1); 		printf("CC1101_FREQ0 	0x%2x\n", id);
+	read_registers(CC1101_MDMCFG4, &id,1); 	printf("CC1101_MDMCFG4 	0x%2x\n", id);
+	read_registers(CC1101_MDMCFG3, &id,1); 	printf("CC1101_MDMCFG3 	0x%2x\n", id);
+	read_registers(CC1101_MDMCFG2, &id,1); 	printf("CC1101_MDMCFG2 	0x%2x\n", id);
+	read_registers(CC1101_MDMCFG1, &id,1); 	printf("CC1101_MDMCFG1 	0x%2x\n", id);
+	read_registers(CC1101_MDMCFG0, &id,1); 	printf("CC1101_MDMCFG0 	0x%2x\n", id);
+	read_registers(CC1101_CHANNR, &id,1); 	printf("CC1101_CHANNR 0x%2x\n", id);
+	read_registers(CC1101_DEVIATN, &id,1); 	printf("CC1101_DEVIATN 	0x%2x\n", id);
+	read_registers(CC1101_FREND1, &id,1); 	printf("CC1101_FREND1 0x%2x\n", id);
+	read_registers(CC1101_FREND0, &id,1); 	printf("CC1101_FREND0 0x%2x\n", id);
+	read_registers(CC1101_MCSM0, &id,1); 		printf("CC1101_MCSM0 	0x%2x\n", id);
+	read_registers(CC1101_FOCCFG, &id,1); 	printf("CC1101_FOCCFG 	0x%2x\n", id);
+	read_registers(CC1101_BSCFG, &id,1); 		printf("CC1101_BSCFG 	0x%2x\n", id);
+	read_registers(CC1101_AGCCTRL2, &id,1); printf("CC1101_AGCCTRL2 	0x%2x\n", id);
+	read_registers(CC1101_AGCCTRL1, &id,1); printf("CC1101_AGCCTRL1 	0x%2x\n", id);
+	read_registers(CC1101_AGCCTRL0, &id,1); printf("CC1101_AGCCTRL0 	0x%2x\n", id);
+	read_registers(CC1101_FSCAL3, &id,1); printf("CC1101_FSCAL3 	0x%2x\n", id);
+	read_registers(CC1101_FSCAL2, &id,1); printf("CC1101_FSCAL2 	0x%2x\n", id);
+	read_registers(CC1101_FSCAL1, &id,1); printf("CC1101_FSCAL1 	0x%2x\n", id);
+	read_registers(CC1101_FSCAL0, &id,1); printf("CC1101_FSCAL0 	0x%2x\n", id);
+	read_registers(CC1101_FSTEST, &id,1); printf("CC1101_FSTEST 	0x%2x\n", id);
+	read_registers(CC1101_TEST2, &id,1); printf("CC1101_TEST2 	0x%2x\n", id);
+	read_registers(CC1101_TEST1, &id,1); printf("CC1101_TEST1 	0x%2x\n", id);
+	read_registers(CC1101_TEST0, &id,1); printf("CC1101_TEST0		0x%2x\n", id);
+	read_registers(CC1101_IOCFG2, &id,1); printf("CC1101_IOCFG2 	0x%2x\n", id);
+	read_registers(CC1101_IOCFG0, &id,1); printf("CC1101_IOCFG0 	0x%2x\n", id);
+	read_registers(CC1101_PKTCTRL1, &id,1); printf("CC1101_PKTCTRL1 	0x%2x\n", id);
+	read_registers(CC1101_PKTCTRL0, &id,1); printf("CC1101_PKTCTRL0 	0x%2x\n", id);
+	read_registers(CC1101_ADDR, &id,1); printf("CC1101_ADDR 	0x%2x\n", id);
+	read_registers(CC1101_PKTLEN, &id,1); printf("CC1101_PKTLEN 	0x%2x\n", id);
+}
+
 
 // the main function
 int main(){
@@ -84,32 +161,9 @@ int main(){
 	// See if SPI is working - interrograte the device for its I2C ID number, should be 0x60
 	uint8_t id;
 	while(1){
-		read_registers(0x30, &id,1);
-		printf("Partnum is 0x%2x\n", id);
-		read_registers(0x31, &id,2);
-		printf("Version is 0x%2x\n", id);
-		read_registers(0x32, &id,1);
-		printf("Freqtest is 0x%2x\n", id);
+		setup_cc1101();
+		setupread_cc1101();
 
-
-		write_register(0x0B,0x12);
-		read_registers(0x0B, &id,1);
-		printf("CC1101_IOCFG2 0x%x\n", id);
-
-
-		write_register(0x00,0x1);
-		read_registers(0x00, &id,1);
-		printf("CC1101_IOCFG2 0x%x\n", id);
-
-		read_registers(0x34, &id,1);
-		printf("FSCTRL1 0x%x\n", id);
-		write_register(0x36,0x34);
-		read_registers(0x36, &id,1);
-		printf("FSCTRL1 0x%x\n", id);
-
-
-		write_register(0x0C,0x00);
-
-		sleep_ms(1000);
+		sleep_ms(3000);
 	}
 }
