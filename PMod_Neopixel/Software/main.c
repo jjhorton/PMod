@@ -49,10 +49,14 @@ int main() {
 			}
 			sleep_ms(1000);
 
-			for (int i = 0; i < (len); ++i) {
-					put_pixel(urgb_u32(0, 0xff, 0xff));
+			for(uint8_t counter=0; counter<255; counter++)
+			{
+				int led_num = (10*counter/256)+1;
+				for (int i = 0; i < (led_num); ++i) {
+						put_pixel(urgb_u32((counter)/4, (255-counter)/8,0));
+					}
+				sleep_ms(100);
 			}
-			sleep_ms(1000);
 		}
 
 }
