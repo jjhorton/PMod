@@ -81,20 +81,38 @@ int main() {
     // todo get free sm
     PIO pio = pio0;
     int sm = 0;
-    uint offset = pio_add_program(pio, &ws2812_program);
 
-    ws2812_program_init(pio, sm, offset, PIN_TX, 800000, true);
+    uint offset = pio_add_program(pio, &ws2812_program);
+    ws2812_program_init(pio, sm, offset, PIN_TX, 800000, false);
 
     int t = 0;
-    while (1) {
-        int pat = rand() % count_of(pattern_table);
-        int dir = (rand() >> 30) & 1 ? 1 : -1;
-        puts(pattern_table[pat].name);
-        puts(dir == 1 ? "(forward)" : "(backward)");
-        for (int i = 0; i < 1000; ++i) {
-            pattern_table[pat].pat(150, t);
-            sleep_ms(10);
-            t += dir;
-        }
-    }
+		int len = 10;
+
+		while(1) {
+
+			for (int i = 0; i < (len); ++i) {
+					//put_pixel(urgb_u32(0, 0, 0));
+					put_pixel(0);
+			}
+			sleep_ms(1000);
+
+			for (int i = 0; i < (len); ++i) {
+					//put_pixel(rand());
+					//put_pixel(urgb_u32(0, 0, 0xff));
+					put_pixel(urgb_u32(0, 0xff, 0xff));
+					//put_pixel(0xffffff00);
+			}
+			sleep_ms(1000);
+		}
+    //while (1) {
+    //    int pat = rand() % count_of(pattern_table);
+    //    int dir = (rand() >> 30) & 1 ? 1 : -1;
+    //    puts(pattern_table[pat].name);
+    //    puts(dir == 1 ? "(forward)" : "(backward)");
+    //    for (int i = 0; i < 1000; ++i) {
+    //        pattern_table[pat].pat(150, t);
+    //        sleep_ms(10);
+    //        t += dir;
+    //    }
+    //}
 }
