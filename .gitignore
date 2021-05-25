@@ -5,3 +5,5 @@
 *.csv
 *.xml
 fp-info-cache
+
+PMod_NeoPixel/Software/build
