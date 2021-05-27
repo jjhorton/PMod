@@ -28,6 +28,7 @@ int main() {
 
 	while(1){
 		uint8_t my_value = 0b00000001;
+
 		for(int y = 0; y<8; y++){
 			for(int x = 0; x<8; x++) {
 				gpio_put(OUTPUT_PINS[x], (my_value >> x) & 1U);
