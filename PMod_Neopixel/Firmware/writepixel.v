@@ -40,7 +40,7 @@ module writepixel(
 	always @(posedge clk) begin
 		if (valid == 1)
 		begin
-			my_value = value;
+			my_value <= value;
 			data_ready <= 1'b1;
 		end
 
