@@ -63,30 +63,28 @@ module writepixel(
 				end
 			STATE1:
 				begin
-				//first part, always high
-				d_out <= 1'b1;
-				state <= STATE2;
+					//first part, always high
+					d_out <= 1'b1;
+					state <= STATE2;
 				end
 			STATE2:
 				begin
-				//second part, always high
-				d_out <= 1'b1;
-				state <= STATE3;
+					//second part, always high
+					d_out <= 1'b1;
+					state <= STATE3;
 				end
 			STATE3:
 				begin
-				// high for a 1, low for 0
-				d_out <= my_value;
-				state <= STATE4;
+					// high for a 1, low for 0
+					d_out <= my_value;
+					state <= STATE4;
 				end
 			STATE4:
 				begin
-				// alway low
-				d_out <= 1'b0;
-				state <= IDLE;
+					// alway low
+					d_out <= 1'b0;
+					state <= IDLE;
 				end
 
 	end
-
-
 endmodule
