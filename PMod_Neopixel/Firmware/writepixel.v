@@ -11,8 +11,12 @@ module writepixel(
 	reg my_value = 0;
 	reg pixel_clk = 0
 
-	// states for the state machine 
-
+	// states for the state machine
+	parameter 	IDLE 	= 0;
+	parameter 	STATE1= 1;
+	parameter 	STATE2= 2;
+	parameter 	STATE3= 3;
+	parameter 	STATE4= 4;
 
 	// clock rate for calculating the clock divider
 	parameter 	clk_in_rate_hz = 12_000_000;
@@ -28,15 +32,20 @@ module writepixel(
 			pixel_clk <= ~pixel_clk;
 	end
 
+	// data_ready used to trigger the next bit each time
+	reg data_ready = 0;
 	//read in the value for the output
 	always @(posedge CLK) begin
 		if (valid = 1)
 		begin
 			my_value = value;
+			data_ready = 1'b1;
 		end
+		if (state= STATE1)
+			data_ready = 1'b0
 	end
 
-	//output the ready state, based on the state veriable
+	//output the ready state, based on the state register
 	always @(posedge CLK) begin
 		if (state = IDLE)
 			ready <= 1'b1;
@@ -49,7 +58,8 @@ module writepixel(
 		case(state)
 			IDLE:
 				begin
-
+					if (data_ready = 1)
+						state <= STATE1;
 				end
 			STATE1:
 				begin
