@@ -9,7 +9,7 @@ module writepixel(
 	reg [2:0] state = 0;
 	reg [31:0] counter =0;
 	reg my_value = 0;
-	reg pixel_clk = 0
+	reg pixel_clk = 0;
 
 	// states for the state machine
 	parameter 	IDLE 	= 0;
