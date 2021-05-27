@@ -4,7 +4,7 @@ module writepixel(
 	input valid,
 
 	output d_out,
-	output ready);
+	output busy);
 
 	reg [2:0] state = 0;
 	reg [31:0] counter =0;
@@ -41,16 +41,16 @@ module writepixel(
 			my_value = value;
 			data_ready = 1'b1;
 		end
-		if (state= STATE1)
+		if (busy)
 			data_ready = 1'b0
 	end
 
 	//output the ready state, based on the state register
 	always @(posedge CLK) begin
 		if (state = IDLE)
-			ready <= 1'b1;
+			busy <= 1'b0;
 		else
-			ready <= 1'b0;
+			busy <= 1'b1;
 	end
 
 	//state machine for sending each value
