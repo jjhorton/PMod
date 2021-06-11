@@ -64,8 +64,16 @@ int main() {
 			uint8_t rxdata[2];
 			uint8_t val = 0x80;
 
-			printf("-------------\n");
+			//read the therminster
+			val = 0x0E;
+			i2c_write_blocking(i2c1, addr, &val, 1, true);
+			ret = i2c_read_blocking(i2c1, addr, &rxdata[0], 2, true);
+			float thermist  = 0.0625 * ((int16_t)((((uint16_t)rxdata[1] << 8) | ((uint16_t)rxdata[0]))<< 4) >> 4);
 
+			printf("Therm: %6.2f\n", thermist);
+
+			//read the pixel values
+			val = 0x80;
 			i2c_write_blocking(i2c1, addr, &val, 1, true);
 
 			for(int i = 0; i<63;++i){
@@ -73,10 +81,13 @@ int main() {
 				if(i%8 == 0){
 					printf("\n");
 				}
-				printf("%6.2f, ", 0.25*(((uint16_t)rxdata[1] << 8) | ((uint16_t)rxdata[0])));
+				float result  = (int16_t)((((uint16_t)rxdata[1] << 8) | ((uint16_t)rxdata[0]))<< 4) >> 4;
+				printf("%6.2f, ", 0.25*result);
 			}
 			ret = i2c_read_blocking(i2c1, addr, &rxdata[0], 2, false);
-			printf("%6.2f \n ", 0.25*(((uint16_t)rxdata[1] << 8) | ((uint16_t)rxdata[0])));
+			//printf("%6.2f \n ", 0.25*(((uint16_t)rxdata[1] << 8) | ((uint16_t)rxdata[0])));
+			float result  = (int16_t)((((uint16_t)rxdata[1] << 8) | ((uint16_t)rxdata[0]))<< 4) >> 4;
+			printf("%6.2f \n", 0.25*result);
 		}
   return 0;
 
