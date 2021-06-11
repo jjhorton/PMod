@@ -53,7 +53,7 @@ int main() {
 		gpio_set_dir(20, GPIO_OUT);
 
 		while(1) {
-			sleep_ms(100);
+			sleep_ms(50);
 
 			on_off = !on_off;
 			gpio_put(20, on_off);
