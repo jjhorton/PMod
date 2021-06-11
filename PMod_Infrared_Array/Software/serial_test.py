@@ -50,11 +50,11 @@ while(1):
 
             h.set_data(np.fliplr(np.flip(my_display)))
             plt.draw(), plt.pause(1e-4)
-            print(my_result)
-            print(my_result.dtype)
+            #print(my_result)
+            #print(my_result.dtype)
 
     else:
         my_counter = 0
-    #my_values = csv.reader(my_data, delimiter=',')
-    #print(my_values.split(","))
-    #list(my_values)
+        # Getting the Thermister values 
+        if "Therm" in str(my_data[0:5]):
+            print("Thermister Output:" + str(my_data[7:-2])[2:-1])
