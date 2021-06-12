@@ -41,5 +41,5 @@ jobs:
         working-directory: project/PMod_Infrared_Array/Software/build
         shell: bash
         run: |
-          PICO_SDK_PATH=../../../../pico-sdk cmake ..
+          PICO_SDK_PATH=../../../pico-sdk cmake ..
           make
