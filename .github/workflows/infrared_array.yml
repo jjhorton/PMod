@@ -6,12 +6,16 @@ on:
       - 'PMod_Infrared_Array/Hardware/*.sch'
       - 'PMod_Infrared_Array/Hardware/*.kicad_pcb'
       - 'kibot.yml'
+      - 'PMod_Infrared_Array/Software/CMakelists.txt'
+      - 'PMod_Infrared_Array/Software/main.c'
       - '.github/workflows/infrared_array.yml'
   pull_request:
     paths:
       - 'PMod_Infrared_Array/Hardware/*.sch'
       - 'PMod_Infrared_Array/Hardware/*.kicad_pcb'
       - 'kibot.yml'
+      - 'PMod_Infrared_Array/Software/CMakelists.txt'
+      - 'PMod_Infrared_Array/Software/main.c'
       - '.github/workflows/infrared_array.yml'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
