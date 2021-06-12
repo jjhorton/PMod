@@ -1,0 +1,48 @@
+name: "PMod Infrared Array"
+
+on:
+  push:
+    paths:
+      - 'PMod_Infrared_Array/Software/CMakeLists.txt'
+      - 'PMod_Infrared_Array/Software/main.c'
+      - '.github/workflows/infrared_array_software.yml'
+  pull_request:
+    paths:
+    - 'PMod_Infrared_Array/Software/CMakeLists.txt'
+    - 'PMod_Infrared_Array/Software/main.c'
+    - '.github/workflows/infrared_array_software.yml'
+
+env:
+  PICO_SDK_PATH: $GITHUB_WORKSPACE/pico-sdk
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          path: project
+
+      - name: Checkout Pico SDK
+        uses: actions/checkout@v2
+        with:
+          repository: raspberrypi/pico-sdk
+          path: pico-sdk
+          submodules: true
+
+      - name: Install deps
+        run: |
+          sudo apt update && sudo apt install cmake
+
+      - name: Make directory
+        run: |
+          mkdir project/PMod_Infrared_Array/Software/build
+
+      - name: Build
+        working-directory: project/PMod_Infrared_Array/Software/build
+        shell: bash
+        run: |
+          cmake ..
+          make
