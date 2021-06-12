@@ -72,11 +72,11 @@ jobs:
           PICO_SDK_PATH=../../../pico-sdk cmake ..
           make
 
-    - name: Retrieve results
-      if: ${{ always() }}
-      uses: actions/upload-artifact@v2
-      with:
-        name: Fabrication_Files
-        path: |
-          project/PMod_Infrared_Array/Software/build/*.uf2
-        if-no-files-found: warn
+      - name: Retrieve results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: Fabrication_Files
+          path: |
+            project/PMod_Infrared_Array/Software/build/*.uf2
+          if-no-files-found: warn
