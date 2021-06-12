@@ -76,7 +76,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v2
         with:
-          name: Fabrication_Files
+          name: RP_Pico_Files
           path: |
             project/PMod_Infrared_Array/Software/build/*.uf2
           if-no-files-found: warn
