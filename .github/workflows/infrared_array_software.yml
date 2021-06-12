@@ -13,7 +13,7 @@ on:
     - '.github/workflows/infrared_array_software.yml'
 
 env:
-  PICO_SDK_PATH: $(pwd)/pico-sdk
+  PICO_SDK_PATH: $GITHUB_WORKSPACE/pico-sdk
 
 jobs:
   Build:
