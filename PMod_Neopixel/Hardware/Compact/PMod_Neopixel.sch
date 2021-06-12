@@ -179,8 +179,6 @@ F 3 "" H 5100 1550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5100 1550 5100 1650
-Wire Wire Line
 	6250 1550 6250 1650
 Wire Wire Line
 	7350 1650 7350 1550
@@ -192,8 +190,6 @@ Wire Wire Line
 	9600 2250 9600 2350
 Wire Wire Line
 	8500 2250 8500 2350
-Wire Wire Line
-	7350 2350 7350 2250
 Wire Wire Line
 	6250 2250 6250 2350
 Wire Wire Line
@@ -376,8 +372,6 @@ Wire Wire Line
 Wire Wire Line
 	6250 3100 6250 3200
 Wire Wire Line
-	7350 3200 7350 3100
-Wire Wire Line
 	8500 3100 8500 3200
 Wire Wire Line
 	9600 3200 9600 3100
@@ -479,8 +473,6 @@ Wire Wire Line
 	3000 2150 2600 2150
 Wire Wire Line
 	2100 2150 1700 2150
-Wire Wire Line
-	1700 2050 2100 2050
 $Comp
 L Connector_Generic:Conn_01x02 J2
 U 1 1 6088DD0B
@@ -578,7 +570,15 @@ Wire Wire Line
 Wire Wire Line
 	2050 4500 2200 4500
 Wire Wire Line
-	2050 3850 2200 3850
-Wire Wire Line
 	2500 3850 2650 3850
+Wire Wire Line
+	7350 2250 7350 2350
+Wire Wire Line
+	5100 1650 5100 1550
+Wire Wire Line
+	1700 2050 2100 2050
+Wire Wire Line
+	7350 3200 7350 3100
+Wire Wire Line
+	2050 3850 2200 3850
 $EndSCHEMATC
