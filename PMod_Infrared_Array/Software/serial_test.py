@@ -4,7 +4,7 @@ from scipy import interpolate
 
 import serial
 
-ser = serial.Serial('/dev/tty.usbmodem0000000000001', 115200 ,timeout=1)
+ser = serial.Serial('/dev/tty.usbmodem1101', 115200 ,timeout=1)
 #ser.reset_input_buffer()
 
 my_result = np.zeros([8,8],dtype=np.float32)
@@ -55,6 +55,6 @@ while(1):
 
     else:
         my_counter = 0
-        # Getting the Thermister values 
+        # Getting the Thermister values
         if "Therm" in str(my_data[0:5]):
             print("Thermister Output:" + str(my_data[7:-2])[2:-1])
