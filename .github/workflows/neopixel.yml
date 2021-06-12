@@ -1,0 +1,86 @@
+name: "PMod NeoPixel"
+
+on:
+  push:
+    paths:
+      - 'PMod_Neopixel/Hardware/Compact/*.sch'
+      - 'PMod_Neopixel/Hardware/Compact/*.kicad_pcb'
+      - 'kibot.yml'
+      - 'PMod_Neopixel/Software/CMakelists.txt'
+      - 'PMod_Neopixel/Software/main.c'
+      - '.github/workflows/neopixel.yml'
+  pull_request:
+    paths:
+      - 'PMod_Neopixel/Hardware/Compact/*.sch'
+      - 'PMod_Neopixel/Hardware/Compact/*.kicad_pcb'
+      - 'kibot.yml'
+      - 'PMod_Neopixel/Software/CMakelists.txt'
+      - 'PMod_Neopixel/Software/main.c'
+      - '.github/workflows/neopixel.yml'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  Fabrication:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: INTI-CMNB/KiBot@v1
+      with:
+        # Required - kibot config file
+        config: kibot.yml
+        # optional - prefix to output defined in config
+        dir: Hardware/Fabrication
+        # optional - schematic file
+        schema: 'PMod_Neopixel/Hardware/Compact/PMod_Neopixel.sch'
+        # optional - PCB design file
+        board: 'PMod_Neopixel/Hardware/Compact/PMod_Neopixel_compact.kicad_pcb'
+
+    - name: Retrieve results
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: Fabrication_Files
+        path: |
+          Hardware/Fabrication/
+        if-no-files-found: warn
+
+
+  Build-Software:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          path: project
+
+      - name: Checkout Pico SDK
+        uses: actions/checkout@v2
+        with:
+          repository: raspberrypi/pico-sdk
+          path: pico-sdk
+          submodules: true
+
+      - name: Install deps
+        run: |
+          sudo apt update && sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
+
+      - name: Make directory
+        run: |
+          mkdir project/PMod_Neopixel/Software/build
+
+      - name: Build
+        working-directory: project/PMod_Neopixel/Software/build
+        shell: bash
+        run: |
+          PICO_SDK_PATH=../../../pico-sdk cmake ..
+          make
+
+      - name: Retrieve results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: RP_Pico_Files
+          path: |
+            project/PMod_Neopixel/Software/build/*.uf2
+          if-no-files-found: warn
