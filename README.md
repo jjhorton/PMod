@@ -7,6 +7,6 @@ The boards in the table are being checked using github actions ![Kibot](https://
 | Board | Build Status | Description |
 | --- | --- |
 | PMod CC1101 | Work in progress | sub-1GHz Transceiver board based on a CC1101 |
-| PMod LED |   | Contains 8 LED's which can be individually turned on and off |
+| PMod LED | Work in progress | Contains 8 LED's which can be individually turned on and off |
 | PMod NeoPixel | [![PMod NeoPixel](https://github.com/jjhorton/PMod/actions/workflows/neopixel.yml/badge.svg)](https://github.com/jjhorton/PMod/actions/workflows/neopixel.yml) | A board with 10 WS2812 RGB LED's |
 | PMod Infrared Array | [![PMod Infrared Array](https://github.com/jjhorton/PMod/actions/workflows/infrared_array.yml/badge.svg)](https://github.com/jjhorton/PMod/actions/workflows/infrared_array.yml) | contains an 8x8 IR Thermal sensor |
