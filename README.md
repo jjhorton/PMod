@@ -2,7 +2,7 @@
 A selection of Random PMod Boards to be used with FPGA's that use the Digilent PMod standard connection
 
 # Board Status
-The boards in the table are being checked using github actions ![Kibot](https://github.com/INTI-CMNB/KiBot) for the KiCAD files and also building the example code for each one online. The fabrication files produced using Gitfub actions also includes a PDF of the schematic and GERBER files for getting PCB's built using ![JLCPCB](https://jlcpcb.com).
+The boards in the table are being checked using github actions [Kibot](https://github.com/INTI-CMNB/KiBot) for the KiCAD files and also building the example code for each one online. The fabrication files produced using Gitfub actions also includes a PDF of the schematic and GERBER files for getting PCB's built using [JLCPCB](https://jlcpcb.com).
 
 | Board | Build Status | Description |
 | --- | --- | --- |
