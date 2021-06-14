@@ -31,9 +31,9 @@ jobs:
         # optional - prefix to output defined in config
         dir: Hardware/Fabrication
         # optional - schematic file
-        schema: 'PMod_LED/Hardware/Compact/PMod_LED.sch'
+        schema: 'PMod_LED/Hardware/PMod_LED.sch'
         # optional - PCB design file
-        board: 'PMod_LED/Hardware/Compact/PMod_LED.kicad_pcb'
+        board: 'PMod_LED/Hardware/PMod_LED.kicad_pcb'
 
     - name: Retrieve results
       if: ${{ always() }}
