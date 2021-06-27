@@ -89,7 +89,7 @@ jobs:
             project/PMod_LED/Software/build/*.uf2
           if-no-files-found: warn
 
-  Build-Software:
+  Build-Firmware:
     runs-on: ubuntu-latest
 
     steps:
