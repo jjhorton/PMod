@@ -84,3 +84,23 @@ jobs:
           path: |
             project/PMod_LED/Software/build/*.uf2
           if-no-files-found: warn
+
+  Build-Software:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          path: project
+
+      - name: Install deps
+        run: |
+          sudo -H pip3 install yowasp-yosys
+          sudo -H pip3 install yowasp-nextpnr-ice40
+           # Runs a set of commands using the runners shell
+
+      - name: Run yosys on the files
+        working-directory: project/PMod_LED/Firmware
+        run: |
+          make build
