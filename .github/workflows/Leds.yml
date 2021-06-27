@@ -107,4 +107,9 @@ jobs:
       - name: Run yosys on the files
         working-directory: project/PMod_LED/Firmware
         run: |
-          make build
+          yowasp-yosys -p 'synth_ice40 -top blinky -json blinky.json' blinky.v
+
+      - name: Run nextpnr on the files
+        working-directory: project/PMod_LED/Firmware
+        run: |
+          yowasp-nextpnr-ice40 --up5k --package sg48 --json blinky.json --pcf icebreaker.pcf --asc blinky.asc
