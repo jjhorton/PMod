@@ -119,7 +119,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v2
         with:
-          name: Ice40-5K_Firmware
+          name: Ice40_5K_Firmware
           path: |
               project/PMod_LED/Firmware/blinky.bin
           if-no-files-found: warn
