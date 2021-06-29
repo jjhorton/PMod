@@ -117,8 +117,8 @@ jobs:
 
       - name: Retrieve results
         if: ${{ always() }}
-          uses: actions/upload-artifact@v2
-          with:
+        uses: actions/upload-artifact@v2
+        with:
           name: Ice40-5K_Firmware
           path: |
               project/PMod_LED/Firmware/blinky.bin
