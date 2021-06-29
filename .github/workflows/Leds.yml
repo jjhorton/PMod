@@ -121,5 +121,5 @@ jobs:
         with:
           name: Ice40_5K_Firmware
           path: |
-              project/PMod_LED/Firmware/blinky.bin
+            project/PMod_LED/Firmware/blinky.bin
           if-no-files-found: warn
