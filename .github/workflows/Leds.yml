@@ -113,3 +113,13 @@ jobs:
         working-directory: project/PMod_LED/Firmware
         run: |
           yowasp-nextpnr-ice40 --up5k --package sg48 --json blinky.json --pcf icebreaker.pcf --asc blinky.asc
+          yowasp-icepack blinky.asc blinky.bin
+
+      - name: Retrieve results
+        if: ${{ always() }}
+          uses: actions/upload-artifact@v2
+          with:
+          name: Ice40-5K_Firmware
+          path: |
+              project/PMod_LED/Firmware/blinky.bin
+          if-no-files-found: warn
