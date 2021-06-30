@@ -1,0 +1,125 @@
+name: "PMod LED"
+
+on:
+  push:
+    paths:
+      - 'kibot.yml'
+      - '.github/workflows/Leds.yml'
+      - 'PMod_LED/Hardware/*.sch'
+      - 'PMod_LED/Hardware/*.kicad_pcb'
+      - 'PMod_LED/Software/CMakelists.txt'
+      - 'PMod_LED/Software/main.c'
+      - 'PMod_LED/Firmware/blinky.v'
+      - 'PMod_LED/Firmware/icebreaker.pcf'
+  pull_request:
+    paths:
+      - 'kibot.yml'
+      - '.github/workflows/Leds.yml'
+      - 'PMod_LED/Hardware/*.sch'
+      - 'PMod_LED/Hardware/*.kicad_pcb'
+      - 'PMod_LED/Software/CMakelists.txt'
+      - 'PMod_LED/Software/main.c'
+      - 'PMod_LED/Firmware/blinky.v'
+      - 'PMod_LED/Firmware/icebreaker.pcf'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  Fabrication:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: INTI-CMNB/KiBot@v1
+      with:
+        # Required - kibot config file
+        config: kibot.yml
+        # optional - prefix to output defined in config
+        dir: Hardware/Fabrication
+        # optional - schematic file
+        schema: 'PMod_LED/Hardware/PMod_LED.sch'
+        # optional - PCB design file
+        board: 'PMod_LED/Hardware/PMod_LED.kicad_pcb'
+
+    - name: Retrieve results
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: Fabrication_Files
+        path: |
+          Hardware/Fabrication/
+        if-no-files-found: warn
+
+
+  Build-Software:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          path: project
+
+      - name: Checkout Pico SDK
+        uses: actions/checkout@v2
+        with:
+          repository: raspberrypi/pico-sdk
+          path: pico-sdk
+          submodules: true
+
+      - name: Install deps
+        run: |
+          sudo apt update && sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
+
+      - name: Make directory
+        run: |
+          mkdir project/PMod_LED/Software/build
+
+      - name: Build
+        working-directory: project/PMod_LED/Software/build
+        shell: bash
+        run: |
+          PICO_SDK_PATH=../../../pico-sdk cmake ..
+          make
+
+      - name: Retrieve results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: RP_Pico_Files
+          path: |
+            project/PMod_LED/Software/build/*.uf2
+          if-no-files-found: warn
+
+  Build-Firmware:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          path: project
+
+      - name: Install deps
+        run: |
+          sudo -H pip3 install yowasp-yosys
+          sudo -H pip3 install yowasp-nextpnr-ice40-all
+           # Runs a set of commands using the runners shell
+
+      - name: Run yosys on the files
+        working-directory: project/PMod_LED/Firmware
+        run: |
+          yowasp-yosys -p 'synth_ice40 -top blinky -json blinky.json' blinky.v
+
+      - name: Run nextpnr on the files
+        working-directory: project/PMod_LED/Firmware
+        run: |
+          yowasp-nextpnr-ice40 --up5k --package sg48 --json blinky.json --pcf icebreaker.pcf --asc blinky.asc
+          yowasp-icepack blinky.asc blinky.bin
+
+      - name: Retrieve results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: Ice40_5K_Firmware
+          path: |
+            project/PMod_LED/Firmware/blinky.bin
+          if-no-files-found: warn
