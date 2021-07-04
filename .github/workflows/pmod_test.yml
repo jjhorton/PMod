@@ -1,0 +1,41 @@
+name: "PMod Test"
+
+on:
+  push:
+    paths:
+      - 'PMod_Test/Hardware/*.sch'
+      - 'PMod_Test/Hardware/*.kicad_pcb'
+      - '.github/workflows/pmod_test.yml'
+      - 'kibot.yml'
+  pull_request:
+    paths:
+      - 'PMod_Test/Hardware/*.sch'
+      - 'PMod_Test/Hardware/*.kicad_pcb'
+      - '.github/workflows/pmod_test.yml'
+      - 'kibot.yml'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  Fabrication:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: INTI-CMNB/KiBot@v1
+      with:
+        # Required - kibot config file
+        config: kibot.yml
+        # optional - prefix to output defined in config
+        dir: Hardware/Fabrication
+        # optional - schematic file
+        schema: 'PMod_Test/Hardware/PMod_Tester.sch'
+        # optional - PCB design file
+        board: 'PMod_Test/Hardware/PMod_Tester.kicad_pcb'
+
+    - name: Retrieve results
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: Fabrication_Files
+        path: |
+          Hardware/Fabrication/
+        if-no-files-found: warn
