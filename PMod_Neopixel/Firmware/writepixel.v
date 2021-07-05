@@ -1,14 +1,21 @@
 module writepixel(
-	input clk,
-	input value,
-	input valid,
+	clk, valid,
+	pixel_r, pixel_g, pixel_b,
+	d_out, busy);
 
-	output d_out,
-	output busy);
+	input 	wire 	clk;
+	input 	wire 	valid;
+	input 	wire [7:0]	pixel_r;
+	input 	wire	[7:0]	pixel_g;
+	input 	wire	[7:0]	pixel_b;
+
+	output 	wire 	d_out;
+	output 	wire		busy;
 
 	reg [2:0] state = 0;
 	reg [31:0] counter =0;
-	reg my_value = 0;
+	reg [4:0] count_bit = 0;
+	reg [23:0] my_value = 0;
 	reg pixel_clk = 0;
 	reg data_out = 0;
 	reg busy_out = 0;
@@ -40,7 +47,9 @@ module writepixel(
 	always @(posedge clk) begin
 		if (valid == 1)
 		begin
-			my_value <= value;
+			my_value[23:16] <= pixel_r;
+			my_value[15:8] <= pixel_g;
+			my_value[7:0] <= pixel_b;
 			data_ready <= 1'b1;
 		end
 
@@ -63,12 +72,14 @@ module writepixel(
 				begin
 					if (data_ready == 1)
 						state <= STATE1;
+						count_bit <= 24;
 				end
 			STATE1:
 				begin
 					//first part, always high
 					data_out <= 1'b1;
 					state <= STATE2;
+					count_bit <= count_bit - 1;
 				end
 			STATE2:
 				begin
@@ -79,14 +90,17 @@ module writepixel(
 			STATE3:
 				begin
 					// high for a 1, low for 0
-					data_out <= my_value;
+					data_out <= my_value [count_bit];
 					state <= STATE4;
 				end
 			STATE4:
 				begin
 					// alway low
 					data_out <= 1'b0;
-					state <= IDLE;
+					if(count_bit == 0)
+						state <= IDLE;
+					else
+						state <= STATE1;
 				end
 			endcase
 
