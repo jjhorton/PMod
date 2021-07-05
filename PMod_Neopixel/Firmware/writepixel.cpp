@@ -44,6 +44,10 @@ int main(int argc, char **argv){
 	tb->valid = 1;
 
 	for(int i=0; i<1000; i++){
+		if(i==512) {
+			tb->pixel_b =  int8_t(255);
+			tb->valid = 1;
+		}
 
 		tick(++tickcount, tb, tfp);
 		tb->valid = 0;
