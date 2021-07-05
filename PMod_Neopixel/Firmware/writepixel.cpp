@@ -38,10 +38,12 @@ int main(int argc, char **argv){
 	tfp->open("trace.vcd");
 
 	//copy the data
-	tb->value = 0;
+	tb->pixel_r =  int8_t(255);
+	tb->pixel_g = int8_t(0);
+	tb->pixel_b = int8_t(0);
 	tb->valid = 1;
 
-	for(int i=0; i<100; i++){
+	for(int i=0; i<1000; i++){
 
 		tick(++tickcount, tb, tfp);
 		tb->valid = 0;
