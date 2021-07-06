@@ -1,23 +1,27 @@
-PROJ = neopixel
+PROJ = pixel
 PIN_DEF = icebreaker.pcf
 DEVICE = up5k
+PACKAGE = sg48
 
-all: $(PROJ).bin
+check:
+	verilator --lint-only -cc top.v
 
-%.json: top.v
-	yosys -p 'synth_ice40 -top top -json $(PROJ).json' top.v
+test:
+	verilator -Wall --coverage-toggle --assert --trace -Gclk_in_rate_hz=12000000 -cc writepixel.v
+	make -C obj_dir -f Vwritepixel.mk
+	clang++ -std=gnu++14 -I${VINC} -I obj_dir ${VINC}/verilated.cpp ${VINC}/verilated_vcd_c.cpp writepixel.cpp obj_dir/Vwritepixel__ALL.a -o writepixel
+	./writepixel
 
-%.asc: $(PIN_DEF) $(PROJ).json
-	nextpnr-ice40 --up5k --package sg48 --json $(PROJ).json --pcf $(PIN_DEF) --asc $(PROJ).asc
+build:
+	yosys -p 'synth_ice40 -top top -json $(PROJ).json' top.v writepixel.v
+	nextpnr-ice40 --$(DEVICE) --package $(PACKAGE) --json $(PROJ).json --pcf $(PIN_DEF) --asc $(PROJ).asc
+	icepack $(PROJ).asc $(PROJ).bin
 
-%.bin: %.asc
-	icepack $< $@
+time:
+	icetime -c 12 -d $(DEVICE) $(PROJ).asc
 
-%.rpt: %.asc
-	icetime -d $(DEVICE) -mtr $@ $<
-
-prog: $(PROJ).bin
-		iceprog $<
+prog:
+	iceprog $(PROJ).bin
 
 clean:
-	rm -f $(PROJ).json $(PROJ).asc $(PROJ).rpt $(PROJ).bin
+	rm -rf obj_dir trace.vcd $(PROJ).json $(PROJ).asc $(PROJ).rpt $(PROJ).bin
