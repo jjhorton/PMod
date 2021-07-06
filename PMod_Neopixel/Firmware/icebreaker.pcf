@@ -24,24 +24,24 @@ set_io -nowarn FLASH_IO2  12
 set_io -nowarn FLASH_IO3  13
 
 # PMOD 1A
-set_io -nowarn P1A1        4
-set_io -nowarn P1A2        2
-set_io -nowarn P1A3       47
-set_io -nowarn P1A4       45
-set_io -nowarn P1A5        3
-set_io -nowarn P1A6       48
-set_io -nowarn P1A7       46
-set_io -nowarn P1A8       44
+set_io -nowarn o_PMOD1A[0]  4
+set_io -nowarn o_PMOD1A[1]  2
+set_io -nowarn o_PMOD1A[2] 47
+set_io -nowarn o_PMOD1A[3] 45
+set_io -nowarn o_PMOD1A[4]  3
+set_io -nowarn o_PMOD1A[5]  48
+set_io -nowarn o_PMOD1A[6]  46
+set_io -nowarn o_PMOD1A[7]  44
 
 # PMOD 1B
-set_io -nowarn P1B1       43
-set_io -nowarn P1B2       38
-set_io -nowarn P1B3       34
-set_io -nowarn P1B4       31
-set_io -nowarn P1B5       42
-set_io -nowarn P1B6       36
-set_io -nowarn P1B7       32
-set_io -nowarn P1B8      28
+set_io -nowarn o_PMOD1B[0] 43
+set_io -nowarn o_PMOD1B[1] 38
+set_io -nowarn o_PMOD1B[2] 34
+set_io -nowarn o_PMOD1B[3] 31
+set_io -nowarn o_PMOD1B[4] 42
+set_io -nowarn o_PMOD1B[5] 36
+set_io -nowarn o_PMOD1B[6] 32
+set_io -nowarn o_PMOD1B[7] 28
 
 # PMOD 2
 set_io -nowarn P2_1       27
