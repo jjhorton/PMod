@@ -29,7 +29,7 @@ module writepixel(
 
 	// clock rate for calculating the clock divider
 	parameter 	clk_in_rate_hz = 12_000_000;
-	parameter		clk_pixel_rate_hz = 80_000;
+	parameter		clk_pixel_rate_hz = 100_000;
 	parameter 	clk_divider_count = clk_in_rate_hz/(clk_pixel_rate_hz);
 
 	//clock divider for setting the rate that the state can change
@@ -47,8 +47,8 @@ module writepixel(
 	always @(posedge clk) begin
 		if (valid == 1)
 		begin
-			my_value[23:16] <= pixel_r;
-			my_value[15:8] <= pixel_g;
+			my_value[23:16] <= pixel_g;
+			my_value[15:8] <= pixel_r;
 			my_value[7:0] <= pixel_b;
 			data_ready <= 1'b1;
 		end
