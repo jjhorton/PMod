@@ -153,3 +153,8 @@ outputs:
           dest: /
         - from_output: JLCPCB_drill
           dest: /
+
+  - name: 3D
+    comment: "STEP 3D model"
+    type: step
+    dir: 3D
