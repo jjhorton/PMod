@@ -29,18 +29,20 @@ module writepixel(
 
 	// clock rate for calculating the clock divider
 	parameter 	clk_in_rate_hz = 12_000_000;
-	parameter		clk_pixel_rate_hz = 2_500_000;
+	parameter	clk_pixel_rate_hz = 12_000_000;
 	parameter 	clk_divider_count = clk_in_rate_hz/(clk_pixel_rate_hz);
+	//parameter 	clk_divider_count = 1;
+
 
 	//clock divider for setting the rate that the state can change
 	always @(posedge clk) begin
-		if (counter < clk_divider_count)
-			counter <= counter + 1'b1;
-		else
+		if (counter == clk_divider_count)
 			begin
 			counter <= 0;
 			pixel_clk <= ~pixel_clk;
 			end
+		else
+			counter <= counter + 1'b1;
 	end
 
 	// data_ready used to trigger the next bit each time
@@ -81,13 +83,13 @@ module writepixel(
 				begin
 					//first part, always high
 					data_out <= 1'b1;
-					state <= STATE3;
+					state <= STATE2;
 					count_bit <= count_bit - 1;
 				end
 			STATE2:
 				begin
-					//second part, always high
-					data_out <= 1'b1;
+					// high for a 1, low for 0
+					data_out <= my_value [count_bit];
 					state <= STATE3;
 				end
 			STATE3:

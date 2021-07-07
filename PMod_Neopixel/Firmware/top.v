@@ -14,13 +14,21 @@ module top (
 	reg 		busy;
 	reg 		valid;
 	reg [27:0] counter;
-
+	reg [3:0] pixel_count = 4'b0000;
 
 	always @(posedge CLK) begin
-		if (counter[20] == 1'b1)
+		if (counter[22] == 1'b1)
 			begin
-			valid <= 1'b1;
-			counter <= 0;
+			if ((busy == 1'b0)&(valid == 1'b0))
+				begin
+					pixel_count <= pixel_count + 1'b1;
+					valid <= 1'b1;
+					if (pixel_count == (10 - 1 ))
+					begin
+						counter <= 0;
+						pixel_count <= 0;
+					end
+				end
 			end
 		else
 			begin
@@ -34,9 +42,9 @@ module top (
 	end
 
 	writepixel writepixel(CLK ,valid,
-					8'b00000000,
-					8'b00000000,
-					8'b10000000,
+					8'b00100000,  //Red
+					8'b00000000,  //Green
+					8'b00000000,  //Blue
 					pmod1a[0],
 					busy);
 
