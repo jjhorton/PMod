@@ -153,3 +153,16 @@ outputs:
           dest: /
         - from_output: JLCPCB_drill
           dest: /
+
+  - name: 3D
+    comment: "STEP 3D model"
+    type: step
+    dir: 3D
+
+  - name: board_top
+    comment: "Top layer view"
+    type: pcbdraw
+    dir: PCB
+    options:
+      format: jpg
+      dpi: 300
