@@ -63,11 +63,10 @@ module writepixel(
 
 	//output the ready state, based on the state register
 	always @(posedge clk) begin
-		if ((state == IDLE)||((state == STATE4)&(count_bit == 0)))
-		//if (state == IDLE)
-			busy_out <= 1'b0;
-		else
+		if (state != IDLE)
 			busy_out <= 1'b1;
+		else
+			busy_out <= 1'b0;
 	end
 
 	//state machine for sending each value
@@ -89,21 +88,22 @@ module writepixel(
 			STATE2:
 				begin
 					// high for a 1, low for 0
-					data_out <= my_value [count_bit];
+					data_out <= my_value[count_bit];
 					state <= STATE3;
 				end
 			STATE3:
 				begin
 					// high for a 1, low for 0
-					data_out <= my_value [count_bit];
+					data_out <= my_value[count_bit];
 					state <= STATE4;
 				end
 			STATE4:
 				begin
-					// alway low
+					// always low
 					data_out <= 1'b0;
 					if(count_bit == 0)
 						state <= IDLE;
+					
 					else
 						state <= STATE1;
 				end

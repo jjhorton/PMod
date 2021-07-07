@@ -1,7 +1,4 @@
-module top (
-	CLK,
-	o_PMOD1A, o_PMOD1B
-);
+module top (CLK,o_PMOD1A, o_PMOD1B);
 
 	input  	wire 	CLK;
 
@@ -9,25 +6,68 @@ module top (
 	output 	wire 	[7:0]	o_PMOD1B;
 
 
-	reg [7:0] pmod1a;
+	reg [7:0] pmod1a;// = 8'b00000000;
 	reg [7:0] pmod1b = 8'b00000000;
 	reg 		busy;
 	reg 		valid;
 	reg [27:0] counter;
 	reg [3:0] pixel_count = 4'b0000;
 
+	reg [7:0] r_value [0:9];
+	reg [7:0] g_value [0:9];
+	reg [7:0] b_value [0:9];
+
+	initial begin
+		r_value[0][7:0] = 8'b00000000;
+		r_value[1][7:0] = 8'b00100000;
+		r_value[2][7:0] = 8'b00000000;
+		r_value[3][7:0] = 8'b00000000;
+		r_value[4][7:0] = 8'b00000000;
+		r_value[5][7:0] = 8'b00001000;
+		r_value[6][7:0] = 8'b00000000;
+		r_value[7][7:0] = 8'b00000000;
+		r_value[8][7:0] = 8'b00000000;
+		r_value[9][7:0] = 8'b00001000;
+
+		g_value[0][7:0] = 8'b00000000;
+		g_value[1][7:0] = 8'b00000000;
+		g_value[2][7:0] = 8'b00100000;
+		g_value[3][7:0] = 8'b00000000;
+		g_value[4][7:0] = 8'b00000000;
+		g_value[5][7:0] = 8'b00000000;
+		g_value[6][7:0] = 8'b00000000;
+		g_value[7][7:0] = 8'b00000000;
+		g_value[8][7:0] = 8'b00000000;
+		g_value[9][7:0] = 8'b00000000;
+
+		b_value[0][7:0] = 8'b00100000;
+		b_value[1][7:0] = 8'b00000000;
+		b_value[2][7:0] = 8'b00000000;
+		b_value[3][7:0] = 8'b00000001;
+		b_value[4][7:0] = 8'b00000001;
+		b_value[5][7:0] = 8'b00000001;
+		b_value[6][7:0] = 8'b00000001;
+		b_value[7][7:0] = 8'b00000001;
+		b_value[8][7:0] = 8'b00000001;
+		b_value[9][7:0] = 8'b00001000;
+	end
+
 	always @(posedge CLK) begin
-		if (counter[22] == 1'b1)
+		if (counter[20] == 1'b1)
 			begin
 			if ((busy == 1'b0)&(valid == 1'b0))
 				begin
-					pixel_count <= pixel_count + 1'b1;
-					valid <= 1'b1;
-					if (pixel_count == (10 - 1 ))
+					if (pixel_count > (10-1))
 					begin
-						counter <= 0;
 						pixel_count <= 0;
+						counter <= 0;
 					end
+					else
+					begin
+						valid <= 1'b1;
+						pixel_count <= pixel_count + 1'b1;
+					end
+
 				end
 			end
 		else
@@ -42,9 +82,9 @@ module top (
 	end
 
 	writepixel writepixel(CLK ,valid,
-					8'b00100000,  //Red
-					8'b00000000,  //Green
-					8'b00000000,  //Blue
+					r_value[pixel_count-1][7:0],  //Red
+					g_value[pixel_count-1][7:0],  //Green
+					b_value[pixel_count-1][7:0],  //Blue
 					pmod1a[0],
 					busy);
 
