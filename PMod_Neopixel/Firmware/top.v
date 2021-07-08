@@ -1,6 +1,7 @@
-module top (CLK,o_PMOD1A, o_PMOD1B);
+module top (CLK,o_PMOD1A, o_PMOD1B, RX);
 
 	input  	wire 	CLK;
+	input 	wire 	RX;
 
 	output 	wire 	[7:0]	o_PMOD1A;
 	output 	wire 	[7:0]	o_PMOD1B;
@@ -13,6 +14,10 @@ module top (CLK,o_PMOD1A, o_PMOD1B);
 	reg [27:0] counter;
 	reg [3:0] pixel_count = 4'b0000;
 
+	reg [7:0]	rx_byte;
+	reg 		rx_valid;
+
+
 	reg [7:0] r_value [0:9];
 	reg [7:0] g_value [0:9];
 	reg [7:0] b_value [0:9];
@@ -20,7 +25,7 @@ module top (CLK,o_PMOD1A, o_PMOD1B);
 	initial begin
 		r_value[0][7:0] = 8'b00000000;
 		r_value[1][7:0] = 8'b01000000;
-		r_value[2][7:0] = 8'b00000000;
+		r_value[2][7:0] = 8'b00100000;
 		r_value[3][7:0] = 8'b00000000;
 		r_value[4][7:0] = 8'b00000000;
 		r_value[5][7:0] = 8'b00000000;
@@ -31,7 +36,7 @@ module top (CLK,o_PMOD1A, o_PMOD1B);
 
 		g_value[0][7:0] = 8'b01000000;
 		g_value[1][7:0] = 8'b00000000;
-		g_value[2][7:0] = 8'b00000000;
+		g_value[2][7:0] = 8'b00100000;
 		g_value[3][7:0] = 8'b00000000;
 		g_value[4][7:0] = 8'b00000000;
 		g_value[5][7:0] = 8'b00000000;
@@ -42,7 +47,7 @@ module top (CLK,o_PMOD1A, o_PMOD1B);
 
 		b_value[0][7:0] = 8'b00000000;
 		b_value[1][7:0] = 8'b00000000;
-		b_value[2][7:0] = 8'b00000001;
+		b_value[2][7:0] = 8'b00000000;
 		b_value[3][7:0] = 8'b00000010;
 		b_value[4][7:0] = 8'b00000100;
 		b_value[5][7:0] = 8'b00001000;
@@ -81,12 +86,26 @@ module top (CLK,o_PMOD1A, o_PMOD1B);
 
 	end
 
+	//
+	always @(posedge CLK) begin
+		if (rx_valid == 1'b1)
+			begin
+			r_value[0][7:0] <= rx_byte[7:0];
+			b_value[0][7:0] <= rx_byte[7:0];
+			g_value[0][7:0] <= rx_byte[7:0];
+			end
+	end
+
 	writepixel writepixel(CLK ,valid,
 					r_value[pixel_count-1][7:0],  //Red
 					g_value[pixel_count-1][7:0],  //Green
 					b_value[pixel_count-1][7:0],  //Blue
 					pmod1a[0],
 					busy);
+
+	//Serial RX receiver
+	rxuart rxuart(CLK, RX, rx_byte, rx_valid);
+
 
 	assign o_PMOD1A = pmod1a;
 	assign o_PMOD1B = pmod1b;

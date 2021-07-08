@@ -19,7 +19,7 @@ test-top:
 		./test_top
 
 build:
-	yosys -p 'synth_ice40 -top top -json $(PROJ).json' top.v writepixel.v
+	yosys -p 'synth_ice40 -top top -json $(PROJ).json' top.v writepixel.v rxuart.v
 	nextpnr-ice40 --$(DEVICE) --package $(PACKAGE) --json $(PROJ).json --pcf $(PIN_DEF) --asc $(PROJ).asc
 	icepack $(PROJ).asc $(PROJ).bin
 
@@ -30,4 +30,4 @@ prog:
 	iceprog $(PROJ).bin
 
 clean:
-	rm -rf obj_dir trace.vcd $(PROJ).json $(PROJ).asc $(PROJ).rpt $(PROJ).bin test_top writepixel 
+	rm -rf obj_dir trace.vcd $(PROJ).json $(PROJ).asc $(PROJ).rpt $(PROJ).bin test_top writepixel
