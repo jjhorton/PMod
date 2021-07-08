@@ -90,8 +90,8 @@ module top (CLK,o_PMOD1A, o_PMOD1B, RX);
 	always @(posedge CLK) begin
 		if (rx_valid == 1'b1)
 			begin
-			r_value[0][7:0] <= rx_byte[7:0];
-			b_value[0][7:0] <= rx_byte[7:0];
+			//r_value[0][7:0] <= rx_byte[7:0];
+			//b_value[0][7:0] <= rx_byte[7:0];
 			g_value[0][7:0] <= rx_byte[7:0];
 			end
 	end
