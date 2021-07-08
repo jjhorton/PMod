@@ -2,7 +2,7 @@
 
 module rxuart(i_clk, i_uart_rx, o_rx_byte, o_rx_valid);
 
-	//standard value set for 12MHz clock with 115200 baud
+	//standard value set for 12MHz clock with 19200 baud
 	parameter CLKS_PERBAUD = 625;
 
 	input	wire	i_clk;
