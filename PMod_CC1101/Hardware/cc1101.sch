@@ -68,13 +68,13 @@ F 3 "" H 3850 6450 50  0001 C CNN
 	1    3850 6450
 	0    1    1    0   
 $EndComp
-Text GLabel 3850 6050 2    50   Input ~ 0
-SPI_CLK
-Text GLabel 3850 6150 2    50   Input ~ 0
-SPI_RX
 Text GLabel 2800 6150 0    50   Input ~ 0
+SPI_CLK
+Text GLabel 2800 6250 0    50   Input ~ 0
+SPI_RX
+Text GLabel 3850 6250 2    50   Input ~ 0
 SPI_CSN
-Text GLabel 2800 6050 0    50   Input ~ 0
+Text GLabel 3850 6150 2    50   Input ~ 0
 SPI_TX
 Wire Wire Line
 	3850 6050 3600 6050
@@ -488,9 +488,9 @@ Wire Wire Line
 	5850 3300 5700 3300
 Wire Wire Line
 	5400 3300 5250 3300
-Text GLabel 2800 6250 0    50   Input ~ 0
+Text GLabel 2800 6050 0    50   Input ~ 0
 GDO2
-Text GLabel 3850 6250 2    50   Input ~ 0
+Text GLabel 3850 6050 2    50   Input ~ 0
 GDO0
 Wire Wire Line
 	3850 6250 3600 6250
