@@ -158,6 +158,8 @@ outputs:
     comment: "STEP 3D model"
     type: step
     dir: 3D
+    options:
+      no_virtual: true
 
   - name: board_top
     comment: "Top layer view"
