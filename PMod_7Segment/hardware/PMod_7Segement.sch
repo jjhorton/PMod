@@ -27,35 +27,301 @@ $EndComp
 $Comp
 L JJH_Library:LTC-5723HR DS1
 U 1 1 6108562A
-P 6950 1600
-F 0 "DS1" H 8200 1865 50  0000 C CNN
-F 1 "LTC-5723HR" H 8200 1774 50  0000 C CNN
-F 2 "DIP1524W75P254L5030H825Q12N" H 9300 1700 50  0001 L CNN
-F 3 "https://componentsearchengine.com/Datasheets/1/LTC-5723HR.pdf" H 9300 1600 50  0001 L CNN
-F 4 "LED Displays & Accessories 4 Digit, Red" H 9300 1500 50  0001 L CNN "Description"
-F 5 "8.25" H 9300 1400 50  0001 L CNN "Height"
-F 6 "859-LTC-5723HR" H 9300 1300 50  0001 L CNN "Mouser Part Number"
-F 7 "https://www.mouser.co.uk/ProductDetail/Lite-On/LTC-5723HR?qs=WxFF5lh7QM2ytJdX1EhJKQ%3D%3D" H 9300 1200 50  0001 L CNN "Mouser Price/Stock"
-F 8 "Lite-On" H 9300 1100 50  0001 L CNN "Manufacturer_Name"
-F 9 "LTC-5723HR" H 9300 1000 50  0001 L CNN "Manufacturer_Part_Number"
-	1    6950 1600
+P 7250 1550
+F 0 "DS1" H 8500 1815 50  0000 C CNN
+F 1 "LTC-5723HR" H 8500 1724 50  0000 C CNN
+F 2 "DIP1524W75P254L5030H825Q12N" H 9600 1650 50  0001 L CNN
+F 3 "https://componentsearchengine.com/Datasheets/1/LTC-5723HR.pdf" H 9600 1550 50  0001 L CNN
+F 4 "LED Displays & Accessories 4 Digit, Red" H 9600 1450 50  0001 L CNN "Description"
+F 5 "8.25" H 9600 1350 50  0001 L CNN "Height"
+F 6 "859-LTC-5723HR" H 9600 1250 50  0001 L CNN "Mouser Part Number"
+F 7 "https://www.mouser.co.uk/ProductDetail/Lite-On/LTC-5723HR?qs=WxFF5lh7QM2ytJdX1EhJKQ%3D%3D" H 9600 1150 50  0001 L CNN "Mouser Price/Stock"
+F 8 "Lite-On" H 9600 1050 50  0001 L CNN "Manufacturer_Name"
+F 9 "LTC-5723HR" H 9600 950 50  0001 L CNN "Manufacturer_Part_Number"
+	1    7250 1550
 	1    0    0    -1  
 $EndComp
 $Comp
 L JJH_Library:LTC-5723HR DS2
 U 1 1 61087C49
-P 6950 2600
-F 0 "DS2" H 8200 2865 50  0000 C CNN
-F 1 "LTC-5723HR" H 8200 2774 50  0000 C CNN
-F 2 "DIP1524W75P254L5030H825Q12N" H 9300 2700 50  0001 L CNN
-F 3 "https://componentsearchengine.com/Datasheets/1/LTC-5723HR.pdf" H 9300 2600 50  0001 L CNN
-F 4 "LED Displays & Accessories 4 Digit, Red" H 9300 2500 50  0001 L CNN "Description"
-F 5 "8.25" H 9300 2400 50  0001 L CNN "Height"
-F 6 "859-LTC-5723HR" H 9300 2300 50  0001 L CNN "Mouser Part Number"
-F 7 "https://www.mouser.co.uk/ProductDetail/Lite-On/LTC-5723HR?qs=WxFF5lh7QM2ytJdX1EhJKQ%3D%3D" H 9300 2200 50  0001 L CNN "Mouser Price/Stock"
-F 8 "Lite-On" H 9300 2100 50  0001 L CNN "Manufacturer_Name"
-F 9 "LTC-5723HR" H 9300 2000 50  0001 L CNN "Manufacturer_Part_Number"
-	1    6950 2600
+P 7250 2550
+F 0 "DS2" H 8500 2815 50  0000 C CNN
+F 1 "LTC-5723HR" H 8500 2724 50  0000 C CNN
+F 2 "DIP1524W75P254L5030H825Q12N" H 9600 2650 50  0001 L CNN
+F 3 "https://componentsearchengine.com/Datasheets/1/LTC-5723HR.pdf" H 9600 2550 50  0001 L CNN
+F 4 "LED Displays & Accessories 4 Digit, Red" H 9600 2450 50  0001 L CNN "Description"
+F 5 "8.25" H 9600 2350 50  0001 L CNN "Height"
+F 6 "859-LTC-5723HR" H 9600 2250 50  0001 L CNN "Mouser Part Number"
+F 7 "https://www.mouser.co.uk/ProductDetail/Lite-On/LTC-5723HR?qs=WxFF5lh7QM2ytJdX1EhJKQ%3D%3D" H 9600 2150 50  0001 L CNN "Mouser Price/Stock"
+F 8 "Lite-On" H 9600 2050 50  0001 L CNN "Manufacturer_Name"
+F 9 "LTC-5723HR" H 9600 1950 50  0001 L CNN "Manufacturer_Part_Number"
+	1    7250 2550
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector_Generic:Conn_02x06_Odd_Even J1
+U 1 1 6108FC19
+P 2750 5050
+F 0 "J1" H 2800 5467 50  0000 C CNN
+F 1 "Conn_02x06_Odd_Even" H 2800 5376 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical" H 2750 5050 50  0001 C CNN
+F 3 "~" H 2750 5050 50  0001 C CNN
+	1    2750 5050
+	1    0    0    -1  
+$EndComp
+Text GLabel 2250 5050 0    50   Input ~ 0
+CLK
+Text GLabel 2250 5150 0    50   Input ~ 0
+DATA
+$Comp
+L power:GND #PWR?
+U 1 1 61091D57
+P 2250 5250
+F 0 "#PWR?" H 2250 5000 50  0001 C CNN
+F 1 "GND" V 2255 5122 50  0000 R CNN
+F 2 "" H 2250 5250 50  0001 C CNN
+F 3 "" H 2250 5250 50  0001 C CNN
+	1    2250 5250
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 61091FA9
+P 3300 5250
+F 0 "#PWR?" H 3300 5000 50  0001 C CNN
+F 1 "GND" V 3305 5122 50  0000 R CNN
+F 2 "" H 3300 5250 50  0001 C CNN
+F 3 "" H 3300 5250 50  0001 C CNN
+	1    3300 5250
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:+3V3 #PWR?
+U 1 1 610924B4
+P 3300 5350
+F 0 "#PWR?" H 3300 5200 50  0001 C CNN
+F 1 "+3V3" V 3315 5478 50  0000 L CNN
+F 2 "" H 3300 5350 50  0001 C CNN
+F 3 "" H 3300 5350 50  0001 C CNN
+	1    3300 5350
+	0    1    1    0   
+$EndComp
+$Comp
+L power:+3V3 #PWR?
+U 1 1 61092748
+P 2250 5350
+F 0 "#PWR?" H 2250 5200 50  0001 C CNN
+F 1 "+3V3" V 2265 5478 50  0000 L CNN
+F 2 "" H 2250 5350 50  0001 C CNN
+F 3 "" H 2250 5350 50  0001 C CNN
+	1    2250 5350
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2250 5250 2550 5250
+Wire Wire Line
+	2550 5350 2250 5350
+Wire Wire Line
+	3050 5350 3300 5350
+Wire Wire Line
+	3300 5250 3050 5250
+$Comp
+L power:+3V3 #PWR?
+U 1 1 61093001
+P 1600 1400
+F 0 "#PWR?" H 1600 1250 50  0001 C CNN
+F 1 "+3V3" V 1615 1528 50  0000 L CNN
+F 2 "" H 1600 1400 50  0001 C CNN
+F 3 "" H 1600 1400 50  0001 C CNN
+	1    1600 1400
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 61093663
+P 1600 1500
+F 0 "#PWR?" H 1600 1250 50  0001 C CNN
+F 1 "GND" V 1605 1372 50  0000 R CNN
+F 2 "" H 1600 1500 50  0001 C CNN
+F 3 "" H 1600 1500 50  0001 C CNN
+	1    1600 1500
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1600 1500 1800 1500
+Wire Wire Line
+	1800 1400 1600 1400
+Wire Wire Line
+	2550 5050 2250 5050
+Wire Wire Line
+	2550 5150 2250 5150
+NoConn ~ 3050 5150
+NoConn ~ 3050 5050
+NoConn ~ 3050 4950
+NoConn ~ 3050 4850
+NoConn ~ 2550 4850
+NoConn ~ 2550 4950
+Text GLabel 1550 1950 0    50   Input ~ 0
+DATA
+Text GLabel 1550 2050 0    50   Input ~ 0
+CLK
+Wire Wire Line
+	1800 1950 1550 1950
+Wire Wire Line
+	1550 2050 1800 2050
+Entry Wire Line
+	3700 1200 3600 1300
+Entry Wire Line
+	3700 1300 3600 1400
+Entry Wire Line
+	3700 1400 3600 1500
+Entry Wire Line
+	3700 1500 3600 1600
+Wire Wire Line
+	3200 1300 3600 1300
+Wire Wire Line
+	3600 1400 3200 1400
+Wire Wire Line
+	3200 1500 3600 1500
+Wire Wire Line
+	3600 1600 3200 1600
+Entry Wire Line
+	3700 1600 3600 1700
+Entry Wire Line
+	3700 1700 3600 1800
+Entry Wire Line
+	3700 1800 3600 1900
+Entry Wire Line
+	3700 1900 3600 2000
+Wire Wire Line
+	3200 1700 3600 1700
+Wire Wire Line
+	3600 1800 3200 1800
+Wire Wire Line
+	3200 1900 3600 1900
+Wire Wire Line
+	3600 2000 3200 2000
+Text Label 3250 1300 0    50   ~ 0
+SEG8
+Text Label 3250 1400 0    50   ~ 0
+SEG7
+Text Label 3250 1500 0    50   ~ 0
+SEG6
+Text Label 3250 1600 0    50   ~ 0
+SEG5
+Text Label 3250 1700 0    50   ~ 0
+SEG4
+Text Label 3250 1800 0    50   ~ 0
+SEG3
+Text Label 3250 1900 0    50   ~ 0
+SEG2
+Text Label 3250 2000 0    50   ~ 0
+SEG1
+Wire Bus Line
+	3700 950  6500 950 
+Wire Bus Line
+	6500 950  10300 950 
+Connection ~ 6500 950 
+Entry Wire Line
+	6500 1450 6600 1550
+Entry Wire Line
+	6500 1550 6600 1650
+Entry Wire Line
+	6500 1650 6600 1750
+Entry Wire Line
+	6500 1750 6600 1850
+Entry Wire Line
+	6500 1850 6600 1950
+Entry Wire Line
+	6500 1950 6600 2050
+Entry Wire Line
+	6500 2450 6600 2550
+Entry Wire Line
+	6500 2550 6600 2650
+Entry Wire Line
+	6500 2650 6600 2750
+Entry Wire Line
+	6500 2750 6600 2850
+Entry Wire Line
+	6500 2850 6600 2950
+Entry Wire Line
+	6500 2950 6600 3050
+Wire Wire Line
+	6600 2550 7250 2550
+Wire Wire Line
+	7250 2650 6600 2650
+Wire Wire Line
+	6600 2750 7250 2750
+Wire Wire Line
+	7250 2850 6600 2850
+Wire Wire Line
+	6600 2950 7250 2950
+Wire Wire Line
+	7250 3050 6600 3050
+Wire Wire Line
+	7250 2050 6600 2050
+Wire Wire Line
+	6600 1950 7250 1950
+Wire Wire Line
+	7250 1850 6600 1850
+Wire Wire Line
+	6600 1750 7250 1750
+Wire Wire Line
+	7250 1650 6600 1650
+Wire Wire Line
+	6600 1550 7250 1550
+Entry Wire Line
+	10200 1550 10300 1450
+Entry Wire Line
+	10200 1650 10300 1550
+Entry Wire Line
+	10200 1750 10300 1650
+Entry Wire Line
+	10200 1850 10300 1750
+Entry Wire Line
+	10200 1950 10300 1850
+Entry Wire Line
+	10200 2050 10300 1950
+Entry Wire Line
+	10200 2550 10300 2450
+Entry Wire Line
+	10200 2650 10300 2550
+Entry Wire Line
+	10200 2750 10300 2650
+Entry Wire Line
+	10200 2850 10300 2750
+Entry Wire Line
+	10200 2950 10300 2850
+Entry Wire Line
+	10200 3050 10300 2950
+Wire Wire Line
+	10200 2550 9750 2550
+Wire Wire Line
+	9750 2650 10200 2650
+Wire Wire Line
+	10200 2750 9750 2750
+Wire Wire Line
+	9750 2850 10200 2850
+Wire Wire Line
+	10200 2950 9750 2950
+Wire Wire Line
+	9750 3050 10200 3050
+Wire Wire Line
+	10200 1550 9750 1550
+Wire Wire Line
+	9750 1650 10200 1650
+Wire Wire Line
+	10200 1750 9750 1750
+Wire Wire Line
+	9750 1850 10200 1850
+Wire Wire Line
+	10200 1950 9750 1950
+Wire Wire Line
+	9750 2050 10200 2050
+Wire Bus Line
+	3700 950  3700 1900
+Wire Bus Line
+	6500 950  6500 3000
+Wire Bus Line
+	10300 950  10300 3000
 $EndSCHEMATC
