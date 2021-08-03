@@ -1,0 +1,41 @@
+name: "PMod Neopixel 8x8 Array"
+
+on:
+  push:
+    paths:
+      - 'PMod_Neopixel_Array/*.sch'
+      - 'PMod_Neopixel_Array/*.kicad_pcb'
+      - '.github/workflows/neopixel_8x8.yml'
+      - 'kibot.yml'
+  pull_request:
+    paths:
+      - 'PMod_Neopixel_Array/*.sch'
+      - 'PMod_Neopixel_Array/*.kicad_pcb'
+      - '.github/workflows/pmod_test.yml'
+      - 'kibot.yml'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  Fabrication:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: INTI-CMNB/KiBot@v1
+      with:
+        # Required - kibot config file
+        config: kibot.yml
+        # optional - prefix to output defined in config
+        dir: Hardware/Fabrication
+        # optional - schematic file
+        schema: 'PMod_Neopixel_Array/Neopixel_Array.sch'
+        # optional - PCB design file
+        board: 'PMod_Neopixel_Array/Neopixel_Array.kicad_pcb'
+
+    - name: Retrieve results
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: Fabrication_Files
+        path: |
+          Hardware/Fabrication/
+        if-no-files-found: warn
