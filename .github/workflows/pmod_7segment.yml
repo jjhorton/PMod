@@ -1,0 +1,41 @@
+name: "PMod 7 Segment Deisplay"
+
+on:
+  push:
+    paths:
+      - 'PMod_7Segment/hardware/*.sch'
+      - 'PMod_7Segment/hardware/*.kicad_pcb'
+      - '.github/workflows/pmod_7Segment.yml'
+      - 'kibot.yml'
+  pull_request:
+    paths:
+      - 'PMod_7Segment/hardware/*.sch'
+      - 'PMod_7Segment/hardware/*.kicad_pcb'
+      - '.github/workflows/pmod_7Segment.yml'
+      - 'kibot.yml'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  Fabrication:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: INTI-CMNB/KiBot@v1
+      with:
+        # Required - kibot config file
+        config: kibot.yml
+        # optional - prefix to output defined in config
+        dir: Hardware/Fabrication
+        # optional - schematic file
+        schema: 'PMod_Test/7Segment/PMod_7Segment.sch'
+        # optional - PCB design file
+        board: 'PMod_Test/7Segment/PMod_7Segment.kicad_pcb'
+
+    - name: Retrieve results
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: Fabrication_Files
+        path: |
+          Hardware/Fabrication/
+        if-no-files-found: warn
