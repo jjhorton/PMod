@@ -9,8 +9,11 @@
 
 #include "pico/stdlib.h"
 
+#define GM1640_CLK 10
+#define GM1640_DATA 11
+
 int set_display(){
-	
+
 }
 
 
@@ -18,6 +21,7 @@ int main() {
 
 
 	while(1){
+
 
 		sleep_ms(1000);
 	}
