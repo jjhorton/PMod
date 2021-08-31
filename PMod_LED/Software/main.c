@@ -34,7 +34,7 @@ int main() {
 				gpio_put(OUTPUT_PINS[x], (my_value >> x) & 1U);
 			}
 			my_value = my_value << 1;
-			sleep_ms(500);
+			sleep_ms(100);
 		}
 	}
 }
