@@ -44,7 +44,7 @@ void setcross(){
 		int inner[] = {0,7,9,14,18,21,27,28,35,36,42,45,49,54,56,63};
 		int inner_len = sizeof(inner) / sizeof(inner[0]);
 
-		int outer[] = {1,6,8,10,13,15,17,19,20,22,26,29,34,37,42,43,44,46,48,50,53,55,57,62};
+		int outer[] = {1,6,8,10,13,15,17,19,20,22,26,29,34,37,41,43,44,46,48,50,53,55,57,62};
 		int outer_len = sizeof(outer) / sizeof(outer[0]);
 
 		for (int i = 0; i < (64); ++i){
@@ -186,7 +186,7 @@ int main() {
 							put_pixel(urgb_u32((counter), (counter),(counter)));
 						}
 						else {
-							put_pixel(urgb_u32(16,0,0));
+							put_pixel(urgb_u32(128,128,128));
 						}
 
 					}
