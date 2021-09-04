@@ -144,7 +144,7 @@ int main() {
 
 		for(int value=0; value<10; ++value){
 			for(int i = 0; i<8; ++i){
-				setdigit(i, value);
+				setdigit(rand() % 10, value);
 			}
 			sleep_ms(1000);
 		}
