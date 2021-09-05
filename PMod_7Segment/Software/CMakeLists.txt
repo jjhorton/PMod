@@ -17,6 +17,7 @@ pico_sdk_init()
 # Add your source files
 add_executable(${NAME}
     main.cpp # <-- Add source files here!
+		My7Seg.cpp 
 )
 
 # Don't forget to link the libraries you need!
