@@ -129,10 +129,23 @@ void My7Seg::setValue(float value, uint8_t decimal){
 		bool dec = false;
 		uint8_t digit = 0;
 
-		for(int pos = 0; pos<8; ++pos){
+		int my_value;
+
+		int my_shift = 1;
+		for(int i; i<digit; i++){
+			my_shift = my_shift*10;
+		}
+
+		my_value = int(value * my_shift);
+
+		for(int pos=0; pos<8; ++pos){
+			//check if the decimal value is needed
 			if(decimal == pos){dec = true;}
 			else {dec = false;}
-			digit = 0;
+
+			// work out the digit value
+			digit = my_value%10;
+			my_value = my_value/10;
 			this->setdigit(pos, digit, dec);
 		}
 	}
