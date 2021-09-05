@@ -92,7 +92,7 @@ class My7Seg {
 			gpio_put(pin_data,1);
 		}
 
-		void setdigit(uint8_t pos, uint8_t value){
+		void setdigit(uint8_t pos, uint8_t value, bool decimal){
 			uint8_t output = 0b00000000;
 			switch(value){
 				case 0:
@@ -129,24 +129,51 @@ class My7Seg {
 					output = 0b00000000;
 					break;
 			}
+			if (decimal == true) {
+				output = output + 0b10000000;
+			}
 
 			this->txData(pos, output);
 		}
+
+		void setValue(float value, uint8_t decimal){
+
+			//decimal is the number of digits after decimal point
+			bool dec = false;
+			uint8_t digit = 0;
+
+			for(int pos = 0; pos<8; ++pos){
+				if(decimal == pos){dec = true;}
+				else {dec = false;}
+				digit = 0;
+				this->setdigit(pos, digit, dec);
+			}
+		}
+
+
 };
 
 
 int main() {
 
-	My7Seg Display1(0,2);
+	My7Seg Display1A(16,18);
+	My7Seg Display1B(8,10);
+	My7Seg Display2(0,2);
 
-	Display1.enable();
+	Display1A.enable();
+	Display1B.enable();
+	Display2.enable();
 
 	while(1){
 
 		for(int value=0; value<10; ++value){
 			for(int i = 0; i<8; ++i){
-				Display1.setdigit(rand() % 10, value);
+				Display1A.setdigit(rand() % 10, value, false);
+				Display1B.setdigit(rand() % 10, value, false);
 			}
+
+			Display2.setValue(rand() % 10, value);
+
 			sleep_ms(1000);
 		}
 		sleep_ms(100);
