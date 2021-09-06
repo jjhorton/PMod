@@ -124,19 +124,19 @@ void My7Seg::setdigit(uint8_t pos, uint8_t value, bool decimal)
 	this->txData(pos, output);
 }
 
-void My7Seg::setValue(float value, uint8_t decimal){
+void My7Seg::setValue(double value, uint8_t decimal){
 		//decimal is the number of digits after decimal point
 		bool dec = false;
 		uint8_t digit = 0;
 
-		int my_value;
+		long int my_value;
 
 		int my_shift = 1;
-		for(int i; i<digit; i++){
+		for(int i; i<(decimal); i++){
 			my_shift = my_shift*10;
 		}
 
-		my_value = int(value * my_shift);
+		my_value = (value * my_shift);
 
 		for(int pos=0; pos<8; ++pos){
 			//check if the decimal value is needed
@@ -146,6 +146,6 @@ void My7Seg::setValue(float value, uint8_t decimal){
 			// work out the digit value
 			digit = my_value%10;
 			my_value = my_value/10;
-			this->setdigit(pos, digit, dec);
+			this->setdigit(7-pos, digit, dec);
 		}
 	}

@@ -12,7 +12,7 @@ class My7Seg
 		void enable();
 		void txData(uint8_t pos, uint8_t data);
 		void setdigit(uint8_t pos, uint8_t value, bool decimal);
-		void setValue(float value, uint8_t decimal);
+		void setValue(double value, uint8_t decimal);
 	};
 
 #endif

@@ -28,7 +28,7 @@ int main() {
 				Display1B.setdigit(rand() % 10, value, false);
 			}
 
-			Display2.setValue(float(8765.4321), 3);
+			Display2.setValue(double(1234.5678), 4);
 
 			sleep_ms(1000);
 		}
