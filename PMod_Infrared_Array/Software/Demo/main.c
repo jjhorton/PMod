@@ -31,14 +31,14 @@ const int PIN_TX = 9;
 const int PIN_LED0 = 22;
 const int PIN_LED1 = 23;
 
-const int POS_LOOKUP[] = {7,15,23,31,39,47,55,63,
-												6,14,22,30,38,46,54,62,
-												5,13,21,29,37,45,53,61,
-												4,12,20,28,36,44,52,60,
-												3,11,19,27,35,43,51,59,
-												2,10,18,26,34,42,50,58,
+const int POS_LOOKUP[] = {0, 8,16,24,32,40,48,56,
 												1, 9,17,25,33,41,49,57,
-												0, 8,16,24,32,40,48,56};
+												2,10,18,26,34,42,50,58,
+												3,11,19,27,35,43,51,59,
+												4,12,20,28,36,44,52,60,
+												5,13,21,29,37,45,53,61,
+												6,14,22,30,38,46,54,62,
+												7,15,23,31,39,47,55,63};
 
 int main() {
     //set_sys_clock_48();
@@ -112,13 +112,13 @@ int main() {
 				//int8_t value = *((uint8_t*)&(result[i])+1
 				//int8_t value = ((uint16_t)result[i]) >> 4;
 				//put_pixel(urgb_u32(255-value,0,0));
-				float value = result[i]*0.25;
+				float value = result[POS_LOOKUP[i]]*0.25;
 				if(value>50){
 					put_pixel(urgb_u32(128*(value-50)/50,0,0));}
 				else if(value>30) {
 						put_pixel(urgb_u32(128+(64*(value-30)/20),128+(64*(value-30)/20),0));}
 				else if(value>20) {
-						put_pixel(urgb_u32(0,32+(32*(value-10)/10),0));}
+						put_pixel(urgb_u32(0,32+(32*(value-20)/10),0));}
 				else{
 					put_pixel(urgb_u32(0,0,64+(128*(value+20)/40)));}
 			}
