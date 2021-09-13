@@ -24,14 +24,13 @@ int main() {
 
 		for(int value=0; value<10; ++value){
 			for(int i = 0; i<8; ++i){
-				Display1A.setdigit(rand() % 10, value, false);
+				Display2.setdigit(rand() % 10, value, false);
 			}
-			Display1B.setValue2(double(987.6), double(123.4),1);
-			Display2.setValue(double(1234.5678), 4);
+			Display1A.setValue2(double(987.6), double(123.4),1);
+			Display1B.setValue(double(1234.5678), 4);
 
 			sleep_ms(1000);
 		}
-		sleep_ms(100);
 
 	}
 
