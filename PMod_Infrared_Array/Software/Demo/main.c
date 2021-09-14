@@ -74,7 +74,7 @@ int main() {
     //set_sys_clock_48();
 		stdio_init_all();
 
-		// Neopixel setup
+		// Neopixel setup with pio
 		PIO pio = pio0;
 		int sm = 0;
 
@@ -84,7 +84,7 @@ int main() {
 		// This example will use I2C0 on the default SDA and SCL pins (4, 5 on a Pico)
 		i2c_init(i2c0, 1000000);
 
-		//Setup the I2C pins
+		//Setup the I2C pins for camera
 		gpio_set_function(I2C_SDA, GPIO_FUNC_I2C);
 		gpio_set_function(I2C_SCL, GPIO_FUNC_I2C);
 		gpio_pull_up(I2C_SDA);
@@ -117,14 +117,7 @@ int main() {
 			uint8_t rxdata[2];
 			uint8_t val = 0x80;
 
-			//read the therminster
-			//val = 0x0E;
-			//i2c_write_blocking(i2c1, addr, &val, 1, true);
-			//ret = i2c_read_blocking(i2c1, addr, &rxdata[0], 2, true);
-			//float thermist  = 0.0625 * ((int16_t)((((uint16_t)rxdata[1] << 8) | ((uint16_t)rxdata[0]))<< 4) >> 4);
-			//printf("Therm: %6.2f\n", thermist);
-
-			//read the pixel values
+			//read the values from the thermal camera
 			val = 0x80;
 			i2c_write_blocking(i2c0, addr, &val, 1, true);
 
@@ -141,7 +134,7 @@ int main() {
 				int value = 90 - (result[POS_LOOKUP[i]]*0.25);
 				put_pixel(urgb_u32(RGB_LOOKUP[value][0],RGB_LOOKUP[value][1],RGB_LOOKUP[value][2]));
 			}
-			sleep_ms(100); //required delay at TX sequence 
+			sleep_ms(100); //required delay at TX sequence
 
 
 		}
