@@ -25,12 +25,17 @@ static inline uint32_t urgb_u32(uint8_t r, uint8_t g, uint8_t b) {
             (uint32_t) (b);
 }
 
+// Output pins to match RP2040 PMod Board
+// - PMOOD1A AMG8833 Thermal Camera PMOD
+// - PMOOD1B Neopixel Array Board (8x8)
+
 const int I2C_SDA = 16;
 const int I2C_SCL = 17;
 const int PIN_TX = 9;
 const int PIN_LED0 = 22;
 const int PIN_LED1 = 23;
 
+// position lookup table to map the positions rotated 90 degrees
 const int POS_LOOKUP[] = {0, 8,16,24,32,40,48,56,
 												1, 9,17,25,33,41,49,57,
 												2,10,18,26,34,42,50,58,
@@ -40,6 +45,7 @@ const int POS_LOOKUP[] = {0, 8,16,24,32,40,48,56,
 												6,14,22,30,38,46,54,62,
 												7,15,23,31,39,47,55,63};
 
+// Lookup table the colourmap
 const int RGB_LOOKUP[][3] = {{255,14,240},{255,13,240},{255,12,240},{255,11,240},
 														{255,10,240},{255,9,240},{255,8,240},{255,7,240},
 														{255,6,240},{255,5,240},{255,4,240},{255,3,240},
@@ -95,8 +101,10 @@ int main() {
 		gpio_init(PIN_LED1);
 		gpio_set_dir(PIN_LED1, GPIO_OUT);
 
+		// array to store a frame of values from the camera
 		int16_t result[64];
 
+		//main loop, shouldn't exit this
 		while(1) {
 			sleep_ms(50);
 
@@ -127,19 +135,15 @@ int main() {
 			}
 			printf("/n");
 			ret = i2c_read_blocking(i2c0, addr, &rxdata[0], 2, false);
-			//printf("%6.2f \n ", 0.25*(((uint16_t)rxdata[1] << 8) | ((uint16_t)rxdata[0])));
-			//float result  = (int16_t)((((uint16_t)rxdata[1] << 8) | ((uint16_t)rxdata[0]))<< 4) >> 4;
 
-			gpio_put(PIN_LED1, 1);
-
+			// Write the values to the Neopixel Array
 			for (int i = 0; i < (64); i++) {
 				int value = 90 - (result[POS_LOOKUP[i]]*0.25);
 				put_pixel(urgb_u32(RGB_LOOKUP[value][0],RGB_LOOKUP[value][1],RGB_LOOKUP[value][2]));
 			}
+			sleep_ms(100); //required delay at TX sequence 
 
-			sleep_ms(100);
 
-			gpio_put(PIN_LED1, 0);
 		}
 
 }
