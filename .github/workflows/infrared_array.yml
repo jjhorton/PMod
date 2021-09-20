@@ -84,3 +84,43 @@ jobs:
           path: |
             project/PMod_Infrared_Array/Software/build/*.uf2
           if-no-files-found: warn
+
+  Build-Demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          path: project
+
+      - name: Checkout Pico SDK
+        uses: actions/checkout@v2
+        with:
+          repository: raspberrypi/pico-sdk
+          path: pico-sdk
+          submodules: true
+
+      - name: Install deps
+        run: |
+          sudo apt update && sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
+
+      - name: Make directory
+        run: |
+          mkdir project/PMod_Infrared_Array/Software/Demo/build
+
+      - name: Build
+        working-directory: project/PMod_Infrared_Array/Software/Demo/build
+        shell: bash
+        run: |
+          PICO_SDK_PATH=../../../../pico-sdk cmake ..
+          make
+
+      - name: Retrieve results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: RP_Pico_Demo
+          path: |
+            project/PMod_Infrared_Array/Software/build/Demo/*.uf2
+          if-no-files-found: warn
