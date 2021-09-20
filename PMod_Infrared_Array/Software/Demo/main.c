@@ -35,6 +35,8 @@ const int PIN_TX = 9;
 const int PIN_LED0 = 22;
 const int PIN_LED1 = 23;
 
+const int BRIGHTNESS = 8;
+
 // position lookup table to map the positions rotated 90 degrees
 const int POS_LOOKUP[] = {0, 8,16,24,32,40,48,56,
 												1, 9,17,25,33,41,49,57,
@@ -132,7 +134,7 @@ int main() {
 			// Write the values to the Neopixel Array
 			for (int i = 0; i < (64); i++) {
 				int value = 90 - (result[POS_LOOKUP[i]]*0.25);
-				put_pixel(urgb_u32(RGB_LOOKUP[value][0],RGB_LOOKUP[value][1],RGB_LOOKUP[value][2]));
+				put_pixel(urgb_u32(RGB_LOOKUP[value][0]/BRIGHTNESS,RGB_LOOKUP[value][1]/BRIGHTNESS,RGB_LOOKUP[value][2]/BRIGHTNESS));
 			}
 			sleep_ms(100); //required delay at TX sequence
 
