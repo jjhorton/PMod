@@ -5,5 +5,6 @@
 *.csv
 *.xml
 fp-info-cache
+*.pio.h
 
-PMod_CC1101/Software/build
+build/
