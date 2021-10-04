@@ -180,9 +180,13 @@ int main() {
 
 		for(uint8_t counter_1=0; counter_1<8; counter_1++){
 			for(uint8_t counter_2=0; counter_2<16; counter_2++){
-				led_rgb[counter_1][counter_2][0] = RGB_LOOKUP[counter_1*3 + counter_2*4][0]/8;
-				led_rgb[counter_1][counter_2][1] = RGB_LOOKUP[counter_1*3 + counter_2*4][1]/8;
-				led_rgb[counter_1][counter_2][2] = RGB_LOOKUP[counter_1*3 + counter_2*4][2]/8;
+
+				int8_t my_value = counter_1*3 + counter_2*4;
+				if (my_value > 93){my_value = my_value - 94;}
+
+				led_rgb[counter_1][counter_2][0] = RGB_LOOKUP[my_value][0]/8;
+				led_rgb[counter_1][counter_2][1] = RGB_LOOKUP[my_value][1]/8;
+				led_rgb[counter_1][counter_2][2] = RGB_LOOKUP[my_value][2]/8;
 			}
 		}
 
@@ -217,13 +221,17 @@ int main() {
 
 			sleep_ms(1000);
 
-			for(uint8_t my_shift=0; my_shift<16; my_shift++ )
+			for(uint8_t my_shift=0; my_shift<128; my_shift++ )
 			{
 				for(uint8_t counter_1=0; counter_1<8; counter_1++){
 					for(uint8_t counter_2=0; counter_2<16; counter_2++){
-						led_rgb[counter_1][counter_2][0] = RGB_LOOKUP[(my_shift + counter_1)*3 + counter_2*4][0]/8;
-						led_rgb[counter_1][counter_2][1] = RGB_LOOKUP[(my_shift + counter_1)*3 + counter_2*4][1]/8;
-						led_rgb[counter_1][counter_2][2] = RGB_LOOKUP[(my_shift + counter_1)*3 + counter_2*4][2]/8;
+
+						int my_value = (my_shift+counter_1)*3 + counter_2*4;
+						while(my_value > 89){my_value = my_value - 90;}
+
+						led_rgb[counter_1][counter_2][0] = RGB_LOOKUP[my_value][0]/8;
+						led_rgb[counter_1][counter_2][1] = RGB_LOOKUP[my_value][1]/8;
+						led_rgb[counter_1][counter_2][2] = RGB_LOOKUP[my_value][2]/8;
 					}
 				}
 
@@ -236,7 +244,7 @@ int main() {
 								led_rgb[counter_1][counter_2+8][1],led_rgb[counter_1][counter_2+8][2]));
 					}
 				}
-				sleep_ms(500);
+				sleep_ms(200);
 			}
 
 			set_blank(len);
