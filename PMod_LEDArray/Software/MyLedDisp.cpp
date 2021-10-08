@@ -79,105 +79,10 @@ void MyLedDisp::txData(uint8_t pos, uint8_t data)
 			gpio_put(pin_data,1);
 }
 
-void MyLedDisp::setdigit(uint8_t pos, uint8_t value, bool decimal)
+
+void MyLedDisp::setDisplay(uint8_t data[16])
 {
-	uint8_t output = 0b00000000;
-			switch(value){
-				case 0:
-					output = 0b00111111;
-					break;
-				case 1:
-					output = 0b00000110;
-					break;
-				case 2:
-					output = 0b01011011;
-					break;
-				case 3:
-					output = 0b01001111;
-					break;
-				case 4:
-					output = 0b01100110;
-					break;
-				case 5:
-					output = 0b01101101;
-					break;
-				case 6:
-					output = 0b01111101;
-					break;
-				case 7:
-					output = 0b00000111;
-					break;
-				case 8:
-					output = 0b01111111;
-					break;
-				case 9:
-					output = 0b01101111;
-					break;
-				default:
-					output = 0b00000000;
-					break;
-			}
-	if (decimal == true) {
-		output = output + 0b10000000;
+	for(uint8_t pos = 0; pos<16; pos++){
+		this->txData(pos, data[pos]);
 	}
-
-	this->txData(pos, output);
 }
-
-void MyLedDisp::setValue(double value, uint8_t decimal){
-		//decimal is the number of digits after decimal point
-		bool dec = false;
-		uint8_t digit = 0;
-
-		long int my_value;
-
-		int my_shift = 1;
-		for(int i; i<(decimal); i++){
-			my_shift = my_shift*10;
-		}
-
-		my_value = (value * my_shift);
-
-		for(int pos=0; pos<8; ++pos){
-			//check if the decimal value is needed
-			if(decimal == pos){dec = true;}
-			else {dec = false;}
-
-			// work out the digit value
-			digit = my_value%10;
-			my_value = my_value/10;
-			this->setdigit(7-pos, digit, dec);
-		}
-	}
-
-	void MyLedDisp::setValue2(double value1, double value2, uint8_t decimal){
-			//decimal is the number of digits after decimal point
-			bool dec = false;
-			uint8_t digit = 0;
-
-			int my_shift = 1;
-			for(int i; i<(decimal); i++){
-				my_shift = my_shift*10;
-			}
-
-			int my_value1 = (value1 * my_shift);
-			int my_value2 = (value2 * my_shift);
-
-			for(int pos=0; pos<8; ++pos){
-				//check if the decimal value is needed
-				if((decimal == pos)||((decimal+4) == pos)){dec = true;}
-				else {dec = false;}
-
-				if(pos<4){
-					// work out the digit value1
-					digit = my_value2%10;
-					my_value2 = my_value2/10;
-				}
-				else{
-					// work out the digit value2
-					digit = my_value1%10;
-					my_value1 = my_value1/10;
-				}
-				this->setdigit(7-pos, digit, dec);
-			}
-		}
