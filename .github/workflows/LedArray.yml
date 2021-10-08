@@ -39,3 +39,43 @@ jobs:
         path: |
           Hardware/Fabrication/
         if-no-files-found: warn
+
+  Build-Software:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          path: project
+
+      - name: Checkout Pico SDK
+        uses: actions/checkout@v2
+        with:
+          repository: raspberrypi/pico-sdk
+          path: pico-sdk
+          submodules: true
+
+      - name: Install deps
+        run: |
+          sudo apt update && sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
+
+      - name: Make directory
+        run: |
+          mkdir project/PMod_LEDArray/Software/build
+
+      - name: Build
+        working-directory: project/PMod_LEDArray/Software/build
+        shell: bash
+        run: |
+          PICO_SDK_PATH=../../../pico-sdk cmake ..
+          make
+
+      - name: Retrieve results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: RP_Pico_Files
+          path: |
+            project/PMod_LEDArray /Software/build/*.uf2
+          if-no-files-found: warn
