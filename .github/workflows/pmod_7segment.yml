@@ -64,10 +64,10 @@ jobs:
 
       - name: Make directory
         run: |
-          mkdir project/PMod_7Segment /Software/build
+          mkdir project/PMod_7Segment/Software/build
 
       - name: Build
-        working-directory: project/PMod_7Segment /Software/build
+        working-directory: project/PMod_7Segment/Software/build
         shell: bash
         run: |
           PICO_SDK_PATH=../../../pico-sdk cmake ..
