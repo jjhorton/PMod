@@ -6,14 +6,14 @@ on:
       - 'PMod_7Segment/hardware/*.sch'
       - 'PMod_7Segment/hardware/*.kicad_pcb'
       - '.github/workflows/pmod_7Segment.yml'
-      - 'PMod_7Segment/software/*'
+      - 'PMod_7Segment/Software/*'
       - 'kibot.yml'
   pull_request:
     paths:
       - 'PMod_7Segment/hardware/*.sch'
       - 'PMod_7Segment/hardware/*.kicad_pcb'
       - '.github/workflows/pmod_7Segment.yml'
-      - 'PMod_7Segment/software/*'
+      - 'PMod_7Segment/Software/*'
       - 'kibot.yml'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
