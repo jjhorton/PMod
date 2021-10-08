@@ -22,15 +22,15 @@ int main() {
 
 	while(1){
 
-		for(int value=0; value<10; ++value){
-			for(int i = 0; i<8; ++i){
-				Display2.setdigit(rand() % 10, value, false);
-			}
-			Display1A.setValue2(double(987.6), double(123.4),1);
-			Display1B.setValue(double(1234.5678), 4);
-
-			sleep_ms(1000);
+		for(int value=0; value<16; ++value){
+			//for(int i = 0; i<16; ++i){
+				Display2.setdigit(value, rand() % 10, true);
+			//}
 		}
+		Display1A.setValue2(double(987.6), double(123.4),1);
+		Display1B.setValue(double(1234.5678), 4);
+
+		sleep_ms(1000);
 
 	}
 
