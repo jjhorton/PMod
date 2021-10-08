@@ -59,6 +59,27 @@ static void read_registers(uint8_t reg, uint8_t *buf, uint16_t len) {
     sleep_ms(10);
 }
 
+/* set the radio frequency in Hz */
+void set_radio_freq(uint32_t freq) {
+	/* the frequency setting is in units of 396.728515625 Hz */
+
+	uint32_t setting = (uint32_t) (freq * .0025206154);
+	write_register(CC1101_FREQ2,(setting >> 16) & 0xff);
+	write_register(CC1101_FREQ1,(setting >> 8) & 0xff);
+	write_register(CC1101_FREQ0,setting & 0xff);
+
+	if ((band == BAND_300 && freq < MID_300) ||
+			(band == BAND_400 && freq < MID_400) ||
+			(band == BAND_900 && freq < MID_900)){
+		/* select low VCO */
+		write_register(CC1101_FSCAL2,0x0A);
+		}
+	else{
+		/* select high VCO */
+		write_register(CC1101_FSCAL2,0x2A);
+		}
+	}
+
 // initalise the CC1101
 static void setup_cc1101(){
 	write_register(CC1101_FSCTRL1,  0x08);
