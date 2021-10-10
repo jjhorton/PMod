@@ -9,8 +9,8 @@ on:
       - 'kibot.yml'
   pull_request:
     paths:
-      - 'PMod_Neopixel_Array/*.sch'
-      - 'PMod_Neopixel_Array/*.kicad_pcb'
+      - 'PMod_Neopixel_Array/Hardware/*.sch'
+      - 'PMod_Neopixel_Array/Hardware/*.kicad_pcb'
       - '.github/workflows/pmod_test.yml'
       - 'kibot.yml'
 
@@ -27,9 +27,9 @@ jobs:
         # optional - prefix to output defined in config
         dir: Hardware/Fabrication
         # optional - schematic file
-        schema: 'PMod_Neopixel_Array/Neopixel_Array.sch'
+        schema: 'PMod_Neopixel_Array/Hardware/Neopixel_Array.sch'
         # optional - PCB design file
-        board: 'PMod_Neopixel_Array/Neopixel_Array.kicad_pcb'
+        board: 'PMod_Neopixel_Array/Hardware/Neopixel_Array.kicad_pcb'
 
     - name: Retrieve results
       if: ${{ always() }}
