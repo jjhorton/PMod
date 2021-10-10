@@ -3,14 +3,14 @@ name: "PMod Neopixel 8x8 Array"
 on:
   push:
     paths:
-      - 'PMod_Neopixel_Array/Software/*
+      - 'PMod_Neopixel_Array/Software/*'
       - 'PMod_Neopixel_Array/Hardware/*.sch'
       - 'PMod_Neopixel_Array/Hardware/*.kicad_pcb'
       - '.github/workflows/neopixel_8x8.yml'
       - 'kibot.yml'
   pull_request:
     paths:
-      - 'PMod_Neopixel_Array/Software/*
+      - 'PMod_Neopixel_Array/Software/*'
       - 'PMod_Neopixel_Array/Hardware/*.sch'
       - 'PMod_Neopixel_Array/Hardware/*.kicad_pcb'
       - '.github/workflows/neopixel_8x8.yml'
