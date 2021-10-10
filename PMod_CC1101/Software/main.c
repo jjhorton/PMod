@@ -68,6 +68,8 @@ void set_radio_freq(uint32_t freq) {
 	write_register(CC1101_FREQ1,(setting >> 8) & 0xff);
 	write_register(CC1101_FREQ0,setting & 0xff);
 
+	uint8_t band = BAND_400;
+
 	if ((band == BAND_300 && freq < MID_300) ||
 			(band == BAND_400 && freq < MID_400) ||
 			(band == BAND_900 && freq < MID_900)){

@@ -26,6 +26,36 @@
 #define F1_DAP  0xEC
 #define F0_DAP  0x30
 
+/* frequency bands supported by device */
+#define BAND_300 0
+#define BAND_400 1
+#define BAND_900 2
+
+/* band limits in MHz */
+#define MIN_300  281
+#define CEN_300	 315
+#define MAX_300  361
+#define MIN_400  378
+#define CEN_400	 435
+#define MAX_400  481
+#define MIN_900  749
+#define CEN_900	 855
+#define MAX_900  962
+
+/* band transition points in MHz */
+#define EDGE_400 369
+#define EDGE_900 615
+
+/* VCO transition points in Hz */
+#define MID_300  318000000
+#define MID_400  424000000
+#define MID_900  848000000
+
+/* channel spacing in Hz */
+#define WIDE_SPACING      199952
+#define NARROW_SPACING    49988
+#define ULTRAWIDE_SPACING 666504
+
 //***************************************CC1101 define**************************************************//
 // CC1101 CONFIG REGSITER
 #define CC1101_IOCFG2       0x00        // GDO2 output pin configuration
