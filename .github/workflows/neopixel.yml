@@ -103,7 +103,7 @@ jobs:
       - name: Run yosys on the files
         working-directory: project/PMod_Neopixel/Firmware
         run: |
-          yowasp-yosys -p 'synth_ice40 -top blinky -json pixel.json' top.v writepixel.v rxuart.v
+          yowasp-yosys -p 'synth_ice40 -top top -json pixel.json' top.v writepixel.v rxuart.v
 
       - name: Run nextpnr on the files
         working-directory: project/PMod_Neopixel/Firmware
