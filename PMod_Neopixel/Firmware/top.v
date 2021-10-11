@@ -88,22 +88,22 @@ module top (CLK,o_PMOD1A, o_PMOD1B, RX);
 
 	end
 
-	//Read in the serial values and write them to the LED's in order 
+	//Read in the serial values and write them to the LED's in order
 	always @(posedge CLK) begin
 		if (rx_valid == 1'b1)
 			begin
-				if (rx_count < 3)
-					begin
-					if (rx_count == 0)
-						r_value[0][7:0] <= rx_byte[7:0];
-					if (rx_count == 0)
-						b_value[0][7:0] <= rx_byte[7:0];
-					if (rx_count == 0)
-						g_value[0][7:0] <= rx_byte[7:0];
+				if (rx_count == 0)
+					r_value[0][7:0] <= rx_byte[7:0];
+				if (rx_count == 1)
+					b_value[0][7:0] <= rx_byte[7:0];
+				if (rx_count == 2)
+					g_value[0][7:0] <= rx_byte[7:0];
+
+				if (rx_count < 2)
 					rx_count <= rx_count + 1'b1;
-					end
 				else
 					rx_count <= 1'b0;
+
 			end
 	end
 
