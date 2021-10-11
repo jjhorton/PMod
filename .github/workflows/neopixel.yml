@@ -3,12 +3,12 @@ name: "PMod NeoPixel"
 on:
   pull_request:
     paths:
-      - 'PMod_Neopixel/Hardware/Compact/*.sch'
-      - 'PMod_Neopixel/Hardware/Compact/*.kicad_pcb'
-      - 'kibot.yml'
-      - 'PMod_Neopixel/Software/CMakelists.txt'
-      - 'PMod_Neopixel/Software/main.c'
+      - 'PMod_Neopixel/Hardware/Compact/*'
+      - 'PMod_Neopixel/Hardware/Strip/*'
+      - 'PMod_Neopixel/Firmware/*'
+      - 'PMod_Neopixel/Software/*'
       - '.github/workflows/neopixel.yml'
+      - 'kibot.yml'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
