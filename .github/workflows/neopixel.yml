@@ -84,3 +84,38 @@ jobs:
           path: |
             project/PMod_Neopixel/Software/build/*.uf2
           if-no-files-found: warn
+
+  Build-Firmware:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          path: project
+
+      - name: Install deps
+        run: |
+          sudo -H pip3 install yowasp-yosys
+          sudo -H pip3 install yowasp-nextpnr-ice40-all
+           # Runs a set of commands using the runners shell
+
+      - name: Run yosys on the files
+        working-directory: project/PMod_Neopixel/Firmware
+        run: |
+          yowasp-yosys -p 'synth_ice40 -top blinky -json pixel.json' top.v writepixel.v rxuart.v
+
+      - name: Run nextpnr on the files
+        working-directory: project/PMod_Neopixel/Firmware
+        run: |
+          yowasp-nextpnr-ice40 --up5k --package sg48 --json pixel.json --pcf icebreaker.pcf --asc pixel.asc
+          yowasp-icepack pixel.asc pixel.bin
+
+      - name: Retrieve results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: Ice40_5K_Firmware
+          path: |
+            project/PMod_Neopixel/Firmware/pixel.bin
+          if-no-files-found: warn
