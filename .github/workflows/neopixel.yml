@@ -100,7 +100,7 @@ jobs:
       - name: Run nextpnr on the files
         working-directory: project/PMod_Neopixel/Firmware
         run: |
-          yowasp-nextpnr-ice40 --up5k --package sg48 --json pixel.json --pcf icebreaker.pcf --asc pixel.asc
+          yowasp-nextpnr-ice40 --up5k --package sg48 --json pixel.json --pcf icebreaker.pcf --asc pixel.asc --log nextpnr.log
           yowasp-icepack pixel.asc pixel.bin
 
       - name: Retrieve results
@@ -111,3 +111,25 @@ jobs:
           path: |
             project/PMod_Neopixel/Firmware/pixel.bin
           if-no-files-found: warn
+
+      - name: Extract the stats from the build log file
+        run: |
+          echo 'Info: FPGA Place and Route statistics:' > utilisation.txt
+          echo 'Info:```' >> utilisation.txt
+          awk '/Info: Logic utilisation before packing:/' RS= nextpnr.log >> utilisation.txt
+          echo 'Info: ' >> utilisation.txt
+          awk '/Total DFFs:/' RS= nextpnr.log  >> utilisation.txt
+          echo 'Info: ' >> utilisation.txt
+          awk '/Info: Device utilisation:/' RS= nextpnr.log >> utilisation.txt
+          echo 'Info: ' >> utilisation.txt
+          grep "MHz" nextpnr.log | tail -1  >> utilisation.txt
+          echo 'Info:```' >> utilisation.txt
+          sed 's/^.\{5\}//' utilisation.txt >results.txt
+          rm utilisation.txt
+          
+      - name: comment PR
+        uses: machine-learning-apps/pr-comment@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: results.txt
