@@ -1,14 +1,6 @@
 name: "PMod NeoPixel"
 
 on:
-  push:
-    paths:
-      - 'PMod_Neopixel/Hardware/Compact/*.sch'
-      - 'PMod_Neopixel/Hardware/Compact/*.kicad_pcb'
-      - 'kibot.yml'
-      - 'PMod_Neopixel/Software/CMakelists.txt'
-      - 'PMod_Neopixel/Software/main.c'
-      - '.github/workflows/neopixel.yml'
   pull_request:
     paths:
       - 'PMod_Neopixel/Hardware/Compact/*.sch'
