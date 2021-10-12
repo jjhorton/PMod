@@ -7,7 +7,7 @@ module top (CLK,o_PMOD1A, o_PMOD1B, RX);
 	output 	wire 	[7:0]	o_PMOD1B;
 
 
-	reg [7:0] pmod1a;// = 8'b00000000;
+	reg [7:0] pmod1a = 8'b00000000;
 	reg [7:0] pmod1b = 8'b00000000;
 	reg 		busy;
 	reg 		valid;
@@ -102,7 +102,7 @@ module top (CLK,o_PMOD1A, o_PMOD1B, RX);
 				if (rx_count < 2)
 					rx_count <= rx_count + 1'b1;
 				else
-					rx_count <= 1'b0;
+					rx_count <= 4'b0000;
 
 			end
 	end
