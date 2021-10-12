@@ -13,9 +13,9 @@ test:
 	./writepixel
 
 test-top:
-		verilator -Wall --trace --stats --coverage-user -cc top.v writepixel.v rxuart.v
+		verilator -Wall --trace --build -j --coverage -cc top.v writepixel.v rxuart.v
 		make -C obj_dir -f Vtop.mk
-		clang++ -std=gnu++14 -I${VINC} -I obj_dir ${VINC}/verilated.cpp ${VINC}/verilated_vcd_c.cpp test_top.cpp obj_dir/Vtop__ALL.a -o test_top
+		clang++ -v -std=gnu++14 -fsized-deallocation -I${VINC} -I obj_dir ${VINC}/verilated.cpp ${VINC}/verilated_vcd_c.cpp test_top.cpp obj_dir/Vtop__ALL.a -o test_top
 		./test_top
 
 build:

@@ -31,7 +31,10 @@ int main(int argc, char **argv){
 	unsigned tickcount = 0;
 
 	//generate a trace
+	Verilated::debug(0);
 	Verilated::traceEverOn(true);
+	Verilated::mkdir("logs");
+
 	VerilatedVcdC* tfp = new VerilatedVcdC;
 	tb->trace(tfp, 99);
 	tfp->open("trace.vcd");
@@ -40,5 +43,8 @@ int main(int argc, char **argv){
 	for(int i=0; i<32000; i++){
 		tick(++tickcount, tb, tfp);
 	}
+
+	Verilated::mkdir("logs");
+	VerilatedCov::write("logs/coverage.dat");
 
 }
