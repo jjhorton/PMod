@@ -13,10 +13,12 @@ test:
 	./writepixel
 
 test-top:
-		verilator -Wall --trace --build -j --coverage -cc top.v writepixel.v rxuart.v
-		make -C obj_dir -f Vtop.mk
-		clang++ -v -std=gnu++14 -fsized-deallocation -I${VINC} -I obj_dir ${VINC}/verilated.cpp ${VINC}/verilated_vcd_c.cpp test_top.cpp obj_dir/Vtop__ALL.a -o test_top
-		./test_top
+		verilator -Wall --trace --build -j --coverage -cc --exe top.v writepixel.v rxuart.v test_top.cpp
+		#make -C obj_dir -f Vtop.mk
+		#clang++ -v -std=gnu++14 -fsized-deallocation -I${VINC} -I obj_dir ${VINC}/verilated.cpp ${VINC}/verilated_vcd_c.cpp test_top.cpp obj_dir/Vtop__ALL.a -o test_top
+		./obj_dir/Vtop
+		verilator_coverage logs/coverage.dat --annotate logs/annotated --write-info logs/coverage.info
+		genhtml logs/coverage.info --output-directory logs/html
 
 build:
 	yosys -p 'synth_ice40 -top top -json $(PROJ).json' top.v writepixel.v rxuart.v
