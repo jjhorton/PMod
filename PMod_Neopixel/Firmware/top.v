@@ -7,7 +7,7 @@ module top (CLK,o_PMOD1A, o_PMOD1B, RX);
 	output 	wire 	[7:0]	o_PMOD1B;
 
 
-	reg [7:0] pmod1a = 8'b00000000;
+	reg [7:0] pmod1a;
 	reg [7:0] pmod1b = 8'b00000000;
 	reg 		busy;
 	reg 		valid;
@@ -57,6 +57,11 @@ module top (CLK,o_PMOD1A, o_PMOD1B, RX);
 		b_value[7][7:0] = 8'b00100000;
 		b_value[8][7:0] = 8'b01000000;
 		b_value[9][7:0] = 8'b10000000;
+
+	end
+
+	always @(posedge CLK) begin
+		pmod1a[7:1] = 7'b0000000;
 	end
 
 	always @(posedge CLK) begin
