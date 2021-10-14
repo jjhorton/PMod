@@ -93,15 +93,16 @@ jobs:
           sudo apt-get install libfl2  # Ubuntu only (ignore if gives error)
           sudo apt-get install libfl-dev  # Ubuntu only (ignore if gives error)
           sudo apt-get install zlibc zlib1g zlib1g-dev  # Ubuntu only (ignore if gives error)
-          git clone https://github.com/verilator/verilator
-          cd verilator
-          git checkout stable
-          autoconf         # Create ./configure script
-          ./configure      # Configure and create Makefile
-          make             # Build Verilator itself (if error, try just 'make')
-          sudo make install
-
-      - name: Run top level tests 
+          # git clone https://github.com/verilator/verilator
+          # cd verilator
+          # git checkout stable
+          # autoconf         # Create ./configure script
+          #./configure      # Configure and create Makefile
+          # make             # Build Verilator itself (if error, try just 'make')
+          # sudo make install
+          sudo apt install verilator
+          
+      - name: Run top level tests
         working-directory: project/PMod_Neopixel/Firmware
         run: |
           export VINC=/usr/share/verilator/include
