@@ -61,10 +61,6 @@ module top (CLK,o_PMOD1A, o_PMOD1B, RX);
 	end
 
 	always @(posedge CLK) begin
-		pmod1a[7:1] = 7'b0000000;
-	end
-
-	always @(posedge CLK) begin
 		if (counter[20] == 1'b1)
 			begin
 			if ((busy == 1'b0)&(valid == 1'b0))
@@ -122,6 +118,7 @@ module top (CLK,o_PMOD1A, o_PMOD1B, RX);
 	//Serial RX receiver
 	rxuart rxuart(CLK, RX, rx_byte, rx_valid);
 
+	assign pmod1a[7:1] = 7'b0000000;
 
 	assign o_PMOD1A = pmod1a;
 	assign o_PMOD1B = pmod1b;
