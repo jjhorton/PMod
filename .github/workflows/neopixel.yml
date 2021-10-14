@@ -101,7 +101,7 @@ jobs:
           # make             # Build Verilator itself (if error, try just 'make')
           # sudo make install
           wget https://github.com/sifive/verilator/releases/download/4.204-0sifive3/verilator_4.204-0sifive3_amd64.deb
-          dpkg -i verilator_4.204-0sifive3_amd64.deb
+          sudo dpkg -i verilator_4.204-0sifive3_amd64.deb
 
       - name: Run top level tests
         working-directory: project/PMod_Neopixel/Firmware
