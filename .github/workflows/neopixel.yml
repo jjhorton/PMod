@@ -86,6 +86,16 @@ jobs:
         with:
           path: project
 
+      - name: Install testing deps
+        run: |
+          sudo apt install verilator
+
+      - name: Run yosys on the files
+        working-directory: project/PMod_Neopixel/Firmware
+        run: |
+          export VINC=/usr/share/verilator/include
+          make test-top
+
       - name: Install deps
         run: |
           sudo -H pip3 install yowasp-yosys
@@ -127,6 +137,9 @@ jobs:
           echo 'Info:```' >> utilisation.txt
           sed 's/^.\{5\}//' utilisation.txt >results.txt
           rm utilisation.txt
+          echo '\n Coverage Stats:' >> results.txt
+          echo '```'  >> results.txt
+          ech0 logs/coverage.txt  >> results.txt
 
       - name: comment PR
         uses: machine-learning-apps/pr-comment@master

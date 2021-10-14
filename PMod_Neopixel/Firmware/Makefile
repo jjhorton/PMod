@@ -17,8 +17,9 @@ test-top:
 		#make -C obj_dir -f Vtop.mk
 		#clang++ -v -std=gnu++14 -fsized-deallocation -I${VINC} -I obj_dir ${VINC}/verilated.cpp ${VINC}/verilated_vcd_c.cpp test_top.cpp obj_dir/Vtop__ALL.a -o test_top
 		./obj_dir/Vtop
-		verilator_coverage logs/coverage.dat --annotate logs/annotated --write-info logs/coverage.info
+		verilator_coverage logs/coverage.dat --annotate logs/annotated --write-info logs/coverage.info --write logs/results.txt --rank
 		genhtml logs/coverage.info --output-directory logs/html
+		lcov --list logs/coverage.info > logs/coverage.txt
 
 build:
 	yosys -p 'synth_ice40 -top top -json $(PROJ).json' top.v writepixel.v rxuart.v
@@ -32,4 +33,4 @@ prog:
 	iceprog $(PROJ).bin
 
 clean:
-	rm -rf obj_dir trace.vcd $(PROJ).json $(PROJ).asc $(PROJ).rpt $(PROJ).bin test_top writepixel
+	rm -rf obj_dir logs trace.vcd $(PROJ).json $(PROJ).asc $(PROJ).rpt $(PROJ).bin test_top writepixel
