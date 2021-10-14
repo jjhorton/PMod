@@ -153,7 +153,8 @@ jobs:
           rm utilisation.txt
           echo '\n Coverage Stats:' >> results.txt
           echo '```'  >> results.txt
-          echo logs/coverage.txt  >> results.txt
+          cat logs/coverage.txt >> results.txt
+          echo '```'  >> results.txt
 
       - name: comment PR
         uses: machine-learning-apps/pr-comment@master
