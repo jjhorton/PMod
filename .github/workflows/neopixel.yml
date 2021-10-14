@@ -93,6 +93,7 @@ jobs:
           sudo apt-get install libfl2  # Ubuntu only (ignore if gives error)
           sudo apt-get install libfl-dev  # Ubuntu only (ignore if gives error)
           sudo apt-get install zlibc zlib1g zlib1g-dev  # Ubuntu only (ignore if gives error)
+          sudo apt-get install lcov
           # git clone https://github.com/verilator/verilator
           # cd verilator
           # git checkout stable
