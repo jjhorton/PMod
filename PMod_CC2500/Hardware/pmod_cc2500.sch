@@ -5,11 +5,11 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date ""
-Rev ""
-Comp ""
-Comment1 ""
-Comment2 ""
+Date "2021-11-14"
+Rev "0.1"
+Comp "James Horton"
+Comment1 "github.com/jjhorton/PMod"
+Comment2 "PMod CC2500 2.5GHz RF Tranceiver Board"
 Comment3 ""
 Comment4 ""
 $EndDescr
