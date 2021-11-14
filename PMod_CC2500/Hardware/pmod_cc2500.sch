@@ -14,14 +14,185 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Connector_Generic:Conn_02x06_Counter_Clockwise J?
+L Connector_Generic:Conn_02x06_Odd_Even J?
 U 1 1 619037E4
-P 2350 1700
-F 0 "J?" H 2400 2117 50  0000 C CNN
-F 1 "Conn_02x06_Counter_Clockwise" H 2400 2026 50  0000 C CNN
-F 2 "" H 2350 1700 50  0001 C CNN
-F 3 "~" H 2350 1700 50  0001 C CNN
-	1    2350 1700
+P 3250 6200
+F 0 "J?" H 3300 6617 50  0000 C CNN
+F 1 "Conn_02x06_Counter_Clockwise" H 3300 6526 50  0000 C CNN
+F 2 "" H 3250 6200 50  0001 C CNN
+F 3 "~" H 3250 6200 50  0001 C CNN
+	1    3250 6200
 	1    0    0    -1  
 $EndComp
+NoConn ~ 3050 6000
+NoConn ~ 3550 6000
+Text GLabel 2800 6100 0    50   Input ~ 0
+GDO2
+Text GLabel 3750 6100 2    50   Input ~ 0
+GDO0
+Text GLabel 3750 6200 2    50   Input ~ 0
+SPI_TX
+Text GLabel 2800 6200 0    50   Input ~ 0
+SPI_CLK
+Text GLabel 2800 6300 0    50   Input ~ 0
+SPI_RX
+Text GLabel 3750 6300 2    50   Input ~ 0
+SPI_CSN
+$Comp
+L power:GND #PWR?
+U 1 1 622EEB9D
+P 3750 6400
+F 0 "#PWR?" H 3750 6150 50  0001 C CNN
+F 1 "GND" V 3755 6272 50  0000 R CNN
+F 2 "" H 3750 6400 50  0001 C CNN
+F 3 "" H 3750 6400 50  0001 C CNN
+	1    3750 6400
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 622EED68
+P 2800 6400
+F 0 "#PWR?" H 2800 6150 50  0001 C CNN
+F 1 "GND" V 2805 6272 50  0000 R CNN
+F 2 "" H 2800 6400 50  0001 C CNN
+F 3 "" H 2800 6400 50  0001 C CNN
+	1    2800 6400
+	0    1    1    0   
+$EndComp
+$Comp
+L power:+3V3 #PWR?
+U 1 1 622EF08B
+P 2800 6500
+F 0 "#PWR?" H 2800 6350 50  0001 C CNN
+F 1 "+3V3" V 2815 6628 50  0000 L CNN
+F 2 "" H 2800 6500 50  0001 C CNN
+F 3 "" H 2800 6500 50  0001 C CNN
+	1    2800 6500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:+3V3 #PWR?
+U 1 1 622EF2B3
+P 3750 6500
+F 0 "#PWR?" H 3750 6350 50  0001 C CNN
+F 1 "+3V3" V 3765 6628 50  0000 L CNN
+F 2 "" H 3750 6500 50  0001 C CNN
+F 3 "" H 3750 6500 50  0001 C CNN
+	1    3750 6500
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2800 6100 3050 6100
+Wire Wire Line
+	3050 6200 2800 6200
+Wire Wire Line
+	2800 6300 3050 6300
+Wire Wire Line
+	3050 6400 2800 6400
+Wire Wire Line
+	2800 6500 3050 6500
+Wire Wire Line
+	3550 6500 3750 6500
+Wire Wire Line
+	3550 6400 3750 6400
+Wire Wire Line
+	3550 6300 3750 6300
+Wire Wire Line
+	3550 6200 3750 6200
+Wire Wire Line
+	3750 6100 3550 6100
+$Comp
+L JJH_Library:CC2500RGPR U?
+U 1 1 6230133C
+P 6200 2300
+F 0 "U?" H 6175 3365 50  0000 C CNN
+F 1 "CC2500RGPR" H 6175 3274 50  0000 C CNN
+F 2 "" H 6200 2300 50  0001 C CNN
+F 3 "" H 6200 2300 50  0001 C CNN
+	1    6200 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 62302A3B
+P 7100 2650
+F 0 "#PWR?" H 7100 2400 50  0001 C CNN
+F 1 "GND" V 7105 2522 50  0000 R CNN
+F 2 "" H 7100 2650 50  0001 C CNN
+F 3 "" H 7100 2650 50  0001 C CNN
+	1    7100 2650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:+3V3 #PWR?
+U 1 1 62302D98
+P 7100 2100
+F 0 "#PWR?" H 7100 1950 50  0001 C CNN
+F 1 "+3V3" V 7115 2228 50  0000 L CNN
+F 2 "" H 7100 2100 50  0001 C CNN
+F 3 "" H 7100 2100 50  0001 C CNN
+	1    7100 2100
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6850 1900 7000 1900
+Wire Wire Line
+	7000 1900 7000 2000
+Wire Wire Line
+	7000 2300 6850 2300
+Wire Wire Line
+	7100 2100 7000 2100
+Connection ~ 7000 2100
+Wire Wire Line
+	7000 2100 7000 2200
+Wire Wire Line
+	6850 2550 7000 2550
+Wire Wire Line
+	7000 2550 7000 2650
+Wire Wire Line
+	7000 2750 6850 2750
+Wire Wire Line
+	6850 2650 7000 2650
+Connection ~ 7000 2650
+Wire Wire Line
+	7000 2650 7000 2750
+Wire Wire Line
+	7000 2650 7100 2650
+Wire Wire Line
+	7000 2100 6850 2100
+Wire Wire Line
+	6850 2200 7000 2200
+Connection ~ 7000 2200
+Wire Wire Line
+	7000 2200 7000 2300
+Wire Wire Line
+	6850 2000 7000 2000
+Connection ~ 7000 2000
+Wire Wire Line
+	7000 2000 7000 2100
+Text GLabel 5300 1550 0    50   Input ~ 0
+SPI_CLK
+Text GLabel 5300 1650 0    50   Input ~ 0
+SPI_CSN
+Text GLabel 5300 1750 0    50   Input ~ 0
+SPI_TX
+Text GLabel 5300 1850 0    50   Input ~ 0
+SPI_RX
+Text GLabel 5300 2100 0    50   Input ~ 0
+GDO2
+Text GLabel 5300 2200 0    50   Input ~ 0
+GDO0
+Wire Wire Line
+	5300 2200 5500 2200
+Wire Wire Line
+	5500 2100 5300 2100
+Wire Wire Line
+	5300 1850 5500 1850
+Wire Wire Line
+	5500 1750 5300 1750
+Wire Wire Line
+	5300 1650 5500 1650
+Wire Wire Line
+	5500 1550 5300 1550
 $EndSCHEMATC
