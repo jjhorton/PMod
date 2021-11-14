@@ -20,9 +20,9 @@ jobs:
         # optional - prefix to output defined in config
         dir: Hardware/Fabrication
         # optional - schematic file
-        schema: 'PMod_CC2500/Hardware/cc2500.sch'
+        schema: 'PMod_CC2500/Hardware/pmod_cc2500.sch'
         # optional - PCB design file
-        board: 'PMod_CC2500/Hardware/cc2500.kicad_pcb'
+        board: 'PMod_CC2500/Hardware/pmod_cc2500.kicad_pcb'
 
     - name: Retrieve results
       if: ${{ always() }}
