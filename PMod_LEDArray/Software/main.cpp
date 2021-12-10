@@ -185,17 +185,17 @@ character_store[8][3] = 0b00000000;
 	character_value[17] = 'R';
 	character_len[17] = 4;
 	character_store[17][0] = 0b11111111;
-	character_store[17][1] = 0b10010000;
+	character_store[17][1] = 0b10011000;
 	character_store[17][2] = 0b10010100;
 	character_store[17][3] = 0b01100011;
 
 	// Charcater S
 	character_value[18] = 'S';
 	character_len[18] = 4;
-	character_store[18][0] = 0b01110001;
-	character_store[18][1] = 0b10001001;
-	character_store[18][2] = 0b10001001;
-	character_store[18][3] = 0b10000110;
+	character_store[18][0] = 0b01100001;
+	character_store[18][1] = 0b10010001;
+	character_store[18][2] = 0b10010001;
+	character_store[18][3] = 0b10001110;
 
 	// Charcater T
 	character_value[19] = 'T';
@@ -267,7 +267,7 @@ character_store[8][3] = 0b00000000;
 
 	char my_str[20] = "MERRY CHRISTMAS";
 
-	for(int my_char=0; my_char<20; my_char++){
+	for(int my_char=0; my_char<15; my_char++){
 		for(int i=0; i<26; i++){
 			if (my_str[my_char] == character_value[i]){
 				for(int j=0; j<character_len[i]; j++){
@@ -277,11 +277,13 @@ character_store[8][3] = 0b00000000;
 				display_buff[counter] = 0;
 				counter++;
 			}
-			else if (isspace(y_str[my_char])){
+		}
+		if (32 == my_str[my_char]){
 			 counter = counter +4;
 		 }
-		}
 	}
+
+	int total_len = counter + 32;
 
 	while(1){
 
@@ -291,17 +293,15 @@ character_store[8][3] = 0b00000000;
 			my_disp[pos] = 0b00000000;
 		}
 
-		for(uint8_t main_pos = 0; main_pos<(255-16); main_pos++){
+		for(uint8_t main_pos = 0; main_pos<(total_len); main_pos++){
 
 			for(uint8_t pos = 0; pos<16; pos++){
 				my_disp[pos] = display_buff[main_pos+pos];
 			}
 			Display2.setDisplay(my_disp);
-			sleep_ms(200);
+			sleep_ms(100);
 		}
 
-
-		sleep_ms(500);
 
 	}
 
