@@ -48,23 +48,23 @@ F 9 "SN74LVC8T245DWR" H 6750 3500 50  0001 L CNN "Manufacturer_Part_Number"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_02x06_Counter_Clockwise J?
+L Connector_Generic:Conn_02x06_Counter_Clockwise J1
 U 1 1 61C3C515
 P 2200 2600
-F 0 "J?" H 2250 3017 50  0000 C CNN
+F 0 "J1" H 2250 3017 50  0000 C CNN
 F 1 "Conn_02x06_Counter_Clockwise" H 2250 2926 50  0000 C CNN
-F 2 "" H 2200 2600 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 2200 2600 50  0001 C CNN
 F 3 "~" H 2200 2600 50  0001 C CNN
 	1    2200 2600
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_02x06_Counter_Clockwise J?
+L Connector_Generic:Conn_02x06_Counter_Clockwise J2
 U 1 1 61C3D51F
 P 2250 4700
-F 0 "J?" H 2300 5117 50  0000 C CNN
+F 0 "J2" H 2300 5117 50  0000 C CNN
 F 1 "Conn_02x06_Counter_Clockwise" H 2300 5026 50  0000 C CNN
-F 2 "" H 2250 4700 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical" H 2250 4700 50  0001 C CNN
 F 3 "~" H 2250 4700 50  0001 C CNN
 	1    2250 4700
 	1    0    0    -1  
@@ -215,9 +215,9 @@ Out_R1
 Text GLabel 8500 3700 0    50   Input ~ 0
 Out_B1
 Text GLabel 8500 3800 0    50   Input ~ 0
-Out_A0
+Out_A
 Text GLabel 8500 3900 0    50   Input ~ 0
-Out_A2
+Out_C
 Text GLabel 8500 4000 0    50   Input ~ 0
 Out_CLK
 Text GLabel 8500 4100 0    50   Input ~ 0
@@ -227,11 +227,11 @@ Out_GND
 Text GLabel 9700 4000 2    50   Input ~ 0
 Out_Latch
 Text GLabel 9700 3900 2    50   Input ~ 0
-Out_A3
+Out_D
 Text GLabel 9700 3800 2    50   Input ~ 0
-Out_A1
+Out_B
 Text GLabel 9700 3700 2    50   Input ~ 0
-Out_A4
+Out_E
 Text GLabel 9700 3600 2    50   Input ~ 0
 Out_G1
 Text GLabel 9700 3500 2    50   Input ~ 0
@@ -298,32 +298,62 @@ Text GLabel 7300 3150 2    50   Input ~ 0
 Out_GND
 Text GLabel 7300 3050 2    50   Input ~ 0
 Out_G0
-Text GLabel 4500 2550 0    50   Input ~ 0
-Out_R0
-Text GLabel 4500 2750 0    50   Input ~ 0
-Out_B0
-Text GLabel 4500 2900 0    50   Input ~ 0
-Out_R1
-Text GLabel 4500 3100 0    50   Input ~ 0
-Out_B1
-Text GLabel 4500 3400 0    50   Input ~ 0
-Out_A0
-Text GLabel 4500 3500 0    50   Input ~ 0
-Out_A1
-Text GLabel 4500 4100 0    50   Input ~ 0
-Out_CLK
-Text GLabel 4500 4000 0    50   Input ~ 0
-Out_OE
-Text GLabel 4500 4400 0    50   Input ~ 0
-Out_GND
-Text GLabel 4500 3700 0    50   Input ~ 0
-Out_A3
-Text GLabel 4500 3600 0    50   Input ~ 0
-Out_A2
-Text GLabel 4500 3800 0    50   Input ~ 0
-Out_A4
-Text GLabel 4500 3000 0    50   Input ~ 0
-Out_G1
-Text GLabel 4500 2650 0    50   Input ~ 0
-Out_G0
+Text GLabel 1500 4800 0    50   Input ~ 0
+In_R0
+Text GLabel 1500 4700 0    50   Input ~ 0
+In_B0
+Text GLabel 3050 4600 2    50   Input ~ 0
+In_B1
+Text GLabel 3050 4500 2    50   Input ~ 0
+In_A
+Text GLabel 1500 4500 0    50   Input ~ 0
+In_B
+Text GLabel 3000 2600 2    50   Input ~ 0
+In_CLK
+Text GLabel 3000 2500 2    50   Input ~ 0
+In_OE
+Text GLabel 3000 2700 2    50   Input ~ 0
+In_D
+Text GLabel 1500 2700 0    50   Input ~ 0
+In_C
+Text GLabel 1500 2600 0    50   Input ~ 0
+In_E
+Text GLabel 1500 4600 0    50   Input ~ 0
+In_G1
+Text GLabel 3050 4800 2    50   Input ~ 0
+In_G0
+Text GLabel 3050 4700 2    50   Input ~ 0
+In_R1
+Text GLabel 1500 2500 0    50   Input ~ 0
+In_Latch
+NoConn ~ 2000 2400
+NoConn ~ 2500 2400
+Wire Wire Line
+	2500 2500 3000 2500
+Wire Wire Line
+	3000 2600 2500 2600
+Wire Wire Line
+	2500 2700 3000 2700
+Wire Wire Line
+	2000 2700 1500 2700
+Wire Wire Line
+	1500 2600 2000 2600
+Wire Wire Line
+	2000 2500 1500 2500
+Wire Wire Line
+	1500 4500 2050 4500
+Wire Wire Line
+	1500 4600 2050 4600
+Wire Wire Line
+	2550 4500 3050 4500
+Wire Wire Line
+	3050 4600 2550 4600
+Wire Wire Line
+	2550 4700 3050 4700
+Wire Wire Line
+	3050 4800 2550 4800
+Wire Wire Line
+	2050 4700 1500 4700
+Wire Wire Line
+	1500 4800 2050 4800
 $EndSCHEMATC
