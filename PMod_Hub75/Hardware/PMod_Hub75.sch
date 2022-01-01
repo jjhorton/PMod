@@ -222,8 +222,6 @@ Text GLabel 9100 4000 0    50   Input ~ 0
 Out_CLK
 Text GLabel 9100 4100 0    50   Input ~ 0
 Out_OE
-Text GLabel 10300 4100 2    50   Input ~ 0
-Out_GND
 Text GLabel 10300 4000 2    50   Input ~ 0
 Out_Latch
 Text GLabel 10300 3900 2    50   Input ~ 0
@@ -234,8 +232,6 @@ Text GLabel 10300 3700 2    50   Input ~ 0
 Out_E
 Text GLabel 10300 3600 2    50   Input ~ 0
 Out_G1
-Text GLabel 10300 3500 2    50   Input ~ 0
-Out_GND
 Text GLabel 10300 3400 2    50   Input ~ 0
 Out_G0
 Wire Wire Line
@@ -282,8 +278,6 @@ Text GLabel 7200 2750 2    50   Input ~ 0
 Out_CLK
 Text GLabel 7200 2650 2    50   Input ~ 0
 Out_OE
-Text GLabel 9100 5450 2    50   Input ~ 0
-Out_GND
 Text GLabel 7200 2550 2    50   Input ~ 0
 Out_Latch
 Text GLabel 7200 2950 2    50   Input ~ 0
@@ -294,8 +288,6 @@ Text GLabel 7200 2850 2    50   Input ~ 0
 Out_E
 Text GLabel 7200 4600 2    50   Input ~ 0
 Out_G1
-Text GLabel 9100 5350 2    50   Input ~ 0
-Out_GND
 Text GLabel 7200 4900 2    50   Input ~ 0
 Out_G0
 Text GLabel 1500 4800 0    50   Input ~ 0
@@ -721,36 +713,10 @@ Wire Wire Line
 NoConn ~ 6900 2350
 NoConn ~ 6900 2450
 $Comp
-L power:GND #PWR?
-U 1 1 61D10CA9
-P 8850 5350
-F 0 "#PWR?" H 8850 5100 50  0001 C CNN
-F 1 "GND" V 8855 5222 50  0000 R CNN
-F 2 "" H 8850 5350 50  0001 C CNN
-F 3 "" H 8850 5350 50  0001 C CNN
-	1    8850 5350
-	0    1    1    0   
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 61D10CAF
-P 8850 5450
-F 0 "#PWR?" H 8850 5200 50  0001 C CNN
-F 1 "GND" V 8855 5322 50  0000 R CNN
-F 2 "" H 8850 5450 50  0001 C CNN
-F 3 "" H 8850 5450 50  0001 C CNN
-	1    8850 5450
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	9100 5350 8850 5350
-Wire Wire Line
-	8850 5450 9100 5450
-$Comp
-L power:VCC #PWR?
+L power:VCC #PWR0120
 U 1 1 61D2486A
 P 9300 6150
-F 0 "#PWR?" H 9300 6000 50  0001 C CNN
+F 0 "#PWR0120" H 9300 6000 50  0001 C CNN
 F 1 "VCC" V 9300 6400 50  0000 C CNN
 F 2 "" H 9300 6150 50  0001 C CNN
 F 3 "" H 9300 6150 50  0001 C CNN
@@ -758,10 +724,10 @@ F 3 "" H 9300 6150 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:+3V3 #PWR?
+L power:+3V3 #PWR0121
 U 1 1 61D29B56
 P 8900 6150
-F 0 "#PWR?" H 8900 6000 50  0001 C CNN
+F 0 "#PWR0121" H 8900 6000 50  0001 C CNN
 F 1 "+3V3" V 8915 6278 50  0000 L CNN
 F 2 "" H 8900 6150 50  0001 C CNN
 F 3 "" H 8900 6150 50  0001 C CNN
@@ -772,6 +738,26 @@ Wire Wire Line
 	8900 6150 9300 6150
 Text Notes 8550 5950 0    50   ~ 0
 Connect the VCC (Output level for HUB75)\nto the 3V3 from the PMod Connector 
-Text Notes 8550 5150 0    50   ~ 0
-Sharded Ground Between the HUB75 display \nand the PMod Host Board 
+$Comp
+L power:GND #PWR?
+U 1 1 61D511B2
+P 10300 4100
+F 0 "#PWR?" H 10300 3850 50  0001 C CNN
+F 1 "GND" V 10305 3972 50  0000 R CNN
+F 2 "" H 10300 4100 50  0001 C CNN
+F 3 "" H 10300 4100 50  0001 C CNN
+	1    10300 4100
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 61D511B8
+P 10300 3500
+F 0 "#PWR?" H 10300 3250 50  0001 C CNN
+F 1 "GND" V 10305 3372 50  0000 R CNN
+F 2 "" H 10300 3500 50  0001 C CNN
+F 3 "" H 10300 3500 50  0001 C CNN
+	1    10300 3500
+	0    -1   -1   0   
+$EndComp
 $EndSCHEMATC
