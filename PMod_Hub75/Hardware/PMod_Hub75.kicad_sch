@@ -6,6 +6,7 @@
 
   (title_block
     (title "PMod Board for Hub75 LED matrix")
+    (date "2022-01-07")
     (rev "v0.1")
     (company "James Horton")
     (comment 4 "Licensed Under CERN Open Hardware Licence Version 2 - Permissive")
