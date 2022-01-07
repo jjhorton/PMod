@@ -7,7 +7,6 @@ preflight:
   run_drc: true
   check_zone_fills: false
   ignore_unconnected: false
-  update_qr: true
 
 global:
   # We want the revision added to the names for this project
