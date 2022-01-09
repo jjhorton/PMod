@@ -35,10 +35,11 @@ jobs:
         run: |
           mkdir Hardware
           mkdir Hardware/Fabrication
+          ls -lh project
 
       - name: Run KiBot
         run: |
-          kibot -b 'project/PMod_Hub75/Hardware/PMod_Hub75.kicad_pcb' -e 'project/PMod_Hub75/Hardware/PMod_Hub75.kicad_sch' -d 'Hardware/Fabrication' -c 'project/kibot.yaml' 
+          kibot -b 'project/PMod_Hub75/Hardware/PMod_Hub75.kicad_pcb' -e 'project/PMod_Hub75/Hardware/PMod_Hub75.kicad_sch' -d 'Hardware/Fabrication' -c 'project/kibot.yaml'
 
       - name: Retrieve results
         if: ${{ always() }}
