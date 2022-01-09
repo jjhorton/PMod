@@ -32,14 +32,16 @@ jobs:
           pip3 install --no-compile kibot
 
       - name: Make directory
+        working-directory: project
         run: |
           mkdir Hardware
           mkdir Hardware/Fabrication
-          ls -lh project
+          ls -lh
 
       - name: Run KiBot
+        working-directory: project
         run: |
-          kibot -b 'project/PMod_Hub75/Hardware/PMod_Hub75.kicad_pcb' -e 'project/PMod_Hub75/Hardware/PMod_Hub75.kicad_sch' -d 'Hardware/Fabrication' -c 'project/kibot.yaml'
+          kibot -b 'PMod_Hub75/Hardware/PMod_Hub75.kicad_pcb' -e 'PMod_Hub75/Hardware/PMod_Hub75.kicad_sch' -d 'Hardware/Fabrication' -c 'kibot.yaml'
 
       - name: Retrieve results
         if: ${{ always() }}
