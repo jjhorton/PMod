@@ -31,6 +31,12 @@ jobs:
           repository: INTI-CMNB/KiBot
           path: kibot
 
+      - name: Checkout latest Interactive Html Bom
+        uses: actions/checkout@v2
+        with:
+          repository: INTI-CMNB/InteractiveHtmlBom
+          path: InteractiveHtmlBom
+
       - name: Install deps
         run: |
           sudo add-apt-repository --yes ppa:kicad/kicad-6.0-releases
@@ -41,8 +47,15 @@ jobs:
           sudo apt-get -y install xdotool
 
       - name: intsall kibot
+        working-directory: InteractiveHtmlBom
+        run: |
+          pip3 install -r requirements.txt
+          pip3 install --no-compile .
+
+      - name: intsall kibot
         working-directory: kibot
         run: |
+          pip3 install -r requirements.txt
           pip3 install --no-compile .
 
       - name: Make directory
