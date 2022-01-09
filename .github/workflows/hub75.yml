@@ -17,7 +17,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   Fabrication:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
@@ -35,7 +35,6 @@ jobs:
         run: |
           sudo add-apt-repository --yes ppa:kicad/kicad-6.0-releases
           sudo apt update && sudo apt install --install-recommends kicad
-          sudo apt-get install -y python3-setuptools
 
       - name: intsall kibot
         working-directory: kibot
