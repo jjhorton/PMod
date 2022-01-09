@@ -46,10 +46,9 @@ jobs:
           sudo apt-get install ./python-gtk2_2.24.0-5.1ubuntu2_amd64.deb ./gtk-recordmydesktop_0.3.8-4.1ubuntu1_all.deb
           sudo apt-get -y install xdotool
 
-      - name: intsall kibot
+      - name: intsall InteractiveHtmlBom
         working-directory: InteractiveHtmlBom
         run: |
-          pip3 install -r requirements.txt
           pip3 install --no-compile .
 
       - name: intsall kibot
