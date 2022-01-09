@@ -53,9 +53,8 @@ jobs:
           sudo apt-get -y install xdotool xclip
 
       - name: intsall pcbdraw
-        working-directory: pcbdraw
         run: |
-          pip3 install --no-compile .
+          pip3 install --no-compile pcbdraw
 
       - name: intsall InteractiveHtmlBom
         working-directory: InteractiveHtmlBom
