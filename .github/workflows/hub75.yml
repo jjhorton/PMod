@@ -18,24 +18,33 @@ on:
 jobs:
   Fabrication:
     runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: INTI-CMNB/KiBot@v1
-      with:
-        # Required - kibot config file
-        config: kibot.yml
-        # optional - prefix to output defined in config
-        dir: Hardware/Fabrication
-        # optional - schematic file
-        schema: 'PMod_Hub75/Hardware/PMod_Hub75.kicad_sch'
-        # optional - PCB design file
-        board: 'PMod_Hub75/Hardware/PMod_Hub75.kicad_pcb'
 
-    - name: Retrieve results
-      if: ${{ always() }}
-      uses: actions/upload-artifact@v2
-      with:
-        name: Fabrication_Files
-        path: |
-          Hardware/Fabrication/
-        if-no-files-found: warn
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          path: project
+
+      - name: Install deps
+        run: |
+          sudo add-apt-repository --yes ppa:kicad/kicad-6.0-releases
+          sudo apt update && sudo apt install --install-recommends kicad
+          pip3 install kibot
+
+      - name: Make directory
+        run: |
+          mkdir Hardware/Fabrication/
+
+      - name: Run KiBot
+        run: |
+          kibot -b 'project/PMod_Hub75/Hardware/PMod_Hub75.kicad_pcb' -e 'project/PMod_Hub75/Hardware/PMod_Hub75.kicad_sch' -c project/kibot.yaml -d Hardware/Fabrication/
+
+
+      - name: Retrieve results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: Fabrication_Files
+          path: |
+            Hardware/Fabrication/
+          if-no-files-found: warn
