@@ -35,6 +35,7 @@ jobs:
         run: |
           sudo add-apt-repository --yes ppa:kicad/kicad-6.0-releases
           sudo apt update && sudo apt install --install-recommends kicad
+          sudo apt-get install -y python3-setuptools
 
       - name: intsall kibot
         working-directory: kibot
