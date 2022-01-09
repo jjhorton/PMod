@@ -52,7 +52,7 @@ jobs:
       - name: Run KiBot
         working-directory: project
         run: |
-          kibot -b 'PMod_Hub75/Hardware/PMod_Hub75.kicad_pcb' -e 'PMod_Hub75/Hardware/PMod_Hub75.kicad_sch' -d 'Hardware/Fabrication' -c 'kibot.yaml' -v
+          kibot --skip-pre all -b 'PMod_Hub75/Hardware/PMod_Hub75.kicad_pcb' -e 'PMod_Hub75/Hardware/PMod_Hub75.kicad_sch' -d 'Hardware/Fabrication' -c 'kibot.yaml' -v
 
       - name: Retrieve results
         if: ${{ always() }}
