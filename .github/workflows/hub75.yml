@@ -54,7 +54,6 @@ jobs:
       - name: intsall kibot
         working-directory: kibot
         run: |
-          pip3 install -r requirements.txt
           pip3 install --no-compile .
 
       - name: Make directory
