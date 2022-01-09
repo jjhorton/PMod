@@ -35,6 +35,9 @@ jobs:
         run: |
           sudo add-apt-repository --yes ppa:kicad/kicad-6.0-releases
           sudo apt update && sudo apt install --install-recommends kicad
+          wget http://archive.ubuntu.com/ubuntu/pool/universe/p/pygtk/python-gtk2_2.24.0-5.1ubuntu2_amd64.deb
+          wget http://archive.ubuntu.com/ubuntu/pool/universe/g/gtk-recordmydesktop/gtk-recordmydesktop_0.3.8-4.1ubuntu1_all.deb
+          sudo apt-get install ./python-gtk2_2.24.0-5.1ubuntu2_amd64.deb ./gtk-recordmydesktop_0.3.8-4.1ubuntu1_all.deb
 
       - name: intsall kibot
         working-directory: kibot
