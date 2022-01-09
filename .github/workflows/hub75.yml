@@ -44,7 +44,7 @@ jobs:
           wget http://archive.ubuntu.com/ubuntu/pool/universe/p/pygtk/python-gtk2_2.24.0-5.1ubuntu2_amd64.deb
           wget http://archive.ubuntu.com/ubuntu/pool/universe/g/gtk-recordmydesktop/gtk-recordmydesktop_0.3.8-4.1ubuntu1_all.deb
           sudo apt-get install ./python-gtk2_2.24.0-5.1ubuntu2_amd64.deb ./gtk-recordmydesktop_0.3.8-4.1ubuntu1_all.deb
-          sudo apt-get -y install xdotool
+          sudo apt-get -y install xdotool xclip
 
       - name: intsall InteractiveHtmlBom
         working-directory: InteractiveHtmlBom
@@ -75,5 +75,5 @@ jobs:
         with:
           name: Fabrication_Files
           path: |
-            Hardware/Fabrication/
+            project/Hardware/Fabrication/
           if-no-files-found: warn
