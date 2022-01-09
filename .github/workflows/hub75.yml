@@ -25,18 +25,28 @@ jobs:
         with:
           path: project
 
+      - name: Checkout latest KiBot
+        uses: actions/checkout@v2
+        with:
+          repository: INTI-CMNB/KiBot
+          path: kibot
+
       - name: Install deps
         run: |
           sudo add-apt-repository --yes ppa:kicad/kicad-6.0-releases
           sudo apt update && sudo apt install --install-recommends kicad
-          pip3 install --no-compile kibot
+
+      - name: intsall kibot
+        working-directory: kibot
+        run: |
+          pip3 install --no-compile .
 
       - name: Make directory
         working-directory: project
         run: |
           mkdir Hardware
           mkdir Hardware/Fabrication
-          mv kibot.yml kibot.yaml   
+          mv kibot.yml kibot.yaml
           ls -lh
 
       - name: Run KiBot
