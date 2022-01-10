@@ -54,6 +54,7 @@ jobs:
         working-directory: InteractiveHtmlBom
         run: |
           pip3 install --no-compile .
+        
       - name: install kibot
         working-directory: kibot
         run: |
@@ -70,7 +71,7 @@ jobs:
       - name: Run KiBot
         working-directory: project
         run: |
-          kibot --skip-pre all -b 'PMod_Hub75/Hardware/PMod_Hub75.kicad_pcb' -e 'PMod_Hub75/Hardware/PMod_Hub75.kicad_sch' -d 'Hardware/Fabrication' -c 'kibot.yaml' -v
+          kibot -b 'PMod_Hub75/Hardware/PMod_Hub75.kicad_pcb' -e 'PMod_Hub75/Hardware/PMod_Hub75.kicad_sch' -d 'Hardware/Fabrication' -c 'kibot.yaml' -v
 
       - name: Retrieve results
         if: ${{ always() }}
