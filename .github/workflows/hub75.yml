@@ -1,12 +1,8 @@
 name: "PMod Hub75"
 
 on:
-  push:
-    paths:
-      - 'PMod_Hub75/Hardware/*.kicad_sch'
-      - 'PMod_Hub75/Hardware/*.kicad_pcb'
-      - '.github/workflows/hub75.yml'
-      - 'kibot.yml'
+  schedule:
+    - cron: "0 8 * * 1"
   pull_request:
     paths:
       - 'PMod_Hub75/Hardware/*.kicad_sch'
@@ -54,7 +50,7 @@ jobs:
         working-directory: InteractiveHtmlBom
         run: |
           pip3 install --no-compile .
-        
+
       - name: install kibot
         working-directory: kibot
         run: |
