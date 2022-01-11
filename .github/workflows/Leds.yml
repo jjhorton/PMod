@@ -91,6 +91,24 @@ jobs:
         with:
           path: project
 
+      - name: Install verilator tools
+        run: |
+          sudo apt-get install git perl python3 make autoconf g++ flex bison ccache
+          sudo apt-get install libgoogle-perftools-dev numactl perl-doc
+          sudo apt-get install libfl2  # Ubuntu only (ignore if gives error)
+          sudo apt-get install libfl-dev  # Ubuntu only (ignore if gives error)
+          sudo apt-get install zlibc zlib1g zlib1g-dev  # Ubuntu only (ignore if gives error)
+          sudo apt-get install lcov
+          wget https://github.com/sifive/verilator/releases/download/4.204-0sifive3/verilator_4.204-0sifive3_amd64.deb
+          sudo dpkg -i verilator_4.204-0sifive3_amd64.deb
+
+      - Name: Run coverage
+        run: |
+        working-directory: project/PMod_LED/Firmware
+        run: |
+          export VINC=/usr/share/verilator/include
+          make coverage
+
       - name: Install deps
         run: |
           sudo -H pip3 install yowasp-yosys
@@ -134,6 +152,7 @@ jobs:
           rm utilisation.txt
           echo 'Coverage Stats:' >> results.txt
           echo '```'  >> results.txt
+          cat logs/coverage.txt >> results.txt
           echo '```'  >> results.txt
 
       - name: comment PR
