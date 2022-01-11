@@ -102,7 +102,6 @@ jobs:
           sudo dpkg -i verilator_4.204-0sifive3_amd64.deb
 
       - name: Run coverage
-        run: |
         working-directory: project/PMod_LED/Firmware
         run: |
           export VINC=/usr/share/verilator/include
