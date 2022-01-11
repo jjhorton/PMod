@@ -1,16 +1,9 @@
 name: "PMod LED"
 
 on:
-  push:
-    paths:
-      - 'kibot.yml'
-      - '.github/workflows/Leds.yml'
-      - 'PMod_LED/Hardware/*.sch'
-      - 'PMod_LED/Hardware/*.kicad_pcb'
-      - 'PMod_LED/Software/CMakelists.txt'
-      - 'PMod_LED/Software/main.c'
-      - 'PMod_LED/Firmware/blinky.v'
-      - 'PMod_LED/Firmware/icebreaker.pcf'
+  schedule:
+    - cron: "0 8 * * 1"
+
   pull_request:
     paths:
       - 'kibot.yml'
@@ -112,7 +105,7 @@ jobs:
       - name: Run nextpnr on the files
         working-directory: project/PMod_LED/Firmware
         run: |
-          yowasp-nextpnr-ice40 --up5k --package sg48 --json blinky.json --pcf icebreaker.pcf --asc blinky.asc
+          yowasp-nextpnr-ice40 --up5k --package sg48 --json blinky.json --pcf icebreaker.pcf --asc blinky.asc --log nextpnr.log
           yowasp-icepack blinky.asc blinky.bin
 
       - name: Retrieve results
@@ -123,3 +116,30 @@ jobs:
           path: |
             project/PMod_LED/Firmware/blinky.bin
           if-no-files-found: warn
+
+      - name: Extract the stats from the build log file
+        working-directory: project/PMod_LED/Firmware
+        run: |
+          echo 'Info: FPGA Place and Route statistics:' > utilisation.txt
+          echo 'Info:```' >> utilisation.txt
+          awk '/Info: Logic utilisation before packing:/' RS= nextpnr.log >> utilisation.txt
+          echo 'Info: ' >> utilisation.txt
+          awk '/Total DFFs:/' RS= nextpnr.log  >> utilisation.txt
+          echo 'Info: ' >> utilisation.txt
+          awk '/Info: Device utilisation:/' RS= nextpnr.log >> utilisation.txt
+          echo 'Info: ' >> utilisation.txt
+          grep "MHz" nextpnr.log | tail -1  >> utilisation.txt
+          echo 'Info:```' >> utilisation.txt
+          sed 's/^.\{5\}//' utilisation.txt >results.txt
+          rm utilisation.txt
+          echo 'Coverage Stats:' >> results.txt
+          echo '```'  >> results.txt
+          cat logs/coverage.txt >> results.txt
+          echo '```'  >> results.txt
+
+      - name: comment PR
+        uses: machine-learning-apps/pr-comment@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: project/PMod_LED/Firmware/results.txt
