@@ -150,6 +150,7 @@ jobs:
           name: Ice40_5K_Firmware
           path: |
             project/PMod_LED/Firmware/blinky.bin
+            project/PMod_LED/Firmware/trace.vcd
           if-no-files-found: warn
 
       - name: Extract the stats from the build log file
