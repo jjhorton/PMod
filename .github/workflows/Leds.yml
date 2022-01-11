@@ -134,7 +134,6 @@ jobs:
           rm utilisation.txt
           echo 'Coverage Stats:' >> results.txt
           echo '```'  >> results.txt
-          cat logs/coverage.txt >> results.txt
           echo '```'  >> results.txt
 
       - name: comment PR
