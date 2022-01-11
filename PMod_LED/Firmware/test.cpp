@@ -31,8 +31,10 @@ int main(int argc, char **argv){
 	unsigned tickcount = 0;
 
 	//generate a trace
+	Verilated::debug(0);
 	Verilated::traceEverOn(true);
 	VerilatedVcdC* tfp = new VerilatedVcdC;
+	Verilated::mkdir("logs");
 	tb->trace(tfp, 99);
 	tfp->open("trace.vcd");
 
