@@ -167,10 +167,6 @@ jobs:
           echo 'Info:```' >> utilisation.txt
           sed 's/^.\{5\}//' utilisation.txt >results.txt
           rm utilisation.txt
-          echo 'Coverage Stats:' >> results.txt
-          echo '```'  >> results.txt
-          cat logs/coverage.txt >> results.txt
-          echo '```'  >> results.txt
 
       - name: comment PR
         uses: machine-learning-apps/pr-comment@master
