@@ -107,6 +107,25 @@ jobs:
           export VINC=/usr/share/verilator/include
           make coverage
 
+      - name: Extract the test data
+        working-directory: project/PMod_LED/Firmware
+        run: |
+          echo 'Testing Output:' >> test-results.txt
+          echo '```'  >> test-results.txt
+          echo 'Coming Soon!'  >> test-results.txt
+          echo '```'  >> test-results.txt
+          echo 'Coverage Stats:' >> test-results.txt
+          echo '```'  >> test-results.txt
+          cat logs/coverage.txt >> test-results.txt
+          echo '```'  >> test-results.txt
+
+      - name: comment test results in PR
+        uses: machine-learning-apps/pr-comment@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: project/PMod_LED/Firmware/results.txt
+
       - name: Install deps
         run: |
           sudo -H pip3 install yowasp-yosys
