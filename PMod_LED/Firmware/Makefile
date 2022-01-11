@@ -7,7 +7,7 @@ check:
 	verilator --lint-only -cc $(PROJ).v
 
 coverage:
-	verilator -Wall --trace --build --coverage -cc --exe $(PROJ).v test.cpp
+	verilator -Wall -GWIDTH=4 --trace --build --coverage -cc --exe $(PROJ).v test.cpp
 	./obj_dir/Vblinky
 	verilator_coverage logs/coverage.dat --annotate logs/annotated --write-info logs/coverage.info --write logs/results.txt --rank
 	genhtml logs/coverage.info --output-directory logs/html
