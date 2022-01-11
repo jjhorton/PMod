@@ -43,4 +43,7 @@ int main(int argc, char **argv){
 		tick(++tickcount, tb, tfp);
 	}
 
+	//write the coverage data out
+	VerilatedCov::write("logs/coverage.dat");
+
 }
