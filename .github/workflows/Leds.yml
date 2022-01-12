@@ -116,7 +116,7 @@ jobs:
       - name: Generate plot of the waveform
         working-directory: project/PMod_LED/Firmware
         run: |
-          sed -i '' '/^$/d' trace.vcd
+          sed -i '/^$/d' trace.vcd
           python3 generate_wave.py
 
 
