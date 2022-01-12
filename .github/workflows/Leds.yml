@@ -124,9 +124,9 @@ jobs:
         working-directory: project/PMod_LED/Firmware
         run: |
           echo 'Testing Output:' >> test-results.txt
-          echo '<img src="https://svg.wavedrom.com/' >> test-results.txt
-          cat trace.json >> test-results.txt
-          echo '{WAVEDROM SOURCE}/>' >> test-results.txt
+          echo -n '<img src="https://svg.wavedrom.com/' >> test-results.txt
+          echo '/>' >> trace.json
+          cat trace.json | tr -d '\n' >> test-results.txt
           echo 'Coverage Stats:' >> test-results.txt
           echo '```'  >> test-results.txt
           cat logs/coverage.txt >> test-results.txt
