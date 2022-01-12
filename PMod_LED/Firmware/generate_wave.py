@@ -9,4 +9,5 @@ path_list = ['TOP/blinky/CLK',
              'TOP/blinky/display']
 
 extractor = WaveExtractor('trace.vcd', 'trace.json',path_list)
+extractor.wave_format('TOP/blinky/display', 'b')
 extractor.execute()
