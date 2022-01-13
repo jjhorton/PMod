@@ -1,16 +1,9 @@
 name: "PMod LED"
 
 on:
-  push:
-    paths:
-      - 'kibot.yml'
-      - '.github/workflows/Leds.yml'
-      - 'PMod_LED/Hardware/*.sch'
-      - 'PMod_LED/Hardware/*.kicad_pcb'
-      - 'PMod_LED/Software/CMakelists.txt'
-      - 'PMod_LED/Software/main.c'
-      - 'PMod_LED/Firmware/blinky.v'
-      - 'PMod_LED/Firmware/icebreaker.pcf'
+  schedule:
+    - cron: "0 8 * * 1"
+
   pull_request:
     paths:
       - 'kibot.yml'
@@ -19,8 +12,7 @@ on:
       - 'PMod_LED/Hardware/*.kicad_pcb'
       - 'PMod_LED/Software/CMakelists.txt'
       - 'PMod_LED/Software/main.c'
-      - 'PMod_LED/Firmware/blinky.v'
-      - 'PMod_LED/Firmware/icebreaker.pcf'
+      - 'PMod_LED/Firmware/**'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -98,6 +90,56 @@ jobs:
         with:
           path: project
 
+      - name: Install verilator tools
+        run: |
+          sudo apt-get install git perl python3 make autoconf g++ flex bison ccache
+          sudo apt-get install libgoogle-perftools-dev numactl perl-doc
+          sudo apt-get install libfl2  # Ubuntu only (ignore if gives error)
+          sudo apt-get install libfl-dev  # Ubuntu only (ignore if gives error)
+          sudo apt-get install zlibc zlib1g zlib1g-dev  # Ubuntu only (ignore if gives error)
+          sudo apt-get install lcov
+          wget https://github.com/sifive/verilator/releases/download/4.204-0sifive3/verilator_4.204-0sifive3_amd64.deb
+          sudo dpkg -i verilator_4.204-0sifive3_amd64.deb
+
+      - name: Run coverage
+        working-directory: project/PMod_LED/Firmware
+        run: |
+          export VINC=/usr/share/verilator/include
+          make coverage
+
+      - name: Checkout vcd2json
+        uses: actions/checkout@v2
+        with:
+          repository: nanamake/vcd2json
+          path: vcd2json
+
+      - name: Generate plot of the waveform
+        working-directory: project/PMod_LED/Firmware
+        run: |
+          sed -i '/^$/d' trace.vcd
+          python3 generate_wave.py
+
+
+      - name: Extract the test data
+        working-directory: project/PMod_LED/Firmware
+        run: |
+          echo 'Testing Output:' >> test-results.txt
+          echo -n '<img src="https://svg.wavedrom.com/' >> test-results.txt
+          sed -i "s/\"/'/g" trace.json
+          echo '"/>' >> trace.json
+          cat trace.json | tr -d '\n' >> test-results.txt
+          echo 'Coverage Stats:' >> test-results.txt
+          echo '```'  >> test-results.txt
+          cat logs/coverage.txt >> test-results.txt
+          echo '```'  >> test-results.txt
+
+      - name: comment test results in PR
+        uses: machine-learning-apps/pr-comment@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: project/PMod_LED/Firmware/test-results.txt
+
       - name: Install deps
         run: |
           sudo -H pip3 install yowasp-yosys
@@ -112,7 +154,7 @@ jobs:
       - name: Run nextpnr on the files
         working-directory: project/PMod_LED/Firmware
         run: |
-          yowasp-nextpnr-ice40 --up5k --package sg48 --json blinky.json --pcf icebreaker.pcf --asc blinky.asc
+          yowasp-nextpnr-ice40 --up5k --package sg48 --json blinky.json --pcf icebreaker.pcf --asc blinky.asc --log nextpnr.log
           yowasp-icepack blinky.asc blinky.bin
 
       - name: Retrieve results
@@ -122,4 +164,28 @@ jobs:
           name: Ice40_5K_Firmware
           path: |
             project/PMod_LED/Firmware/blinky.bin
+            project/PMod_LED/Firmware/trace.vcd
           if-no-files-found: warn
+
+      - name: Extract the stats from the build log file
+        working-directory: project/PMod_LED/Firmware
+        run: |
+          echo 'Info: FPGA Place and Route statistics:' > utilisation.txt
+          echo 'Info:```' >> utilisation.txt
+          awk '/Info: Logic utilisation before packing:/' RS= nextpnr.log >> utilisation.txt
+          echo 'Info: ' >> utilisation.txt
+          awk '/Total DFFs:/' RS= nextpnr.log  >> utilisation.txt
+          echo 'Info: ' >> utilisation.txt
+          awk '/Info: Device utilisation:/' RS= nextpnr.log >> utilisation.txt
+          echo 'Info: ' >> utilisation.txt
+          grep "MHz" nextpnr.log | tail -1  >> utilisation.txt
+          echo 'Info:```' >> utilisation.txt
+          sed 's/^.\{5\}//' utilisation.txt >results.txt
+          rm utilisation.txt
+
+      - name: comment PR
+        uses: machine-learning-apps/pr-comment@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: project/PMod_LED/Firmware/results.txt
