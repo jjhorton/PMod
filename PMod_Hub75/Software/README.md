@@ -11,8 +11,8 @@ Mapping of the pins between the PMod connectors on the RP2040 PMod Board and the
 | 19         | PMod1a         | 6        | CLK   |
 | 16         | PMod1a         | 7        | C     |
 | 17         | PMod1a         | 8        | D     |
-| 14         | PMod1b         | 1        | B     |
-| 15         | PMod1b         | 2        | A     |
+| 14         | PMod1b         | 1        | A     |
+| 15         | PMod1b         | 2        | B     |
 | 12         | PMod1b         | 3        | G1    |
 | 13         | PMod1b         | 4        | B1    |
 | 10         | PMod1b         | 5        | B0    |
