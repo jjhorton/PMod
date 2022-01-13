@@ -1,4 +1,10 @@
 /**
+ * HUB75 display controller
+ *
+ * Copyright (c) James Horton
+ * Based on files origonally from:
+ * https://github.com/raspberrypi/pico-examples/tree/master/pio/hub75
+ *
  * Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -13,13 +19,13 @@
 
 #include "mountains_128x64_rgb565.h"
 
-#define DATA_BASE_PIN 0
+#define DATA_BASE_PIN 9
 #define DATA_N_PINS 6
-#define ROWSEL_BASE_PIN 6
+#define ROWSEL_BASE_PIN 14
 #define ROWSEL_N_PINS 5
-#define CLK_PIN 11
-#define STROBE_PIN 12
-#define OEN_PIN 13
+#define CLK_PIN 19
+#define STROBE_PIN 20
+#define OEN_PIN 21
 
 #define WIDTH 128
 #define HEIGHT 64
