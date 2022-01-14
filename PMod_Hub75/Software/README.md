@@ -1,3 +1,16 @@
+# Building the Software
+
+With the Pico SDK added to the path we can then build the hub75 using the standard workflow:
+
+```
+mkdir Build
+cd Build
+cmake ..
+make
+```
+
+The resulting .u2f file can then be copied onto the RP2040 in the standard way, using the run and prog button so the RP2040 board appears as a usb drive, then the u2f file can then be copied.  
+
 # Hookup information
 Mapping of the pins between the PMod connectors on the RP2040 PMod Board and the HUB75 display pins
 
