@@ -1,7 +1,8 @@
 /**
  * HUB75 display controller
- *
+ * Code to demonstrate the hub75 display board with custom image
  * Copyright (c) James Horton
+ *
  * Based on files origonally from:
  * https://github.com/raspberrypi/pico-examples/tree/master/pio/hub75
  *
@@ -17,7 +18,7 @@
 #include "hardware/pio.h"
 #include "hub75.pio.h"
 
-#include "mountains_128x64_rgb565.h"
+#include "myimage_128x64_rgb565.h"
 
 #define DATA_BASE_PIN 9
 #define DATA_N_PINS 6
