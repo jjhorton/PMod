@@ -20,7 +20,7 @@
 
 #include "myimage_128x64_rgb565.h"
 
-#define DATA_BASE_PIN 9
+#define DATA_BASE_PIN 8
 #define DATA_N_PINS 6
 #define ROWSEL_BASE_PIN 14
 #define ROWSEL_N_PINS 5
