@@ -1,0 +1,121 @@
+name: "PMod Hub75"
+
+on:
+  schedule:
+    - cron: "0 8 * * 1"
+  pull_request:
+    paths:
+      - 'PMod_Hub75/Hardware/*.kicad_sch'
+      - 'PMod_Hub75/Hardware/*.kicad_pcb'
+      - '.github/workflows/hub75.yml'
+      - 'kibot.yml'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  Fabrication:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          path: project
+
+      - name: Checkout latest KiBot
+        uses: actions/checkout@v2
+        with:
+          repository: INTI-CMNB/KiBot
+          path: kibot
+
+      - name: Checkout latest Interactive Html Bom
+        uses: actions/checkout@v2
+        with:
+          repository: INTI-CMNB/InteractiveHtmlBom
+          path: InteractiveHtmlBom
+
+      - name: Install deps
+        run: |
+          sudo add-apt-repository --yes ppa:kicad/kicad-6.0-releases
+          sudo apt update && sudo apt install --install-recommends kicad
+          wget http://archive.ubuntu.com/ubuntu/pool/universe/p/pygtk/python-gtk2_2.24.0-5.1ubuntu2_amd64.deb
+          wget http://archive.ubuntu.com/ubuntu/pool/universe/g/gtk-recordmydesktop/gtk-recordmydesktop_0.3.8-4.1ubuntu1_all.deb
+          sudo apt-get install ./python-gtk2_2.24.0-5.1ubuntu2_amd64.deb ./gtk-recordmydesktop_0.3.8-4.1ubuntu1_all.deb
+          sudo apt-get -y install librsvg2-bin xdotool xclip imagemagick
+          identify -version
+
+      - name: install pcbdraw
+        run: |
+          pip3 install --no-compile pcbdraw
+
+      - name: install InteractiveHtmlBom
+        working-directory: InteractiveHtmlBom
+        run: |
+          pip3 install --no-compile .
+
+      - name: install kibot
+        working-directory: kibot
+        run: |
+          pip3 install --no-compile .
+
+      - name: Make directory
+        working-directory: project
+        run: |
+          mkdir Hardware
+          mkdir Hardware/Fabrication
+          mv kibot.yml kibot.yaml
+          ls -lh
+
+      - name: Run KiBot
+        working-directory: project
+        run: |
+          kibot -b 'PMod_Hub75/Hardware/PMod_Hub75.kicad_pcb' -e 'PMod_Hub75/Hardware/PMod_Hub75.kicad_sch' -d 'Hardware/Fabrication' -c 'kibot.yaml' -v
+
+      - name: Retrieve results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: Fabrication_Files
+          path: |
+            project/Hardware/Fabrication/
+          if-no-files-found: warn
+
+
+  Software:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          path: project
+
+      - name: Checkout Pico SDK
+        uses: actions/checkout@v2
+        with:
+          repository: raspberrypi/pico-sdk
+          path: pico-sdk
+          submodules: true
+
+      - name: Install deps
+        run: |
+          sudo apt update && sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
+
+      - name: Make directory
+        run: |
+          mkdir project/PMod_Hub75/Software/build
+
+      - name: Build
+        working-directory: project/PMod_Hub75/Software/build
+        shell: bash
+        run: |
+          PICO_SDK_PATH=../../../pico-sdk cmake ..
+          make
+
+      - name: Retrieve results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: RP_Pico_Files
+          path: |
+            project/PMod_Hub75/Software/build/*.uf2
+          if-no-files-found: warn
