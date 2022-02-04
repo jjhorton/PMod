@@ -106,7 +106,7 @@ module top (CLK,o_PMOD1A, o_PMOD1B, RX);
 				else
 					begin
 						rx_count <= 4'b0000;
-						if (led_count < 4)
+						if (led_count < 10)
 							led_count <= led_count + 1'b1;
 						else
 							led_count <= 0;
