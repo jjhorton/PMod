@@ -39,7 +39,6 @@ int serial_tx(int tick_count, int tick_start, int8_t data_byte, Vtop *tb, Verila
 		if (bits_completed < 8) {
 			// set RX to be the required data
 			tb->RX = ((data_byte>>bits_completed)&1); 
-			printf("%i data: %i\n",bits_completed,((data_byte>>bits_completed)&1));
 			return 0; 
 		}
 		else{
@@ -72,10 +71,28 @@ int main(int argc, char **argv){
 	tb->trace(tfp, 99);
 	tfp->open("trace.vcd");
 
+	uint8_t rgb_values[][3] = {
+		{1,2,3},
+		{4,5,6},
+		{7,8,9},
+		{10,11,12},
+		{13,14,15}};
+
+	int increase = 0;
+	int rgb = 0; int led = 0; 
+	int start = 100;
 
 	for(int i=0; i<64000; i++){
-		serial_tx(tickcount, 100, 'J', tb, tfp);
+		increase = serial_tx(tickcount, start, rgb_values[led][rgb], tb, tfp);
 		tick(++tickcount, tb, tfp);
+
+		if(increase == 1){
+			rgb++; 
+			if(rgb > 2){
+				led++; rgb= 0;
+			}
+			start = tickcount + 1000;
+		}
 		
 	}
 
