@@ -36,7 +36,7 @@ int serial_tx(int tick_count, int tick_start, int8_t data_byte, Vtop *tb, Verila
 			tb->RX = 0;
 			return 0;
 		}
-		if (bits_completed < 8) {
+		if (bits_completed < 10) {
 			// set RX to be the required data
 			tb->RX = ((data_byte>>bits_completed)&1); 
 			return 0; 
@@ -82,7 +82,7 @@ int main(int argc, char **argv){
 	int rgb = 0; int led = 0; 
 	int start = 100;
 
-	for(int i=0; i<64000; i++){
+	for(int i=0; i<200000; i++){
 		increase = serial_tx(tickcount, start, rgb_values[led][rgb], tb, tfp);
 		tick(++tickcount, tb, tfp);
 
