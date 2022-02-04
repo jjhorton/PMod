@@ -12,17 +12,20 @@ ser = serial.Serial('/dev/tty.usbserial-ib2u9O9Z1',19200)
 print(ser.name)
 print(ser.baudrate)
 
-ser.write(b'z')
-time.sleep(1)
-ser.write(b'A')
-time.sleep(1)
+#ser.write(b'z')
+#time.sleep(1)
+#ser.write(b'A')
+#time.sleep(1)
 
 x = bytes(bytearray(range(256)))
 
 
 for count in segments(x):
 	print(count)
+	ser.write(0b00000000)
+	ser.write(0b00000000)
 	ser.write(count)
+
 	time.sleep(0.1)
 
 ser.close()
