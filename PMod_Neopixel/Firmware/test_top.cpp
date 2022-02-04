@@ -23,6 +23,39 @@ void tick(int tickcount, Vtop *tb, VerilatedVcdC* tfp){
 	}
 }
 
+int serial_tx(int tick_count, int tick_start, int8_t data_byte, Vtop *tb, VerilatedVcdC* tfp){
+	//function for transmitting the serial message 
+	int clkperbaud = 625;
+
+	if(tick_count > tick_start){
+		//we should be have tx a serial message
+		int start_delay = tick_start + (clkperbaud); 
+		int bits_completed = (tick_count - start_delay)/clkperbaud;
+
+		if(tick_count < start_delay) {
+			tb->RX = 0;
+			return 0;
+		}
+		if (bits_completed < 8) {
+			// set RX to be the required data
+			tb->RX = ((data_byte>>bits_completed)&1); 
+			printf("%i data: %i\n",bits_completed,((data_byte>>bits_completed)&1));
+			return 0; 
+		}
+		else{
+			// the message has been sent, idle state
+			tb->RX = 1;
+			return 1;
+		}
+	}
+	else{
+		// we have not got to the point in time when the message should be sent
+		tb->RX = 1;
+		return 0;
+	}
+
+}
+
 int main(int argc, char **argv){
 	Verilated::commandArgs(argc, argv);
 	// Instantiate the design
@@ -41,7 +74,9 @@ int main(int argc, char **argv){
 
 
 	for(int i=0; i<64000; i++){
+		serial_tx(tickcount, 100, 'J', tb, tfp);
 		tick(++tickcount, tb, tfp);
+		
 	}
 
 	Verilated::mkdir("logs");
