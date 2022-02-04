@@ -15,6 +15,7 @@ module top (CLK,o_PMOD1A, o_PMOD1B, RX);
 	reg [3:0] pixel_count = 4'b0000;
 
 	reg [3:0] rx_count = 4'b0000;
+	reg [3:0] led_count = 4'b0000;
 
 	reg [7:0]	rx_byte;
 	reg 		rx_valid;
@@ -94,17 +95,22 @@ module top (CLK,o_PMOD1A, o_PMOD1B, RX);
 		if (rx_valid == 1'b1)
 			begin
 				if (rx_count == 0)
-					r_value[0][7:0] <= rx_byte[7:0];
+					r_value[led_count][7:0] <= rx_byte[7:0];
 				if (rx_count == 1)
-					b_value[0][7:0] <= rx_byte[7:0];
+					b_value[led_count][7:0] <= rx_byte[7:0];
 				if (rx_count == 2)
-					g_value[0][7:0] <= rx_byte[7:0];
+					g_value[led_count][7:0] <= rx_byte[7:0];
 
 				if (rx_count < 2)
 					rx_count <= rx_count + 1'b1;
 				else
-					rx_count <= 4'b0000;
-
+					begin
+						rx_count <= 4'b0000;
+						if (led_count < 4)
+							led_count <= led_count + 1'b1;
+						else
+							led_count <= 0;
+					end
 			end
 	end
 
