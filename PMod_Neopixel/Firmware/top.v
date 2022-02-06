@@ -6,12 +6,13 @@ module top (CLK,o_PMOD1A, o_PMOD1B, RX);
 	output 	wire 	[7:0]	o_PMOD1A;
 	output 	wire 	[7:0]	o_PMOD1B;
 
+	parameter 	WIDTH=21;
 
 	reg [7:0] pmod1a;
 	reg [7:0] pmod1b = 8'b00000000;
 	reg 		busy;
 	reg 		valid;
-	reg [27:0] counter;
+	reg [WIDTH:0] counter;
 	reg [3:0] pixel_count = 4'b0000;
 
 	reg [3:0] rx_count = 4'b0000;
@@ -62,7 +63,7 @@ module top (CLK,o_PMOD1A, o_PMOD1B, RX);
 	end
 
 	always @(posedge CLK) begin
-		if (counter[20] == 1'b1)
+		if (counter[WIDTH-1] == 1'b1)
 			begin
 			if ((busy == 1'b0)&(valid == 1'b0))
 				begin

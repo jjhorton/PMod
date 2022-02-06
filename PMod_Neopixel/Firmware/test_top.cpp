@@ -80,9 +80,9 @@ int main(int argc, char **argv){
 
 	int increase = 0;
 	int rgb = 0; int led = 0; 
-	int start = 100;
+	int start = 150;
 
-	for(int i=0; i<200000; i++){
+	for(int i=0; i<250000; i++){
 		increase = serial_tx(tickcount, start, rgb_values[led][rgb], tb, tfp);
 		tick(++tickcount, tb, tfp);
 
