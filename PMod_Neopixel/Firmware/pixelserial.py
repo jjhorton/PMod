@@ -1,11 +1,6 @@
 import numpy as np
 import time
-
 import serial
-
-def segments(data, size=1):
-    for a in range(0, len(data), size):
-        yield data[a:a + size]
 
 ser = serial.Serial('/dev/tty.usbserial-ib2u9O9Z1',19200)
 
