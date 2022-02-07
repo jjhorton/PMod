@@ -1,22 +1,14 @@
 name: "PMod NeoPixel"
 
 on:
-  push:
-    paths:
-      - 'PMod_Neopixel/Hardware/Compact/*.sch'
-      - 'PMod_Neopixel/Hardware/Compact/*.kicad_pcb'
-      - 'kibot.yml'
-      - 'PMod_Neopixel/Software/CMakelists.txt'
-      - 'PMod_Neopixel/Software/main.c'
-      - '.github/workflows/neopixel.yml'
   pull_request:
     paths:
-      - 'PMod_Neopixel/Hardware/Compact/*.sch'
-      - 'PMod_Neopixel/Hardware/Compact/*.kicad_pcb'
-      - 'kibot.yml'
-      - 'PMod_Neopixel/Software/CMakelists.txt'
-      - 'PMod_Neopixel/Software/main.c'
+      - 'PMod_Neopixel/Hardware/Compact/*'
+      - 'PMod_Neopixel/Hardware/Strip/*'
+      - 'PMod_Neopixel/Firmware/*'
+      - 'PMod_Neopixel/Software/*'
       - '.github/workflows/neopixel.yml'
+      - 'kibot.yml'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -84,3 +76,89 @@ jobs:
           path: |
             project/PMod_Neopixel/Software/build/*.uf2
           if-no-files-found: warn
+
+  Build-Firmware:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          path: project
+
+      - name: Install testing deps
+        run: |
+          sudo apt-get install git perl python3 make autoconf g++ flex bison ccache
+          sudo apt-get install libgoogle-perftools-dev numactl perl-doc
+          sudo apt-get install libfl2  # Ubuntu only (ignore if gives error)
+          sudo apt-get install libfl-dev  # Ubuntu only (ignore if gives error)
+          sudo apt-get install zlibc zlib1g zlib1g-dev  # Ubuntu only (ignore if gives error)
+          sudo apt-get install lcov
+          # git clone https://github.com/verilator/verilator
+          # cd verilator
+          # git checkout stable
+          # autoconf         # Create ./configure script
+          #./configure      # Configure and create Makefile
+          # make             # Build Verilator itself (if error, try just 'make')
+          # sudo make install
+          wget https://github.com/sifive/verilator/releases/download/4.204-0sifive3/verilator_4.204-0sifive3_amd64.deb
+          sudo dpkg -i verilator_4.204-0sifive3_amd64.deb
+
+      - name: Run top level tests
+        working-directory: project/PMod_Neopixel/Firmware
+        run: |
+          export VINC=/usr/share/verilator/include
+          make test-top
+
+      - name: Install deps
+        run: |
+          sudo -H pip3 install yowasp-yosys
+          sudo -H pip3 install yowasp-nextpnr-ice40-all
+           # Runs a set of commands using the runners shell
+
+      - name: Run yosys on the files
+        working-directory: project/PMod_Neopixel/Firmware
+        run: |
+          yowasp-yosys -p 'synth_ice40 -top top -json pixel.json' top.v writepixel.v rxuart.v
+
+      - name: Run nextpnr on the files
+        working-directory: project/PMod_Neopixel/Firmware
+        run: |
+          yowasp-nextpnr-ice40 --up5k --package sg48 --json pixel.json --pcf icebreaker.pcf --asc pixel.asc --log nextpnr.log
+          yowasp-icepack pixel.asc pixel.bin
+
+      - name: Retrieve results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: Ice40_5K_Firmware
+          path: |
+            project/PMod_Neopixel/Firmware/pixel.bin
+          if-no-files-found: warn
+
+      - name: Extract the stats from the build log file
+        working-directory: project/PMod_Neopixel/Firmware
+        run: |
+          echo 'Info: FPGA Place and Route statistics:' > utilisation.txt
+          echo 'Info:```' >> utilisation.txt
+          awk '/Info: Logic utilisation before packing:/' RS= nextpnr.log >> utilisation.txt
+          echo 'Info: ' >> utilisation.txt
+          awk '/Total DFFs:/' RS= nextpnr.log  >> utilisation.txt
+          echo 'Info: ' >> utilisation.txt
+          awk '/Info: Device utilisation:/' RS= nextpnr.log >> utilisation.txt
+          echo 'Info: ' >> utilisation.txt
+          grep "MHz" nextpnr.log | tail -1  >> utilisation.txt
+          echo 'Info:```' >> utilisation.txt
+          sed 's/^.\{5\}//' utilisation.txt >results.txt
+          rm utilisation.txt
+          echo 'Coverage Stats:' >> results.txt
+          echo '```'  >> results.txt
+          cat logs/coverage.txt >> results.txt
+          echo '```'  >> results.txt
+
+      - name: comment PR
+        uses: machine-learning-apps/pr-comment@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: project/PMod_Neopixel/Firmware/results.txt

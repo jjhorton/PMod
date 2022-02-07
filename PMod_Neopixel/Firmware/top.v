@@ -6,13 +6,17 @@ module top (CLK,o_PMOD1A, o_PMOD1B, RX);
 	output 	wire 	[7:0]	o_PMOD1A;
 	output 	wire 	[7:0]	o_PMOD1B;
 
+	parameter 	WIDTH=21;
 
-	reg [7:0] pmod1a;// = 8'b00000000;
+	reg [7:0] pmod1a;
 	reg [7:0] pmod1b = 8'b00000000;
 	reg 		busy;
 	reg 		valid;
-	reg [27:0] counter;
+	reg [WIDTH:0] counter;
 	reg [3:0] pixel_count = 4'b0000;
+
+	reg [3:0] rx_count = 4'b0000;
+	reg [3:0] led_count = 4'b0000;
 
 	reg [7:0]	rx_byte;
 	reg 		rx_valid;
@@ -55,10 +59,11 @@ module top (CLK,o_PMOD1A, o_PMOD1B, RX);
 		b_value[7][7:0] = 8'b00100000;
 		b_value[8][7:0] = 8'b01000000;
 		b_value[9][7:0] = 8'b10000000;
+
 	end
 
 	always @(posedge CLK) begin
-		if (counter[20] == 1'b1)
+		if (counter[WIDTH-1] == 1'b1)
 			begin
 			if ((busy == 1'b0)&(valid == 1'b0))
 				begin
@@ -86,13 +91,27 @@ module top (CLK,o_PMOD1A, o_PMOD1B, RX);
 
 	end
 
-	//
+	//Read in the serial values and write them to the LED's in order
 	always @(posedge CLK) begin
 		if (rx_valid == 1'b1)
 			begin
-			//r_value[0][7:0] <= rx_byte[7:0];
-			//b_value[0][7:0] <= rx_byte[7:0];
-			g_value[0][7:0] <= rx_byte[7:0];
+				if (rx_count == 0)
+					r_value[led_count][7:0] <= rx_byte[7:0];
+				if (rx_count == 1)
+					b_value[led_count][7:0] <= rx_byte[7:0];
+				if (rx_count == 2)
+					g_value[led_count][7:0] <= rx_byte[7:0];
+
+				if (rx_count < 2)
+					rx_count <= rx_count + 1'b1;
+				else
+					begin
+						rx_count <= 4'b0000;
+						if (led_count < 9)
+							led_count <= led_count + 1'b1;
+						else
+							led_count <= 0;
+					end
 			end
 	end
 
@@ -106,6 +125,7 @@ module top (CLK,o_PMOD1A, o_PMOD1B, RX);
 	//Serial RX receiver
 	rxuart rxuart(CLK, RX, rx_byte, rx_valid);
 
+	assign pmod1a[7:1] = 7'b0000000;
 
 	assign o_PMOD1A = pmod1a;
 	assign o_PMOD1B = pmod1b;
