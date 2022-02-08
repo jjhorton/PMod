@@ -1,12 +1,8 @@
 name: "PMod LED Array"
 
 on:
-  push:
-    paths:
-      - 'PMod_LEDArray/Hardware/*'
-      - 'PMod_LEDArray/Software/*'
-      - '.github/workflows/LedArray.yml'
-      - 'kibot.yml'
+  schedule:
+    - cron: "0 8 * * 1"
   pull_request:
     paths:
       - 'PMod_LEDArray/Hardware/*'
