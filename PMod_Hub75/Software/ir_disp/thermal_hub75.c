@@ -14,6 +14,7 @@
 #include <stdio.h>
 
 #include "pico/stdlib.h"
+#include "pico/multicore.h"
 #include "hardware/gpio.h"
 #include "hardware/pio.h"
 #include "hardware/i2c.h"
@@ -32,8 +33,12 @@
 #define WIDTH 64
 #define HEIGHT 64
 
+const int PIN_LED = 22;
+
 const int I2C_SDA = 4;
 const int I2C_SCL = 5;
+
+uint16_t my_temps[64];
 
 static inline uint32_t gamma_correct_565_888(uint16_t pix) {
     uint32_t r_gamma = pix & 0xf800u;
@@ -46,18 +51,7 @@ static inline uint32_t gamma_correct_565_888(uint16_t pix) {
 }
 
 
-int main() {
-    stdio_init_all();
-
-    PIO pio = pio0;
-    uint sm_data = 0;
-    uint sm_row = 1;
-
-    uint data_prog_offs = pio_add_program(pio, &hub75_data_rgb888_program);
-    uint row_prog_offs = pio_add_program(pio, &hub75_row_program);
-    hub75_data_rgb888_program_init(pio, sm_data, data_prog_offs, DATA_BASE_PIN, CLK_PIN);
-    hub75_row_program_init(pio, sm_row, row_prog_offs, ROWSEL_BASE_PIN, ROWSEL_N_PINS, STROBE_PIN);
-
+void core1_entry() {
     // This example will use I2C0 on the default SDA and SCL pins (4, 5 on a Pico)
 	i2c_init(i2c0, 1000000);
 
@@ -70,35 +64,64 @@ int main() {
 	// Make the I2C pins available to picotool
 	bi_decl(bi_2pins_with_func(I2C_SDA, I2C_SCL, GPIO_FUNC_I2C));
 
-    uint16_t my_values[WIDTH*HEIGHT];
+    // read and interp 
+	int addr = 0b01101000;
 
-    for (int i = 0; i<(WIDTH*HEIGHT); i++){
-        my_values[i] = 0x52;
-    }
+    int8_t on_off = 0;
+	gpio_init(PIN_LED);
+	gpio_set_dir(PIN_LED, GPIO_OUT);
 
-    static uint32_t gc_row[2][WIDTH];
-    uint16_t *img = (uint16_t*)my_values;
+	int ret;
+	uint8_t rxdata[2];
+	uint8_t val = 0x80;
 
-    while (1) {
-        // read and interp 
-		int addr = 0b01101000;
+    while(1){
+        on_off = !on_off;
+		gpio_put(PIN_LED, on_off);
 
-		int ret;
-		uint8_t rxdata[2];
-		uint8_t val = 0x80;
-
-		//read the values from the thermal camera
 		val = 0x80;
 		i2c_write_blocking(i2c0, addr, &val, 1, true);
 
-		for(int i = 0; i<WIDTH;++i){
-            for(int j = 0; j<WIDTH;++j){
-			    ret = i2c_read_blocking(i2c0, addr, &rxdata[0], 2, true);
-		        my_values[(i*WIDTH)+j]  = (int16_t)((((uint16_t)rxdata[1] << 8) | ((uint16_t)rxdata[0]))<< 4) >> 4;
-            }
+		for(int i = 0; i<64; ++i){
+			ret = i2c_read_blocking(i2c0, addr, &rxdata[0], 2, true);
+		    //my_temps[i]  = (int16_t)((((uint16_t)rxdata[1] << 8) | ((uint16_t)rxdata[0]))<< 4) >> 4;
+            my_temps[i]  = 0b1111111111111111;
         }
 
-        // need to interpolate the values
+    }
+}
+
+
+int main() {
+    stdio_init_all();
+
+    multicore_launch_core1(core1_entry);
+
+    PIO pio = pio0;
+    uint sm_data = 0;
+    uint sm_row = 1;
+
+    uint data_prog_offs = pio_add_program(pio, &hub75_data_rgb888_program);
+    uint row_prog_offs = pio_add_program(pio, &hub75_row_program);
+    hub75_data_rgb888_program_init(pio, sm_data, data_prog_offs, DATA_BASE_PIN, CLK_PIN);
+    hub75_row_program_init(pio, sm_row, row_prog_offs, ROWSEL_BASE_PIN, ROWSEL_N_PINS, STROBE_PIN);
+
+    uint16_t my_values[WIDTH*HEIGHT];
+
+    for (int i = 0; i<(WIDTH*HEIGHT); i++){
+        my_values[i] = 0xc7;
+    }
+
+    uint32_t gc_row[2][WIDTH];
+    uint16_t *img = (uint16_t*)my_values;
+
+    while (1) {
+
+        for (int i = 0; i<(8); ++i){
+            for (int j = 0; j<(8); ++j){
+                my_values[(i*64)+j] = my_temps[(i*8)+j];
+            }
+        }
 
         //hub75 write to screen
         for (int rowsel = 0; rowsel < (1 << ROWSEL_N_PINS); ++rowsel) {

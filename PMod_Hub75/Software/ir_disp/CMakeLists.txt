@@ -24,5 +24,5 @@ target_compile_definitions(${NAME} PRIVATE
  	PICO_DEFAULT_UART_RX_PIN=29
 )
 
-target_link_libraries(${NAME} PRIVATE pico_stdlib hardware_pio hardware_i2c)
+target_link_libraries(${NAME} PRIVATE pico_stdlib hardware_pio hardware_i2c pico_multicore)
 pico_add_extra_outputs(${NAME})
