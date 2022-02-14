@@ -158,33 +158,23 @@ int main() {
         }
         printf("\n");
 
-        for(int i = 0; i<64; ++i){
-            printf("%i",my_temps[i]);
-        }
-        printf("\n");
-
         for (int i = 0; i<(WIDTH * HEIGHT); i++){
             my_values[i] = 0xc7;
         }   
 
         for (int i = 0; i<8; i++){
             for (int j = 0; j<8; j++){
-                my_values[(i*WIDTH)+j] = my_temps[(i*8)+j];
-                printf("%i, ",(i*8)+j);
-                printf("%i, ",my_values[(i*WIDTH)+j]);
+                for(int a = 0; a < 8; a++){
+                    for(int b = 0; b< 8; b++){
+                        my_values[(((i*8)+b)*WIDTH)+((j*8)+a) ] = my_temps[(j*8)+i];
+                    }      
+                }
+                //printf("%i, ",(i*8)+j);
+                //printf("%i, ",my_values[(i*WIDTH)+j]);
             }
         }
 
         printf("\n");
-        /*
-        for (int i = 0; i<(WIDTH); ++i){
-            for (int j = 0; j<(HEIGHT); ++j){
-                printf("%i",my_values[(i*WIDTH)+j]);
-            }
-        }
-        printf("\n");
-        */
-
 
         sleep_ms(200);
     }
