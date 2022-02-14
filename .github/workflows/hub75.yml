@@ -7,6 +7,7 @@ on:
     paths:
       - 'PMod_Hub75/Hardware/*.kicad_sch'
       - 'PMod_Hub75/Hardware/*.kicad_pcb'
+      - 'PMod_Hub75/Software/*
       - '.github/workflows/hub75.yml'
       - 'kibot.yml'
 
@@ -116,7 +117,7 @@ jobs:
         working-directory: project/PMod_Hub75/Software/ir_disp/build
         shell: bash
         run: |
-          PICO_SDK_PATH=../../../pico-sdk cmake ..
+          PICO_SDK_PATH=../../../../pico-sdk cmake ..
           make
 
       - name: Retrieve results
