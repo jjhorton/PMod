@@ -38,9 +38,38 @@ const int PIN_LED = 24;
 const int I2C_SDA = 0;
 const int I2C_SCL = 1;
 
-//extern uint16_t my_temps[64];
+// varribles for the images
 uint16_t my_temps[64];
-uint16_t my_values[WIDTH * HEIGHT];
+int select_img; 
+uint16_t my_values_1[WIDTH * HEIGHT];
+uint16_t my_values_2[WIDTH * HEIGHT];
+
+
+//
+// Lookup table the colourmap
+const int RGB_LOOKUP[][3] = {{255,14,240},{255,13,240},{255,12,240},{255,11,240},
+							{255,10,240},{255,9,240},{255,8,240},{255,7,240},
+							{255,6,240},{255,5,240},{255,4,240},{255,3,240},
+							{255,2,240},{255,1,240},{255,0,240},{255,0,224},
+							{255,0,208},{255,0,192},{255,0,176},{255,0,160},
+							{255,0,144},{255,0,128},{255,0,112},{255,0,96 },
+							{255,0,80 },{255,0,64 },{255,0,48 },{255,0,32 },
+							{255,0,16 },{255,0,0  },{255,10,0 },{255,20,0 },
+							{255,30,0 },{255,40,0 },{255,50,0 },{255,60,0 },
+							{255,70,0 },{255,80,0 },{255,90,0 },{255,100,0},
+							{255,110,0},{255,120,0},{255,130,0},{255,140,0},
+							{255,150,0},{255,160,0},{255,170,0},{255,180,0},
+							{255,190,0},{255,200,0},{255,210,0},{255,220,0},
+							{255,230,0},{255,240,0},{255,250,0},{253,255,0},
+							{215,255,0},{176,255,0},{138,255,0},{101,255,0},
+							{62,255,0 },{23,255,0 },{0,255,16 },{0,255,54 },
+							{0,255,92 },{0,255,131},{0,255,168},{0,255,208},
+							{0,255,244},{0,228,255},{0,212,255},{0,196,255},
+							{0,180,255},{0,164,255},{0,148,255},{0,132,255},
+							{0,116,255},{0,100,255},{0,84,255 },{0,68,255 },
+							{0,50,255 },{0,34,255 },{0,18,255 },{0,2,255  },
+							{0,0,255  },{1,0,255  },{2,0,255  },{3,0,255  },
+							{4,0,255  },{5,0,255 }};
 
 static inline uint32_t gamma_correct_565_888(uint16_t pix) {
     uint32_t r_gamma = pix & 0xf800u;
@@ -69,7 +98,13 @@ void core1_entry() {
 
     while (1) {
 
-        uint16_t *img = (uint16_t*)my_values;
+        uint16_t *img;
+        if (select_img == 1){
+            img = (uint16_t*)my_values_1;
+        }
+        else{
+            img = (uint16_t*)my_values_2;
+        }
 
         //hub75 write to screen
         for (int rowsel = 0; rowsel < (1 << ROWSEL_N_PINS); ++rowsel) {
@@ -102,15 +137,14 @@ void core1_entry() {
 int main() {
     stdio_init_all();
 
+    select_img = 1; 
+
     multicore_launch_core1(core1_entry);
 
     for (int i = 0; i<(WIDTH * HEIGHT); i++){
-        my_values[i] = 0xc7;
+        my_values_1[i] = 0xc7;
+        my_values_2[i] = 0xc7;
     }
-
-    uint32_t gc_row[2][WIDTH];
-    uint16_t *img = (uint16_t*)my_values;
-
 
         // This example will use I2C0 on the default SDA and SCL pins (0, 1 on a Pico)
 	i2c_init(i2c0, 1000000);
@@ -150,31 +184,44 @@ int main() {
             printf("%6.2f, ", result);
 
             if (result > 25) {
-                my_temps[i]  = 0xc7;
+                my_temps[i]  = (int16_t)(result) ;
             }
             else{
-                my_temps[i] = 0x00;
+                my_temps[i] = (int16_t)(result) ;
             }
         }
         printf("\n");
 
-        for (int i = 0; i<(WIDTH * HEIGHT); i++){
-            my_values[i] = 0xc7;
-        }   
+        //for (int i = 0; i<(WIDTH * HEIGHT); i++){
+        //    my_values[i] = 0xc7;
+        //}   
 
         for (int i = 0; i<8; i++){
             for (int j = 0; j<8; j++){
                 for(int a = 0; a < 8; a++){
                     for(int b = 0; b< 8; b++){
-                        my_values[(((i*8)+b)*WIDTH)+((j*8)+a) ] = my_temps[(j*8)+i];
+                        uint16_t value_r = ((RGB_LOOKUP[my_temps[(j*8)+i]][0] >> 3) & 0x1f) << 11;
+                        uint16_t value_g = ((RGB_LOOKUP[my_temps[(j*8)+i]][1] >> 2) & 0x3f) << 5;
+                        uint16_t value_b = (RGB_LOOKUP[my_temps[(j*8)+i]][2] >> 3) & 0x1f;
+
+                        uint16_t rgb_value = (uint16_t) (value_r | value_g | value_b);
+
+                        if (select_img==2){
+                            my_values_1[(((i*8)+b)*WIDTH)+((j*8)+a) ] = rgb_value;
+                        }
+                        else{
+                            my_values_2[(((i*8)+b)*WIDTH)+((j*8)+a) ] = rgb_value;
+                        }
                     }      
                 }
-                //printf("%i, ",(i*8)+j);
-                //printf("%i, ",my_values[(i*WIDTH)+j]);
             }
         }
-
-        printf("\n");
+        if (select_img==1){
+            select_img = 2;
+        }
+        else{
+            select_img = 1;
+        }
 
         sleep_ms(200);
     }
