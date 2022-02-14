@@ -103,9 +103,17 @@ jobs:
       - name: Make directory
         run: |
           mkdir project/PMod_Hub75/Software/build
+          mkdir project/PMod_Hub75/Software/ir_disp/build
 
-      - name: Build
+      - name: Build Basic 
         working-directory: project/PMod_Hub75/Software/build
+        shell: bash
+        run: |
+          PICO_SDK_PATH=../../../pico-sdk cmake ..
+          make
+
+      - name: Build IR Display
+        working-directory: project/PMod_Hub75/Software/ir_disp/build
         shell: bash
         run: |
           PICO_SDK_PATH=../../../pico-sdk cmake ..
@@ -117,5 +125,6 @@ jobs:
         with:
           name: RP_Pico_Files
           path: |
+            project/PMod_Hub75/Software/ir_disp/build/*.uf2
             project/PMod_Hub75/Software/build/*.uf2
           if-no-files-found: warn
