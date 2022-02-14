@@ -7,7 +7,7 @@ on:
     paths:
       - 'PMod_Hub75/Hardware/*.kicad_sch'
       - 'PMod_Hub75/Hardware/*.kicad_pcb'
-      - 'PMod_Hub75/Software/*''
+      - 'PMod_Hub75/Software/*'
       - '.github/workflows/hub75.yml'
       - 'kibot.yml'
 
