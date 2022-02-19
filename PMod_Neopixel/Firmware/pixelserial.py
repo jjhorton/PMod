@@ -33,12 +33,12 @@ RGB_LOOKUP = [[255,14,240],[255,13,240],[255,12,240],[255,11,240], \
 
 x = bytes(bytearray(range(256)))
 
-for count in range(85):
+for count in range(80):
 	print("line: " + str(count) + " (RGB:" + str(RGB_LOOKUP[count][0])+","+ str(RGB_LOOKUP[count][1])+","+ str(RGB_LOOKUP[count][2]) + ")")
 	
 	for y in range(10):
 		for x in range(10):
-			offset = int(x/2)
+			offset = int(x)
 			#print("offset: " + str(offset))
 			packet = bytearray()
 			packet.append(int(RGB_LOOKUP[count+offset][0]/8))
