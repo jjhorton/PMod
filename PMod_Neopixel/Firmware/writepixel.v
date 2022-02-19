@@ -29,8 +29,8 @@ module writepixel(
 
 	// clock rate for calculating the clock divider
 	parameter 	clk_in_rate_hz = 12_000_000;
-	parameter	clk_pixel_rate_hz = 12_000_000;
-	parameter 	clk_divider_count = clk_in_rate_hz/(clk_pixel_rate_hz);
+	parameter	clk_pixel_rate_hz = 3_000_000;
+	parameter 	clk_divider_count = (clk_in_rate_hz/(2*clk_pixel_rate_hz))-1;
 	//parameter 	clk_divider_count = 1;
 
 
