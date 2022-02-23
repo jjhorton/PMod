@@ -2308,7 +2308,7 @@
     (uuid e44ab8a7-c22a-403e-a5e4-f23c991f63d5)
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 195.58 109.22 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 195.58 109.22 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 179a3432-b7e1-49d1-9e25-005575fc3c53)
     (property "Reference" "D62" (id 0) (at 200.66 101.6 0))
@@ -2325,7 +2325,7 @@
     (pin "4" (uuid 3ca884c3-7a8c-4072-89a4-68adfa5441b9))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 195.58 78.74 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 195.58 78.74 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 2500f482-9078-483c-b8ad-b5f195bb070c)
     (property "Reference" "D61" (id 0) (at 200.66 71.12 0))
@@ -2342,7 +2342,7 @@
     (pin "4" (uuid 3d2b43b9-d6aa-477c-b4f9-c737bbd67c36))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 252.73 109.22 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 252.73 109.22 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 2acd0164-8940-45d4-b63f-935a27e749db)
     (property "Reference" "D68" (id 0) (at 257.81 101.6 0))
@@ -2359,7 +2359,7 @@
     (pin "4" (uuid d854ca12-8f76-4ae5-b35a-3d3a59e98e95))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 81.28 36.83 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 81.28 36.83 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 33cbb580-3a1c-4938-9e3d-2080527eff4f)
     (property "Reference" "D47" (id 0) (at 86.36 29.21 0))
@@ -2376,7 +2376,7 @@
     (pin "4" (uuid cb808f47-3365-499a-803d-8389bbbb80d2))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 138.43 58.42 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 138.43 58.42 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 447434ff-639b-4f2c-81fc-85c4eebc83e6)
     (property "Reference" "D54" (id 0) (at 143.51 50.8 0))
@@ -2393,7 +2393,7 @@
     (pin "4" (uuid 858b91e5-1e03-4178-aa80-012f5fe2acec))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 195.58 130.81 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 195.58 130.81 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 4e3ce1fb-f821-4231-aedc-709185fb8bd9)
     (property "Reference" "D63" (id 0) (at 200.66 123.19 0))
@@ -2410,7 +2410,7 @@
     (pin "4" (uuid 14d10ef0-342b-489e-8347-139e1bddf0af))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 81.28 78.74 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 81.28 78.74 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 684e8a11-3cec-4b0a-a836-9472096eb97e)
     (property "Reference" "D49" (id 0) (at 86.36 71.12 0))
@@ -2427,7 +2427,7 @@
     (pin "4" (uuid 4694ece1-b041-4a4a-bf6e-a7968b5d7e1c))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 138.43 109.22 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 138.43 109.22 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 84838c9a-9873-4e82-8000-fd5a289c237d)
     (property "Reference" "D56" (id 0) (at 143.51 101.6 0))
@@ -2444,7 +2444,7 @@
     (pin "4" (uuid 455525e8-8d55-4bb0-b392-a59113843167))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 252.73 58.42 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 252.73 58.42 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 84a105a8-8456-426d-87d0-4b0c320c748e)
     (property "Reference" "D66" (id 0) (at 257.81 50.8 0))
@@ -2461,7 +2461,7 @@
     (pin "4" (uuid abef19df-8640-4662-9fd9-6229a8a19b81))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 138.43 130.81 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 138.43 130.81 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 969e8dbe-ec66-47eb-ba71-cd0d7a2b408d)
     (property "Reference" "D57" (id 0) (at 143.51 123.19 0))
@@ -2478,7 +2478,7 @@
     (pin "4" (uuid 6ed4443e-9720-4ecf-8e6b-cea719ca8d8f))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 138.43 78.74 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 138.43 78.74 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid ae76a4f3-4633-45af-a3db-edf074bb8c39)
     (property "Reference" "D55" (id 0) (at 143.51 71.12 0))
@@ -2495,7 +2495,7 @@
     (pin "4" (uuid 9190d042-d516-4f2f-8b77-6750fccab75e))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 252.73 36.83 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 252.73 36.83 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid b827ecdf-1b66-44ec-bde7-a8dde4c9d388)
     (property "Reference" "D65" (id 0) (at 257.81 29.21 0))
@@ -2512,7 +2512,7 @@
     (pin "4" (uuid 1666cf9e-5648-4d24-b7d0-aac377a90c1d))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 195.58 58.42 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 195.58 58.42 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid bc0905a4-5565-47a1-ba57-c862832d9094)
     (property "Reference" "D60" (id 0) (at 200.66 50.8 0))
@@ -2529,7 +2529,7 @@
     (pin "4" (uuid c273b46c-8416-411e-8b08-deeaa8865e8e))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 195.58 151.13 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 195.58 151.13 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid c2d6ce7f-f570-4828-81f6-e61aaa8053a6)
     (property "Reference" "D64" (id 0) (at 200.66 143.51 0))
@@ -2546,7 +2546,7 @@
     (pin "4" (uuid 84e683d4-fcc7-4d25-add6-b4dcdb2523e9))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 138.43 151.13 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 138.43 151.13 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid c5cd3ca7-ad01-4126-85ad-136b1319e815)
     (property "Reference" "D58" (id 0) (at 143.51 143.51 0))
@@ -2563,7 +2563,7 @@
     (pin "4" (uuid 149f9817-0a82-4b4f-b830-6ccbca1d074e))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 138.43 36.83 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 138.43 36.83 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid dcbb4a67-5a69-4e64-aedf-efc8780db100)
     (property "Reference" "D53" (id 0) (at 143.51 29.21 0))
@@ -2580,7 +2580,7 @@
     (pin "4" (uuid ea0e175e-2de3-4690-8e1d-31aefbf352ff))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 195.58 36.83 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 195.58 36.83 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid def00147-206e-499b-be08-af72a6d9f03f)
     (property "Reference" "D59" (id 0) (at 200.66 29.21 0))
@@ -2597,7 +2597,7 @@
     (pin "4" (uuid 725684ac-7221-4094-9ddd-fdc62ce33b36))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 81.28 151.13 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 81.28 151.13 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid eff8b662-accf-41f7-ada3-e05e26eda063)
     (property "Reference" "D52" (id 0) (at 86.36 143.51 0))
@@ -2614,7 +2614,7 @@
     (pin "4" (uuid 18b734a9-2c4d-4c9b-a30f-7de841e4fb78))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 252.73 78.74 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 252.73 78.74 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid f0fa305e-e397-4a04-8c21-ac8f2f84b345)
     (property "Reference" "D67" (id 0) (at 257.81 71.12 0))
@@ -2631,7 +2631,7 @@
     (pin "4" (uuid e204d70f-5fb8-48aa-9b67-c9c8513d5799))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 81.28 130.81 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 81.28 130.81 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid f3460d6d-47f9-41db-b489-b0948fb031ac)
     (property "Reference" "D51" (id 0) (at 86.36 123.19 0))
@@ -2648,7 +2648,7 @@
     (pin "4" (uuid be3cbe32-e296-43b6-9b9e-7acb160a08da))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 81.28 109.22 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 81.28 109.22 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid fc80fbeb-31ea-4c0d-9e45-a2ed38de5f7a)
     (property "Reference" "D50" (id 0) (at 86.36 101.6 0))
@@ -2665,7 +2665,7 @@
     (pin "4" (uuid ba72abad-d37c-4018-8be8-958134922e0e))
   )
 
-  (symbol (lib_id "Device:LED_ARGB") (at 81.28 58.42 0)
+  (symbol (lib_id "Device:LED_ARGB") (at 81.28 58.42 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid fd5d2eb0-d88b-413f-871f-660f810fe451)
     (property "Reference" "D48" (id 0) (at 86.36 50.8 0))
