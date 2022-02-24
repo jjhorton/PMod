@@ -4,6 +4,15 @@
 
   (paper "A4")
 
+  (title_block
+    (title "PMod RGB & Segment Display")
+    (rev "v0.1")
+    (company "James Horton")
+    (comment 1 "interface, all LED's are designed to be indivdually addressable ")
+    (comment 2 "This design is a 4 Digit Seven Segment Display made from RGB LED's, controlled using I2C")
+    (comment 4 "Licensed Under CERN Open Hardware Licence Version 2 - Permissive")
+  )
+
   (lib_symbols
     (symbol "Device:LED_ARGB" (pin_names (offset 0) hide) (in_bom yes) (on_board yes)
       (property "Reference" "D" (id 0) (at 0 9.398 0)
