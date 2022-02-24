@@ -289,7 +289,6 @@
     )
   )
 
-
   (junction (at 214.63 78.74) (diameter 0) (color 0 0 0 0)
     (uuid 15b6e507-f695-4934-b66a-d74cfe3c577b)
   )
@@ -2035,6 +2034,10 @@
     (effects (font (size 0.7 0.7) bold) (justify left bottom))
     (uuid 03d7c296-d8ee-4144-a927-1e7a0b6196ae)
   )
+  (label "CS[39..1]" (at 41.91 15.24 0)
+    (effects (font (size 1.27 1.27) bold) (justify left bottom))
+    (uuid 067d299a-8e10-4177-857e-ea374d6813c5)
+  )
   (label "CS17" (at 71.12 151.13 0)
     (effects (font (size 0.7 0.7) bold) (justify left bottom))
     (uuid 0918f972-d784-48f3-8805-6575373d5047)
@@ -2300,11 +2303,11 @@
     (uuid f638eabf-4c78-4aa8-9e53-76ff9d1c4eb2)
   )
 
-  (hierarchical_label "SW_Bus" (shape input) (at 31.75 175.26 180)
+  (hierarchical_label "SW[9..1]" (shape input) (at 31.75 175.26 180)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid d40c9660-fdd2-491b-aef7-3a9a6e69fb18)
   )
-  (hierarchical_label "CS_Bus" (shape input) (at 34.29 15.24 180)
+  (hierarchical_label "CS[39..1]" (shape input) (at 34.29 15.24 180)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid e44ab8a7-c22a-403e-a5e4-f23c991f63d5)
   )
