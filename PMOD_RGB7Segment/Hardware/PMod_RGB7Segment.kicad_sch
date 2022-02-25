@@ -299,9 +299,9 @@
   )
 
   (no_connect (at 60.96 88.9) (uuid e6b7655c-e331-46a8-9574-04386ed20d87))
-  (no_connect (at 63.5 88.9) (uuid e6b7655c-e331-46a8-9574-04386ed20d87))
-  (no_connect (at 60.96 76.2) (uuid e6b7655c-e331-46a8-9574-04386ed20d87))
-  (no_connect (at 63.5 76.2) (uuid e6b7655c-e331-46a8-9574-04386ed20d87))
+  (no_connect (at 63.5 88.9) (uuid e6b7655c-e331-46a8-9574-04386ed20d88))
+  (no_connect (at 60.96 76.2) (uuid e6b7655c-e331-46a8-9574-04386ed20d89))
+  (no_connect (at 63.5 76.2) (uuid e6b7655c-e331-46a8-9574-04386ed20d8a))
 
   (wire (pts (xy 106.68 69.85) (xy 58.42 69.85))
     (stroke (width 0) (type default) (color 0 0 0 0))
@@ -1126,7 +1126,7 @@
       (reference "D90") (unit 1) (value "LED_ARGB") (footprint "jjh:SX-0402-RGB")
     )
     (path "/f453d422-1408-4cad-989a-eaaeedef982e/6e4173ef-9b94-415e-ab5e-9fffdb0eef62"
-      (reference "IC1") (unit 1) (value "IS31FL3741A-QFLS4-TR") (footprint "QFN40P700X700X80-61N-D")
+      (reference "IC1") (unit 1) (value "IS31FL3741A-QFLS4-TR") (footprint "jjh:QFN40P700X700X80-61N-D")
     )
     (path "/6247b2cf-2875-406a-8c7f-ea1deaf8969b"
       (reference "J1") (unit 1) (value "Conn_02x06_Odd_Even") (footprint "Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical")
