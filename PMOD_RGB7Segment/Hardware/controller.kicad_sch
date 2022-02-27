@@ -2056,7 +2056,7 @@
     (uuid 6e4173ef-9b94-415e-ab5e-9fffdb0eef62)
     (property "Reference" "IC1" (id 0) (at 146.05 20.32 0))
     (property "Value" "IS31FL3741A-QFLS4-TR" (id 1) (at 146.05 22.86 0))
-    (property "Footprint" "QFN40P700X700X80-61N-D" (id 2) (at 193.04 69.85 0)
+    (property "Footprint" "jjh:QFN40P700X700X80-61N-D" (id 2) (at 193.04 69.85 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
     (property "Datasheet" "" (id 3) (at 193.04 72.39 0)
