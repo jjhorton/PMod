@@ -2372,7 +2372,7 @@
     (effects (font (size 1.27 1.27) bold) (justify left bottom))
     (uuid f14cfb7a-dbb2-4c99-988b-5ea5110c1396)
   )
-  (label "CS20" (at 71.12 63.5 0)
+  (label "CS30" (at 71.12 63.5 0)
     (effects (font (size 0.7 0.7) bold) (justify left bottom))
     (uuid f19980be-92fb-4b70-85ab-eaa51b6c2f68)
   )
