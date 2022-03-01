@@ -20,10 +20,13 @@ module writepixel(
     parameter   DATA_4  = 5;
     parameter   FINISH  = 6;
 
-    //
+    // registers for the system
     reg [2:0] state = 0;
     reg [2:0] bit_counter;
+    reg [7:0] my_value;
+    reg sys_clk;
     reg data_out = 0;
+    reg data_ready = 0;
     reg clk_out = 0;
 	reg busy_out = 0;
 
@@ -34,18 +37,46 @@ module writepixel(
 
 
 
+    //read in the data from input on valid signal
+	always @(posedge clk) begin
+		if (valid == 1)
+		begin
+			my_value <= value;
+			data_ready <= 1'b1;
+		end
+
+		if (busy)
+			data_ready <= 1'b0;
+	end
+
+    //if our status is not idle, system is busy
+    always @(posedge clk) begin
+		if (state != IDLE)
+			busy_out <= 1'b1;
+		else
+			busy_out <= 1'b0;
+	end
+
     //state machine for sending values
-	always @(posedge pixel_clk) begin
+	always @(posedge sys_clk) begin
 		case(state)
 			IDLE:
 				begin
-                    //
+                    //idle is both clk and data high
                     data_out    <= 1;
                     clk_out     <= 1;
+
+                    //change to start tx if data avalible
+                    if (data_ready == 1)
+                        state <= START;
                 end
             START:
 				begin
                     state <= DATA_2;
+
+                    // set data and clk to indicate the start
+                    data_out    <= 0;
+                    clk_out     <= 1;
 
                     //initalise the bit counter
                     bit_counter <= 0;
@@ -54,28 +85,27 @@ module writepixel(
 				begin
                     state <= DATA_2;
 
-                    data_out <= ;
+                    data_out <= my_value[bit_counter];
                     clk_out <= 0;
                 end
             DATA_2:
 				begin
                     state <= DATA_3;
 
-                    data_out = ;
-                    clk_out = 1;
+                    data_out <= my_value[bit_counter];
+                    clk_out <= 1;
                 end
             DATA_3:
 				begin
                     state <= DATA_4;
-                    
-                    bit_counter <= bit_counter + 1 ;
-                    data_out = ;
-                    clk_out = 1;
+                    data_out <= my_value[bit_counter];
+                    clk_out <= 1;
                 end
             DATA_4:
 				begin
-                    if(bit_counter < 8)
+                    if(bit_counter < 7)
                         state <= DATA_1; 
+                        bit_counter <= bit_counter + 1 ;
                     else
                         state <= FINISH;
 
@@ -91,5 +121,10 @@ module writepixel(
                     state <= IDLE
                 end
             
+    end
+
+    assign d_out = data_out;
+    assign d_clk = clk_out;
+    assign busy = busy_out;
 
 )
