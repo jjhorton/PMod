@@ -26,10 +26,10 @@ module writepixels(clk, valid, value,
     reg [(WIDTH-1):0]   my_value;
     reg [7:0]           counter =0;
     reg sys_clk;
-    reg data_out = 0;
+    reg data_out = 1;
     reg data_ready = 1'b0;
-    reg clk_out = 0;
-	reg busy_out = 0;
+    reg clk_out = 1;
+	reg busy_out;
 
     // clock rate for calculating the clock divider
 	parameter 	clk_in_rate_hz = 12_000_000;
@@ -38,7 +38,7 @@ module writepixels(clk, valid, value,
 
 	//clock divider for setting the rate that the state can change
 	always @(posedge clk) begin
-		if (counter < clk_divider_count[8:1] )
+		if (counter < (clk_divider_count[8:1]-1) )
 			begin
                 counter <= counter + 1'b1;
 			end
@@ -57,7 +57,7 @@ module writepixels(clk, valid, value,
 			data_ready <= 1'b1;
 		end
 
-		if (busy)
+		if (busy_out)
 			data_ready <= 1'b0;
 	end
 
@@ -123,7 +123,10 @@ module writepixels(clk, valid, value,
                         bit_counter <= bit_counter + 1 ;
                         end
                     else
+                        begin
                         state <= FINISH;
+                        bit_counter <= 0;
+                        end
 
                     data_out <= my_value[bit_counter];
                     clk_out <= 0;
