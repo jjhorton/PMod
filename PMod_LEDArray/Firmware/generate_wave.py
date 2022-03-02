@@ -7,5 +7,5 @@ path_list = ['TOP/top/writepixels/d_clk',
              'TOP/top/writepixels/d_out']
 
 extractor = WaveExtractor('trace.vcd', 'trace.json',path_list)
-extractor.wave_format('TOP/top/writepixels', 'b')
+extractor.wave_format('TOP/top/writepixels/d_out', 'b')
 extractor.execute()
