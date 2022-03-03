@@ -8,6 +8,7 @@ The boards in the table are being checked using github actions [Kibot](https://g
 | --- | --- | --- |
 | PMod 7 Segment Display | [![PMod 7 Segment Display](https://github.com/jjhorton/PMod/actions/workflows/pmod_7segment.yml/badge.svg)](https://github.com/jjhorton/PMod/actions/workflows/pmod_7segment.yml) | An 8 digit, 7 segment display |
 | PMod CC1101 | [![PMod CC1101](https://github.com/jjhorton/PMod/actions/workflows/cc1101.yml/badge.svg)](https://github.com/jjhorton/PMod/actions/workflows/cc1101.yml) | sub-1GHz Transceiver board based on a CC1101 |
+| PMod GPS | [![PMod GPS](https://github.com/jjhorton/PMod/actions/workflows/pmod_gps.yml/badge.svg)](https://github.com/jjhorton/PMod/actions/workflows/pmod_gps.yml) | A board with a self contained GPS receiver and antenna | 
 | PMod Hub75 | [![PMod Hub75](https://github.com/jjhorton/PMod/actions/workflows/hub75.yml/badge.svg)](https://github.com/jjhorton/PMod/actions/workflows/hub75.yml) | Forr connection Hub75 display using PMod |
 | PMod Infrared Array | [![PMod Infrared Array](https://github.com/jjhorton/PMod/actions/workflows/infrared_array.yml/badge.svg)](https://github.com/jjhorton/PMod/actions/workflows/infrared_array.yml) | contains an 8x8 IR Thermal sensor |
 | PMod LED | [![PMod LED](https://github.com/jjhorton/PMod/actions/workflows/Leds.yml/badge.svg)](https://github.com/jjhorton/PMod/actions/workflows/Leds.yml) | Contains 8 LED's which can be individually turned on and off |
