@@ -8,7 +8,7 @@ on:
     paths:
       - 'kibot.yml'
       - '.github/workflows/Leds.yml'
-      - 'PMod_LED/Hardware/*.sch'
+      - 'PMod_LED/Hardware/*.kicad_sch'
       - 'PMod_LED/Hardware/*.kicad_pcb'
       - 'PMod_LED/Software/CMakelists.txt'
       - 'PMod_LED/Software/main.c'
