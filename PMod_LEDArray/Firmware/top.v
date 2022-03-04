@@ -110,6 +110,7 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B);
 
     assign pmod1a[7:4] = 4'b0000;
     assign pmod1a[0] = 0;
+    assign pmod1a[1] = 0;
 
 	assign o_PMOD1A = pmod1a;
 	assign o_PMOD1B = pmod1b;
