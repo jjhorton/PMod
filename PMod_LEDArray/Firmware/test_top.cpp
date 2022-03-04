@@ -72,7 +72,7 @@ int main(int argc, char **argv){
 	tfp->open("trace.vcd");
 
 
-	for(int i=0; i<512; i++){
+	for(int i=0; i<8192; i++){
 		tick(++tickcount, tb, tfp);
 		if(tickcount==16){
 			tb->RX = 1;
@@ -80,7 +80,6 @@ int main(int argc, char **argv){
 		else {
 			tb->RX = 0;
 		}
-		
 	}
 
 	Verilated::mkdir("logs");

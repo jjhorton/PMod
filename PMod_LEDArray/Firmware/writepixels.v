@@ -40,7 +40,13 @@ module writepixels(clk, valid, value,
 	always @(posedge clk) begin
 		if (counter < (clk_divider_count[8:1]-1) )
 			begin
-                counter <= counter + 1'b1;
+                if ((valid == 1) & (busy == 0))
+                    begin
+                    counter <= 0;
+			        sys_clk <= ~sys_clk;
+                    end
+                else
+                    counter <= counter + 1'b1;
 			end
 		else
             begin
@@ -51,14 +57,14 @@ module writepixels(clk, valid, value,
 
     //read in the data from input on valid signal
 	always @(posedge clk) begin
-		if (valid == 1)
+		if ((valid == 1) & (state == IDLE))
 		begin
 			my_value <= value;
 			data_ready <= 1'b1;
 		end
-
-		if (busy_out)
-			data_ready <= 1'b0;
+ 
+	    if (state != IDLE)
+		    data_ready <= 1'b0;
 	end
 
     //if our status is not idle, system is busy
@@ -66,7 +72,15 @@ module writepixels(clk, valid, value,
 		if (state != IDLE)
 			busy_out <= 1'b1;
 		else
-			busy_out <= 1'b0;
+            if(data_ready == 1)
+                busy_out <= 1'b1;
+            else
+                begin 
+                if (valid == 1)
+                    busy_out <= 1'b1;
+                else
+                    busy_out <= 1'b0;
+                end
 	end
 
     //state machine for sending values
