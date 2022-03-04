@@ -188,7 +188,7 @@ jobs:
       - name: Run yosys on the files
         working-directory: project/PMod_LEDArray/Firmware
         run: |
-          yowasp-yosys -p 'synth_ice40 -top pixel -json pixel.json' top.v writepixels.v
+          yowasp-yosys -p 'synth_ice40 -top top -json pixel.json' top.v writepixels.v
 
       - name: Run nextpnr on the files
         working-directory: project/PMod_LEDArray/Firmware
