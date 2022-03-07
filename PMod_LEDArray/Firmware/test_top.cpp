@@ -72,7 +72,7 @@ int main(int argc, char **argv){
 	tfp->open("trace.vcd");
 
 
-	for(int i=0; i<8192; i++){
+	for(int i=0; i<32000; i++){
 		tick(++tickcount, tb, tfp);
 		if(tickcount==16){
 			tb->RX = 1;
