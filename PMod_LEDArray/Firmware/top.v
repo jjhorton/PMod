@@ -106,11 +106,12 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B);
         endcase
     end
 
-    writepixels writepixels(CLK ,valid, value, pmod1a[2], pmod1a[3], busy);
+    writepixels writepixels(CLK ,valid, value, pmod1a[7], pmod1a[6], busy);
 
-    assign pmod1a[7:4] = 4'b0000;
-    assign pmod1a[0] = 0;
-    assign pmod1a[1] = 0;
+    assign pmod1a[0] = CLK;
+    assign pmod1a[3:1] = 0;
+    assign pmod1a[4] = pps;
+    assign pmod1a[5] = busy;
 
 	assign o_PMOD1A = pmod1a;
 	assign o_PMOD1B = pmod1b;
