@@ -94,7 +94,7 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B);
             begin 
                 valid <= 0;
                 pause_counter <= pause_counter + 1;
-                if(pause_counter < (clk_in_rate_hz/10000) )
+                if(pause_counter < (clk_in_rate_hz/1000) )
                     state <= PAUSE;
                 else
                     state <= SETDISPLAY;
@@ -105,7 +105,10 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B);
                 // if the display is not busy set the input
                 if((busy == 0) & (valid == 0))
                 begin
-                    pos <= 8'b11000000 + {2{byte_count}};
+                    /* verilator lint_off WIDTH */
+                    pos <= 8'b11000000 + byte_count;
+                    /* verilator lint_on WIDTH */
+                    
                     value <= tx_value[byte_count];
                     valid <= 1;
 
