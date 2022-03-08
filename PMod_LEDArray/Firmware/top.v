@@ -8,6 +8,7 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B);
 
 
     reg [7:0] tx_value [0:15];
+    reg [3:0] system_state;
 	reg [7:0] pmod1a;
 	reg [7:0] pmod1b = 8'b00000000;
     reg valid;
@@ -60,15 +61,14 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B);
 
     reg [3:0] byte_count;
     reg [31:0] pause_counter;
-    reg [3:0] state;
     reg [7:0] pos = 8'b00000000;
 
     always @(posedge CLK) begin
-		case(state)
+		case(system_state)
 			IDLE:
             begin
                 if(pps == 1)
-                    state <= INITDISPLAY;
+                    system_state <= INITDISPLAY;
 
                 valid <= 0;
             end
@@ -80,7 +80,7 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B);
                 begin
                     value <= 8'b10001001;
                     valid <= 1;
-                    state <= PAUSE;
+                    system_state <= PAUSE;
                     byte_count <= 0;
                     pos <= 8'b11111111;
                 end
@@ -95,9 +95,9 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B);
                 valid <= 0;
                 pause_counter <= pause_counter + 1;
                 if(pause_counter < (clk_in_rate_hz/1000) )
-                    state <= PAUSE;
+                    system_state <= PAUSE;
                 else
-                    state <= SETDISPLAY;
+                    system_state <= SETDISPLAY;
             end
 
             SETDISPLAY:
@@ -108,17 +108,17 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B);
                     /* verilator lint_off WIDTH */
                     pos <= 8'b11000000 + byte_count;
                     /* verilator lint_on WIDTH */
-                    
+
                     value <= tx_value[byte_count];
                     valid <= 1;
 
                     if(byte_count<15)
                     begin
-                        state <= SETDISPLAY;
+                        system_state <= SETDISPLAY;
                         byte_count <= byte_count + 1;
                     end
                     else
-                        state <= IDLE;
+                        system_state <= IDLE;
                 end
                 else
                     valid <= 0;
@@ -128,13 +128,10 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B);
 
     writepixels writepixels(CLK ,valid, pos, value, pmod1a[6], pmod1a[7], busy);
 
-    assign pmod1a[0] = CLK;
-    assign pmod1a[1] = valid;
-    assign pmod1a[3:2] = state[1:0];
-    assign pmod1a[4] = pps;
-    assign pmod1a[5] = busy;
+    assign pmod1a[0] = system_state[0];
+    assign pmod1a[5:1] = 5'b00000;
 
 	assign o_PMOD1A = pmod1a;
-	assign o_PMOD1B = pmod1b;
+	assign o_PMOD1B = pmod1a;
 
 endmodule
