@@ -15,14 +15,14 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B);
     reg busy;
 
     initial begin 
-        tx_value[0][7:0]  = 8'b11111111;
-        tx_value[1][7:0]  = 8'b10011001;
-        tx_value[2][7:0]  = 8'b10111101;
-        tx_value[3][7:0]  = 8'b10111111;
-        tx_value[4][7:0]  = 8'b11111111;
-        tx_value[5][7:0]  = 8'b11111111;
-        tx_value[6][7:0]  = 8'b11111111;
-        tx_value[7][7:0]  = 8'b11111111;
+        tx_value[0][7:0]  = 8'b00000110;
+        tx_value[1][7:0]  = 8'b01011011;
+        tx_value[2][7:0]  = 8'b01001111;
+        tx_value[3][7:0]  = 8'b11100110;
+        tx_value[4][7:0]  = 8'b01101101;
+        tx_value[5][7:0]  = 8'b01111101;
+        tx_value[6][7:0]  = 8'b00000111;
+        tx_value[7][7:0]  = 8'b01111111;
         tx_value[8][7:0]  = 8'b11111111;
         tx_value[9][7:0]  = 8'b10000001;
         tx_value[10][7:0] = 8'b11111011;
@@ -56,8 +56,7 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B);
     parameter 	IDLE 	    = 0;
 	parameter 	INITDISPLAY	= 1;
     parameter 	PAUSE	    = 2;
-    parameter 	SETADDR	    = 3;
-    parameter 	SETDISPLAY	= 4;
+    parameter 	SETDISPLAY	= 3;
 
     reg [3:0] byte_count;
     reg [31:0] pause_counter;
@@ -99,20 +98,6 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B);
                     state <= PAUSE;
                 else
                     state <= SETDISPLAY;
-            end
-
-            SETADDR:
-            begin
-                // if the display is not busy set the input
-                if((busy == 0) & (valid == 0))
-                begin
-                    value <= 8'b11000000;
-                    valid <= 1;
-                    state <= SETDISPLAY;
-                end
-                else
-                    valid <= 0;
-
             end
 
             SETDISPLAY:
