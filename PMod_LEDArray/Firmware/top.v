@@ -105,7 +105,7 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B);
                 // if the display is not busy set the input
                 if((busy == 0) & (valid == 0))
                 begin
-                    pos <= 8'b11000000 + byte_count;
+                    pos <= 8'b11000000 + {2{byte_count}};
                     value <= tx_value[byte_count];
                     valid <= 1;
 
