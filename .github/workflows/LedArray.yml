@@ -1,12 +1,8 @@
 name: "PMod LED Array"
 
 on:
-  push:
-    paths:
-      - 'PMod_LEDArray/Hardware/*'
-      - 'PMod_LEDArray/Software/*'
-      - '.github/workflows/LedArray.yml'
-      - 'kibot.yml'
+  schedule:
+    - cron: "0 8 * * 1"
   pull_request:
     paths:
       - 'PMod_LEDArray/Hardware/*'
@@ -18,27 +14,70 @@ on:
 jobs:
   Fabrication:
     runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: INTI-CMNB/KiBot@v1
-      with:
-        # Required - kibot config file
-        config: kibot.yml
-        # optional - prefix to output defined in config
-        dir: Hardware/Fabrication
-        # optional - schematic file
-        schema: 'PMod_LEDArray/Hardware/PMOD_LEDArray.sch'
-        # optional - PCB design file
-        board: 'PMod_LEDArray/Hardware/PMOD_LEDArray.kicad_pcb'
 
-    - name: Retrieve results
-      if: ${{ always() }}
-      uses: actions/upload-artifact@v2
-      with:
-        name: Fabrication_Files
-        path: |
-          Hardware/Fabrication/
-        if-no-files-found: warn
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          path: project
+
+      - name: Checkout latest KiBot
+        uses: actions/checkout@v2
+        with:
+          repository: INTI-CMNB/KiBot
+          path: kibot
+
+      - name: Checkout latest Interactive Html Bom
+        uses: actions/checkout@v2
+        with:
+          repository: INTI-CMNB/InteractiveHtmlBom
+          path: InteractiveHtmlBom
+
+      - name: Install deps
+        run: |
+          sudo add-apt-repository --yes ppa:kicad/kicad-6.0-releases
+          sudo apt update && sudo apt install --install-recommends kicad
+          wget http://archive.ubuntu.com/ubuntu/pool/universe/p/pygtk/python-gtk2_2.24.0-5.1ubuntu2_amd64.deb
+          wget http://archive.ubuntu.com/ubuntu/pool/universe/g/gtk-recordmydesktop/gtk-recordmydesktop_0.3.8-4.1ubuntu1_all.deb
+          sudo apt-get install ./python-gtk2_2.24.0-5.1ubuntu2_amd64.deb ./gtk-recordmydesktop_0.3.8-4.1ubuntu1_all.deb
+          sudo apt-get -y install librsvg2-bin xdotool xclip imagemagick
+          identify -version
+
+      - name: install pcbdraw
+        run: |
+          pip3 install --no-compile pcbdraw
+
+      - name: install InteractiveHtmlBom
+        working-directory: InteractiveHtmlBom
+        run: |
+          pip3 install --no-compile .
+
+      - name: install kibot
+        working-directory: kibot
+        run: |
+          pip3 install --no-compile .
+
+      - name: Make directory
+        working-directory: project
+        run: |
+          mkdir Hardware
+          mkdir Hardware/Fabrication
+          mv kibot.yml kibot.yaml
+          ls -lh
+
+      - name: Run KiBot
+        working-directory: project
+        run: |
+          kibot -b 'PMod_LEDArray/Hardware/PMOD_LEDArray.kicad_pcb' -e 'PMod_LEDArray/Hardware/PMOD_LEDArray.kicad_sch' -d 'Hardware/Fabrication' -c 'kibot.yaml' -v
+
+      - name: Retrieve results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: Fabrication_Files
+          path: |
+            project/Hardware/Fabrication/
+          if-no-files-found: warn
 
   Build-Software:
     runs-on: ubuntu-latest
@@ -79,3 +118,115 @@ jobs:
           path: |
             project/PMod_LEDArray /Software/build/*.uf2
           if-no-files-found: warn
+
+  Build-Firmware:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          path: project
+
+      - name: Install verilator tools
+        run: |
+          sudo apt-get install git perl python3 make autoconf g++ flex bison ccache
+          sudo apt-get install libgoogle-perftools-dev numactl perl-doc
+          sudo apt-get install libfl2  # Ubuntu only (ignore if gives error)
+          sudo apt-get install libfl-dev  # Ubuntu only (ignore if gives error)
+          sudo apt-get install zlibc zlib1g zlib1g-dev  # Ubuntu only (ignore if gives error)
+          sudo apt-get install lcov
+          wget https://github.com/sifive/verilator/releases/download/4.204-0sifive3/verilator_4.204-0sifive3_amd64.deb
+          sudo dpkg -i verilator_4.204-0sifive3_amd64.deb
+
+      - name: Run coverage
+        working-directory: project/PMod_LEDArray/Firmware
+        run: |
+          export VINC=/usr/share/verilator/include
+          make test
+
+      - name: Checkout vcd2json
+        uses: actions/checkout@v2
+        with:
+          repository: nanamake/vcd2json
+          path: vcd2json
+
+      - name: Generate plot of the waveform
+        working-directory: project/PMod_LEDArray/Firmware
+        run: |
+          sed -i '/^$/d' trace.vcd
+          python3 generate_wave.py
+
+
+      - name: Extract the test data
+        working-directory: project/PMod_LEDArray/Firmware
+        run: |
+          echo 'Testing Output:' >> test-results.txt
+          echo -n '<img src="https://svg.wavedrom.com/' >> test-results.txt
+          sed -i "s/\"/'/g" trace.json
+          echo '"/>' >> trace.json
+          cat trace.json | tr -d '\n' >> test-results.txt
+          echo 'Coverage Stats:' >> test-results.txt
+          echo '```'  >> test-results.txt
+          cat logs/coverage.txt >> test-results.txt
+          echo '```'  >> test-results.txt
+
+      - name: comment test results in PR
+        if: github.event.schedule != '0 8 * * 1'
+        uses: machine-learning-apps/pr-comment@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: project/PMod_LEDArray/Firmware/test-results.txt
+
+      - name: Install deps
+        run: |
+          sudo -H pip3 install yowasp-yosys
+          sudo -H pip3 install yowasp-nextpnr-ice40-all
+           # Runs a set of commands using the runners shell
+
+      - name: Run yosys on the files
+        working-directory: project/PMod_LEDArray/Firmware
+        run: |
+          yowasp-yosys -p 'synth_ice40 -top top -json pixel.json' top.v writepixels.v
+
+      - name: Run nextpnr on the files
+        working-directory: project/PMod_LEDArray/Firmware
+        run: |
+          yowasp-nextpnr-ice40 --up5k --package sg48 --json pixel.json --pcf icebreaker.pcf --asc pixel.asc --log nextpnr.log
+          yowasp-icepack pixel.asc pixel.bin
+
+      - name: Retrieve results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: Ice40_5K_Firmware
+          path: |
+            project/PMod_LEDArray/Firmware/pixel.bin
+            project/PMod_LEDArray/Firmware/trace.vcd
+          if-no-files-found: warn
+
+      - name: Extract the stats from the build log file
+        working-directory: project/PMod_LEDArray/Firmware
+        run: |
+          echo 'Info: FPGA Place and Route statistics:' > utilisation.txt
+          echo 'Info:```' >> utilisation.txt
+          awk '/Info: Logic utilisation before packing:/' RS= nextpnr.log >> utilisation.txt
+          echo 'Info: ' >> utilisation.txt
+          awk '/Total DFFs:/' RS= nextpnr.log  >> utilisation.txt
+          echo 'Info: ' >> utilisation.txt
+          awk '/Info: Device utilisation:/' RS= nextpnr.log >> utilisation.txt
+          echo 'Info: ' >> utilisation.txt
+          grep "MHz" nextpnr.log | tail -1  >> utilisation.txt
+          echo 'Info:```' >> utilisation.txt
+          sed 's/^.\{5\}//' utilisation.txt >results.txt
+          rm utilisation.txt
+
+      - name: comment PR
+        if: github.event.schedule != '0 8 * * 1'
+        uses: machine-learning-apps/pr-comment@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: project/PMod_LEDArray/Firmware/results.txt
+
