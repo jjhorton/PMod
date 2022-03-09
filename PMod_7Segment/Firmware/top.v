@@ -1,4 +1,4 @@
-module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2, LEDR_N);
+module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
 
     input   wire    CLK;
 	input 	wire 	RX;
@@ -6,15 +6,19 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2, LEDR_N);
 	output 	wire 	[7:0]	o_PMOD1A;
 	output 	wire 	[7:0]	o_PMOD1B;
     output 	wire 	[7:0]	o_PMOD2;
-    output  wire            LEDR_N;
 
 
     reg [7:0] tx_value [0:15];
 	reg [7:0] pmod1a;
-	reg [7:0] pmod1b = 8'b00000000;
+	reg [7:0] pmod1b;
     reg valid;
     reg [7:0] value;
     reg busy;
+    reg [3:0] byte_count;
+    reg [31:0] pause_counter;
+    reg [1:0] system_state = 2'b00;
+    reg [7:0] pos;
+
 
     initial begin 
         tx_value[0][7:0]  = 8'b00000110;
@@ -60,17 +64,12 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2, LEDR_N);
     parameter 	PAUSE	    = 2;
     parameter 	SETDISPLAY	= 3;
 
-    reg [3:0] byte_count;
-    reg [31:0] pause_counter;
-    reg [1:0] state;
-    reg [7:0] pos = 8'b00000000;
-
     always @(posedge CLK) begin
-		case(state)
+		case(system_state)
 			IDLE:
             begin
                 if(pps == 1)
-                    state <= INITDISPLAY;
+                    system_state <= INITDISPLAY;
 
                 valid <= 0;
             end
@@ -82,7 +81,7 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2, LEDR_N);
                 begin
                     value <= 8'b10001001;
                     valid <= 1;
-                    state <= PAUSE;
+                    system_state <= PAUSE;
                     byte_count <= 0;
                     pos <= 8'b11111111;
                 end
@@ -97,9 +96,9 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2, LEDR_N);
                 valid <= 0;
                 pause_counter <= pause_counter + 1;
                 if(pause_counter < (clk_in_rate_hz/1000) )
-                    state <= PAUSE;
+                    system_state <= PAUSE;
                 else
-                    state <= SETDISPLAY;
+                    system_state <= SETDISPLAY;
             end
 
             SETDISPLAY:
@@ -107,23 +106,27 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2, LEDR_N);
                 // if the display is not busy set the input
                 if((busy == 0) & (valid == 0))
                 begin
-                    /* verilator lint_off WIDTH */
-                    pos <= 8'b11000000 + byte_count;
-                    /* verilator lint_on WIDTH */
+                    pos[7:4] <= 4'b1100;
+                    pos[3:0] <= byte_count;
+
                     value <= tx_value[byte_count];
                     valid <= 1;
 
                     if(byte_count<15)
                     begin
-                        state <= SETDISPLAY;
+                        system_state <= SETDISPLAY;
                         byte_count <= byte_count + 1;
                     end
                     else
-                        state <= IDLE;
+                        system_state <= IDLE;
                 end
                 else
                     valid <= 0;
             end
+
+            default:
+                system_state <= IDLE;
+
         endcase
     end
 
@@ -134,7 +137,5 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2, LEDR_N);
 	assign o_PMOD1A = pmod1a;
 	assign o_PMOD1B = pmod1a;
     assign o_PMOD2 =  pmod1a;
-
-    assign LEDR_N = state[0];
 
 endmodule

@@ -14,7 +14,7 @@ test:
 	lcov --list logs/coverage.info > logs/coverage.txt
 
 build:
-	yosys -p 'synth_ice40 -top top -json $(PROJ).json' top.v writepixels.v
+	yosys -p 'synth_ice40 -abc2 -top top -json $(PROJ).json' top.v writepixels.v
 	nextpnr-ice40 --$(DEVICE) --package $(PACKAGE) --json $(PROJ).json --pcf $(PIN_DEF) --asc $(PROJ).asc
 	icepack $(PROJ).asc $(PROJ).bin
 
