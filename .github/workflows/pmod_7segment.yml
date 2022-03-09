@@ -7,7 +7,7 @@ on:
   pull_request:
     paths:
       - 'kibot.yml'
-      - '.github/workflows/pmod_7Segment.yml'
+      - '.github/workflows/pmod_7segment.yml'
       - 'PMod_7Segment/hardware/*.sch'
       - 'PMod_7Segment/hardware/*.kicad_pcb'
       - 'PMod_7Segment/Firmware/*'
