@@ -1,17 +1,18 @@
 name: "PMod 7 Segment Display"
 
 on:
-    schedule:
+  schedule:
     - cron: "0 8 * * 1"
+  
   pull_request:
     paths:
+      - 'kibot.yml'
+      - '.github/workflows/pmod_7segment.yml'
       - 'PMod_7Segment/hardware/*.sch'
       - 'PMod_7Segment/hardware/*.kicad_pcb'
-      - 'PMod_7Segment/firmware/*'
-      - '.github/workflows/pmod_7Segment.yml'
+      - 'PMod_7Segment/Firmware/*'
       - 'PMod_7Segment/Software/*'
-      - 'kibot.yml'
-
+      
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   Fabrication:
@@ -77,7 +78,7 @@ jobs:
           path: |
             project/PMod_7Segment /Software/build/*.uf2
           if-no-files-found: warn
-   Build-Firmware:
+  Build-Firmware:
     runs-on: ubuntu-latest
 
     steps:
