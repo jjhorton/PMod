@@ -78,7 +78,7 @@ jobs:
           path: |
             project/PMod_7Segment /Software/build/*.uf2
           if-no-files-found: warn
-   Build-Firmware:
+  Build-Firmware:
     runs-on: ubuntu-latest
 
     steps:
