@@ -1,14 +1,15 @@
-module top (CLK, RX, o_PMOD1A, o_PMOD1B);
+module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
 
     input   wire    CLK;
 	input 	wire 	RX;
 
 	output 	wire 	[7:0]	o_PMOD1A;
 	output 	wire 	[7:0]	o_PMOD1B;
+    output 	wire 	[7:0]	o_PMOD2;
 
 
     reg [7:0] tx_value [0:15];
-    reg [3:0] system_state;
+    reg [1:0] system_state = 2'b00;
 	reg [7:0] pmod1a;
 	reg [7:0] pmod1b = 8'b00000000;
     reg valid;
@@ -128,10 +129,10 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B);
 
     writepixels writepixels(CLK ,valid, pos, value, pmod1a[6], pmod1a[7], busy);
 
-    assign pmod1a[0] = system_state[0];
-    assign pmod1a[5:1] = 5'b00000;
+    assign pmod1a[5:0] = 6'b000000;
 
 	assign o_PMOD1A = pmod1a;
 	assign o_PMOD1B = pmod1a;
+    assign o_PMOD2 = pmod1a;
 
 endmodule
