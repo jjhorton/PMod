@@ -28,7 +28,7 @@ progecp5:
 
 flashecp5:
 	ecpdap flash unprotect 
-	ecpdap flash write --freq 5000 blinky.bin 
+	ecpdap flash write --freq 5000 $(PROJ).bin 
 
 time:
 	icetime -c 12 -d $(DEVICE) $(PROJ).asc
