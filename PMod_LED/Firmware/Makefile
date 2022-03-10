@@ -18,6 +18,18 @@ build:
 	nextpnr-ice40 --$(DEVICE) --package $(PACKAGE) --json $(PROJ).json --pcf $(PIN_DEF) --asc $(PROJ).asc
 	icepack $(PROJ).asc $(PROJ).bin
 
+buildecp5:
+	yosys -p 'synth_ecp5 -top blinky -json $(PROJ).json' $(PROJ).v
+	nextpnr-ecp5 --45k --package CABGA381 --json $(PROJ).json --lpf colorlight.lpf --textcfg $(PROJ).config --freq 100
+	ecppack --compress --bit $(PROJ).bin $(PROJ).config
+
+progecp5:
+	ecpdap program --freq 5000 $(PROJ).bin
+
+flashecp5:
+	ecpdap flash unprotect 
+	ecpdap flash write --freq 5000 $(PROJ).bin 
+
 time:
 	icetime -c 12 -d $(DEVICE) $(PROJ).asc
 
