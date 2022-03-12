@@ -7,7 +7,7 @@ on:
     paths:
       - 'PMod_RGB7Segment/Hardware/*.kicad_sch'
       - 'PMod_RGB7Segment/Hardware/*.kicad_pcb'
-      - '.github/workflows/pmod_rgb_7segment.yml'
+      - '.github/workflows/pmod_rgb_7Segment.yml'
       - 'kibot.yml'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
