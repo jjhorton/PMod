@@ -20,14 +20,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: INTI-CMNB/KiBot@v1
+    - uses: INTI-CMNB/KiBot@v1_k6
       with:
         # Required - kibot config file
         config: kibot.yml
         # optional - prefix to output defined in config
         dir: Hardware/Fabrication
         # optional - schematic file
-        schema: 'PMod_Test/Hardware/PMod_Tester.sch'
+        schema: 'PMod_Test/Hardware/PMod_Tester.kicad_sch'
         # optional - PCB design file
         board: 'PMod_Test/Hardware/PMod_Tester.kicad_pcb'
 
