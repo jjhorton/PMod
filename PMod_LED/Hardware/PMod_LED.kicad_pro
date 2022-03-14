@@ -49,7 +49,12 @@
         }
       },
       "diff_pair_dimensions": [],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        "copper_edge_clearance|140399980|95005103|6c25bdcf-6281-47cb-9183-6cc0eb2f8c1b|c332fa55-4168-4f55-88a5-f82c7c21040b",
+        "copper_edge_clearance|140400019|90999048|87d7448e-e139-4209-ae0b-372f805267da|6ec113ca-7d27-4b14-a180-1e5e2fd1c167",
+        "copper_edge_clearance|144399980|90999050|32c11fcc-0a77-4a47-ac56-b86a56b2cb6f|ca5a4651-0d1d-441b-b17d-01518ef3b656",
+        "copper_edge_clearance|144400140|94999350|f5f2c38a-6ed5-4d30-ba7b-fa665d8d2b76|8e06ba1f-e3ba-4eb9-a10e-887dffd566d6"
+      ],
       "meta": {
         "filename": "board_design_settings.json",
         "version": 2
