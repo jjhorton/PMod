@@ -72,7 +72,7 @@ jobs:
       - name: Run KiBot
         working-directory: project
         run: |
-          kibot -b 'PMod_LED/Hardware/PMod_LED.kicad_pcb' -e 'PMod_LED/Hardware/PMod_LED.kicad_sch' -d 'Hardware/Fabrication' -c 'kibot.yaml' -v
+          kibot -b 'PMod_LED/Hardware/PMod_LED.kicad_pcb' -e 'PMod_LED/Hardware/PMod_LED.kicad_sch' -d 'Hardware/Fabrication' -c 'kibot.yaml' -s DRC -v
 
       - name: Retrieve results
         if: ${{ always() }}
