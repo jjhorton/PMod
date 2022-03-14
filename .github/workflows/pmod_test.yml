@@ -1,15 +1,12 @@
 name: "PMod Test"
 
 on:
-  push:
-    paths:
-      - 'PMod_Test/Hardware/*.sch'
-      - 'PMod_Test/Hardware/*.kicad_pcb'
-      - '.github/workflows/pmod_test.yml'
-      - 'kibot.yml'
+  schedule:
+    - cron: "0 8 * * 1"
+  
   pull_request:
     paths:
-      - 'PMod_Test/Hardware/*.sch'
+      - 'PMod_Test/Hardware/*.kicad_sch'
       - 'PMod_Test/Hardware/*.kicad_pcb'
       - '.github/workflows/pmod_test.yml'
       - 'kibot.yml'
