@@ -24,5 +24,17 @@ time:
 prog:
 	iceprog $(PROJ).bin
 
+buildecp5:
+	yosys -p 'synth_ecp5 -top top -json $(PROJ).json' top.v writepixels.v
+	nextpnr-ecp5 --45k --package CABGA381 --json $(PROJ).json --lpf colorlight.lpf --textcfg $(PROJ).config --freq 100
+	ecppack --compress --bit $(PROJ).bin $(PROJ).config
+
+progecp5:
+	ecpdap program --freq 5000 $(PROJ).bin
+
+flashecp5:
+	ecpdap flash unprotect 
+	ecpdap flash write --freq 5000 $(PROJ).bin 
+
 clean:
 	rm -rf obj_dir logs trace.vcd $(PROJ).json $(PROJ).asc $(PROJ).rpt $(PROJ).bin test_top writepixel

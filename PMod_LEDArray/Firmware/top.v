@@ -1,11 +1,9 @@
-module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
+module top (CLK, o_PMOD1A, o_PMOD1B);
 
     input   wire    CLK;
-	input 	wire 	RX;
 
 	output 	wire 	[7:0]	o_PMOD1A;
 	output 	wire 	[7:0]	o_PMOD1B;
-    output 	wire 	[7:0]	o_PMOD2;
 
 
     reg [7:0] tx_value [0:15];
@@ -36,7 +34,7 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
     end
 
     // generate one pulse per second to update display on
-    parameter 	clk_in_rate_hz = 12_000_000;
+    parameter 	clk_in_rate_hz = 25_000_000;
     reg [31:0] clk_counter=7900;
     reg pps;
 
@@ -133,6 +131,5 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
 
 	assign o_PMOD1A = pmod1a;
 	assign o_PMOD1B = pmod1a;
-    assign o_PMOD2 = pmod1a;
 
 endmodule
