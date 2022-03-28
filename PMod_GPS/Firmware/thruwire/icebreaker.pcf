@@ -1,0 +1,10 @@
+set_io clk      35
+set_io in_rx	6
+set_io in_tx	9
+
+set_io ledr     11
+set_io ledg     37
+
+set_io pmod_tx	19
+set_io pmod_rx	18
+set_io pps 	    25
