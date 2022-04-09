@@ -49,13 +49,7 @@ int main() {
 			uint8_t val[2];
 
 
-			// check the id of the chip
-			val[0] = 0xFE;
-			val[1] = 0xC5;
-			i2c_write_blocking(i2c0, addr, &val[0], 2, true);
-			val[0] = 0xFD;
-			val[1] = 0x04;
-			i2c_write_blocking(i2c0, addr, &val[0], 2, true);
+
 
 			val[0] = 0xFC;
 			i2c_write_blocking(i2c0, addr, &val[0], 1, true);
@@ -126,18 +120,8 @@ int main() {
 				val[0] = x;
 				val[1] = 0xFF;
 
-				i2c_write_blocking(i2c0, addr, &val[0], 1, true);
-				i2c_read_blocking(i2c0, addr, &rxdata[0], 1, true);
-				printf("Page 2: before: ");
-				printf("%x ", rxdata[0]);
-
 				i2c_write_blocking(i2c0, addr, &val[0], 2, true);
 
-				sleep_ms(10);
-				i2c_write_blocking(i2c0, addr, &val[0], 1, true);
-				i2c_read_blocking(i2c0, addr, &rxdata[0], 1, true);
-				printf(" After: ");
-				printf("%x \n", rxdata[0]);
 			}
 
 			// select page 2
@@ -153,46 +137,24 @@ int main() {
 				val[0] = x;
 				val[1] = 0xFF;
 
-				i2c_write_blocking(i2c0, addr, &val[0], 1, true);
-				i2c_read_blocking(i2c0, addr, &rxdata[0], 1, true);
-				printf("Page 2: before: ");
-				printf("%x ", rxdata[0]);
-
 				i2c_write_blocking(i2c0, addr, &val[0], 2, true);
 
-				sleep_ms(10);
-				i2c_write_blocking(i2c0, addr, &val[0], 1, true);
-				i2c_read_blocking(i2c0, addr, &rxdata[0], 1, true);
-				printf(" After: ");
-				printf("%x \n", rxdata[0]);
 			}
 
-			//enable
+			//Unlock
 			val[0] = 0xFE;
 			val[1] = 0xC5; //unlock
 			i2c_write_blocking(i2c0, addr, &val[0], 2, true);
+
 			// select page 4
 			val[0] = 0xFD;
 			val[1] = 0x04;
 			i2c_write_blocking(i2c0, addr, &val[0], 2, true);
 
-			rxdata[0] = 0;
-			val[0] = 0x00;
-			i2c_write_blocking(i2c0, addr, &val[0], 1, true);
-			i2c_read_blocking(i2c0, addr, &rxdata[0], 1, true);
-			printf("Global Config Before: ");
-			printf("%x ", rxdata[0]);
-
+			//set global condif to enable
 			val[0] = 0x00;
 			val[1] = 0x01;
 			i2c_write_blocking(i2c0, addr, &val[0], 2, true);
-
-			rxdata[0] = 0;
-			val[0] = 0x00;
-			i2c_write_blocking(i2c0, addr, &val[0], 1, true);
-			i2c_read_blocking(i2c0, addr, &rxdata[0], 1, true);
-			printf("After: ");
-			printf("%x \n", rxdata[0]);
 
 		
 
@@ -209,19 +171,7 @@ int main() {
 			for( int x = 0; x<0xB4; x++){
 				val[0] = x;
 				val[1] = 0xFF;
-
-				i2c_write_blocking(i2c0, addr, &val[0], 1, true);
-				i2c_read_blocking(i2c0, addr, &rxdata[0], 1, true);
-				printf("Page 0: before: ");
-				printf("%x ", rxdata[0]);
-
 				i2c_write_blocking(i2c0, addr, &val[0], 2, true);
-
-				sleep_ms(10);
-				i2c_write_blocking(i2c0, addr, &val[0], 1, true);
-				i2c_read_blocking(i2c0, addr, &rxdata[0], 1, true);
-				printf(" After: ");
-				printf("%x \n", rxdata[0]);
 			}
 
 			// select page 1
@@ -233,22 +183,10 @@ int main() {
 			val[1] = 0x01;
 			i2c_write_blocking(i2c0, addr, &val[0], 2, true);
 			// set pwm for led 0
-			for( int x = 0; x<0xAB; x++){
+			for( int x = 2; x<0xAB; x=x+3){
 				val[0] = x;
 				val[1] = 0xFF;
-
-				i2c_write_blocking(i2c0, addr, &val[0], 1, true);
-				i2c_read_blocking(i2c0, addr, &rxdata[0], 1, true);
-				printf("Page 1: before: ");
-				printf("%x ", rxdata[0]);
-
 				i2c_write_blocking(i2c0, addr, &val[0], 2, true);
-
-				sleep_ms(10);
-				i2c_write_blocking(i2c0, addr, &val[0], 1, true);
-				i2c_read_blocking(i2c0, addr, &rxdata[0], 1, true);
-				printf(" After: ");
-				printf("%x \n", rxdata[0]);
 			}
 
 			printf("\n\n\n");
