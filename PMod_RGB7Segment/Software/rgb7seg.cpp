@@ -155,7 +155,14 @@ void RGB7Seg::set_scaling()
 
 }
 
-void RGB7Seg::set_LED(int pos, int value)
+void RGB7Seg::set_LED(int pos, uint8_t value[3])
+{
+    set_pixel(Led_lookup[pos],value[0]);
+    set_pixel(Led_lookup[pos]+1,value[1]);
+    set_pixel(Led_lookup[pos]+2,value[2]);
+}
+
+void RGB7Seg::set_pixel(int pos, int value)
 {
     uint8_t addr = address;
     uint8_t val[2]; 
@@ -168,6 +175,8 @@ void RGB7Seg::set_LED(int pos, int value)
         val[0] = pos - 0xB4;
 
     }
+    if ((pos%3) == 0){value = value/2; printf("%i \n",pos);}
+
     val[1] = value;
     i2c_write_blocking(i2c0, addr, &val[0], 2, true);
 

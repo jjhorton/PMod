@@ -29,23 +29,29 @@ int main() {
 		printf("%x \n", Display.get_id());
 
 		Display.enable();
-
 		Display.set_current(0xFF);
 
 		printf("Current: %x \n", Display.get_current());
 
 		Display.set_scaling();
 
-		Display.set_LED(0,0xFF);
 
-		for(int y=0; y<351; y++)
+		for(int y=0; y<22; y++)
 		{
 			for(int x=0; x<351; x++){
 				if(x==y){
-					Display.set_LED(x,0xFF);
+					u_int8_t rgb_value[3];
+					rgb_value[0]= 0xFF;
+					rgb_value[1]= 0x00;
+					rgb_value[2]= 0xFF;
+					Display.set_LED(x,rgb_value);
 				}
 				else{
-					Display.set_LED(x,0x00);
+					u_int8_t rgb_value[3];
+					rgb_value[0]= 0x00;
+					rgb_value[1]= 0x00;
+					rgb_value[2]= 0x00;
+					Display.set_LED(x,rgb_value);
 				}
 			}
 			sleep_ms(100);
