@@ -35,14 +35,14 @@ int main() {
 
 		Display.set_scaling();
 
-
-		for(int y=0; y<22; y++)
+		/*
+		for(int y=0; y<91; y++)
 		{
 			for(int x=0; x<351; x++){
 				if(x==y){
 					u_int8_t rgb_value[3];
 					rgb_value[0]= 0xFF;
-					rgb_value[1]= 0x00;
+					rgb_value[1]= 0xFF;
 					rgb_value[2]= 0xFF;
 					Display.set_LED(x,rgb_value);
 				}
@@ -56,6 +56,27 @@ int main() {
 			}
 			sleep_ms(100);
 		}
+		*/
+
+		for(int y=0; y<4; y++){
+			for(int x=0; x<351; x++){
+				u_int8_t rgb_value[3];
+				rgb_value[0]= 0x00;
+				rgb_value[1]= 0x00;
+				rgb_value[2]= 0x00;
+				Display.set_LED(x,rgb_value);
+			}
+			for(int x=0; x<8; x++){
+				u_int8_t rgb_value[3];
+				rgb_value[0]= 0xFF;
+				rgb_value[1]= 0xFF;
+				rgb_value[2]= 0xFF;
+
+				Display.set_segment(y,x,rgb_value);
+				sleep_ms(1000);
+			}
+		}
+
 
 		value = value*2;
 

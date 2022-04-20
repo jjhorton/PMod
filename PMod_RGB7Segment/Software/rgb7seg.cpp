@@ -162,6 +162,18 @@ void RGB7Seg::set_LED(int pos, uint8_t value[3])
     set_pixel(Led_lookup[pos]+2,value[2]);
 }
 
+void RGB7Seg::set_segment(uint8_t segment, uint8_t digit, uint8_t value[3])
+{
+    //u_int8_t leds[3] = Led_segments[segment][digit];
+
+    for(int i; i<3; i++){
+        if(Led_segments[segment][digit][i] != 0){
+            set_LED(Led_segments[segment][digit][i]-1, value);
+        }
+    }
+
+}
+
 void RGB7Seg::set_pixel(int pos, int value)
 {
     uint8_t addr = address;
