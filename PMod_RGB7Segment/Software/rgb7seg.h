@@ -29,6 +29,18 @@ const int Led_segments[][8][3]=  {{{1,2,3},{4,5,6},{7,8,9},{10,11,12},
                                    {81,82,83},{84,85,86},{87,88,89},{90,0,0}}
                                  };
 
+							                 //A B C D E F G P
+const int Led_digit[10][8] =   {{1,1,1,1,1,1,0,0},  //0
+								                {0,1,1,0,0,0,0,0},  //1
+					                			{1,1,0,1,1,0,1,0},  //2
+				                				{1,1,1,1,0,0,1,0},  //3
+				                				{0,1,1,0,0,1,1,0},  //4
+			                					{1,0,1,1,0,1,1,0},  //5
+			                					{1,0,1,1,1,1,1,0},  //6
+			                					{1,1,1,0,0,0,0,0},  //7
+		                						{1,1,1,1,1,1,1,0},	//8
+		                						{1,1,1,1,0,1,1,0}}; //9
+	
 class RGB7Seg
 {
     private:
@@ -49,6 +61,7 @@ class RGB7Seg
         void set_pixel(int led, int rgb);
         void set_current(uint8_t current);
         void set_segment(uint8_t segment, uint8_t digit, uint8_t value[3]);
+        void set_digit(uint8_t pos, uint8_t value, uint8_t my_rgb_value[3]);
         uint8_t get_current();
 
         void set_scaling();

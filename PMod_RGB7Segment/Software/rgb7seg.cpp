@@ -187,9 +187,43 @@ void RGB7Seg::set_pixel(int pos, int value)
         val[0] = pos - 0xB4;
 
     }
-    if ((pos%3) == 0){value = value/2; printf("%i \n",pos);}
+    if ((pos%3) == 0){value = value/2;}
 
     val[1] = value;
     i2c_write_blocking(i2c0, addr, &val[0], 2, true);
 
 }
+
+void RGB7Seg::set_digit(uint8_t pos, uint8_t value, uint8_t my_rgb_value[3])
+{
+    uint8_t rgb_value[3];
+    
+    uint8_t rgb_on[3];
+    rgb_on[0]= 0x00;
+    rgb_on[1]= 0x00;
+    rgb_on[2]= 0xD5; 
+
+    uint8_t rgb_off[3];
+    rgb_off[0]= 0x10;
+    rgb_off[1]= 0x00;
+    rgb_off[2]= 0x00; 
+
+    printf("Pos %i\n", pos);
+    for(uint8_t my_seg=0; my_seg<8; my_seg++){
+        printf("%i ", Led_digit[value][my_seg]);
+
+        if (Led_digit[value][my_seg]==1){
+            set_segment(pos,my_seg,my_rgb_value);
+            printf("H ",my_seg);
+            //this->set_segment(int(my_seg),int(pos),my_rgb_value);
+        }
+        else{
+            set_segment(pos,my_seg,rgb_off);
+            printf("L ",my_seg);
+            //this->set_segment(int(my_seg),int(pos),rgb_off);
+        }
+    }
+    printf("\n");
+
+    return;
+}	

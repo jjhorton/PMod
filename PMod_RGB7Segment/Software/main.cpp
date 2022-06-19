@@ -20,7 +20,6 @@ int main() {
 
 	RGB7Seg Display;
 
-	uint8_t value = 0;
 	uint8_t output;
 
 	while(1) {
@@ -34,51 +33,89 @@ int main() {
 		printf("Current: %x \n", Display.get_current());
 
 		Display.set_scaling();
+		Display.get_id();
 
-		/*
-		for(int y=0; y<91; y++)
-		{
-			for(int x=0; x<351; x++){
-				if(x==y){
-					u_int8_t rgb_value[3];
-					rgb_value[0]= 0xFF;
-					rgb_value[1]= 0xFF;
-					rgb_value[2]= 0xFF;
-					Display.set_LED(x,rgb_value);
-				}
-				else{
+
+		for(int x=0; x<351; x++){
+			uint8_t rgb_value[3];
+			rgb_value[0]= 0x00;
+			rgb_value[1]= 0x00;
+			rgb_value[2]= 0x00;
+			Display.set_LED(x,rgb_value);
+		}
+
+		uint8_t rgb_value[3];
+		rgb_value[0]= 0x18;
+		rgb_value[1]= 0xD5;
+		rgb_value[2]= 0xC8;
+
+		for(int counter=0; counter<10; counter++){
+			
+				for(int x=0; x<8; x++ ){
 					u_int8_t rgb_value[3];
 					rgb_value[0]= 0x00;
 					rgb_value[1]= 0x00;
 					rgb_value[2]= 0x00;
-					Display.set_LED(x,rgb_value);
+					if (Led_digit[counter][x] == 1 ){
+						rgb_value[0]= 0x18;
+						rgb_value[1]= 0xD5;
+						rgb_value[2]= 0xC8;
+					}
+					Display.set_segment(0,x,rgb_value);
+					
 				}
+		
+
+			//Display.set_digit(0,counter,rgb_value);
+			sleep_ms(5000);
+		}
+	
+		/*
+		for(int y=0; y<2; y++){
+
+			for(int counter=0; counter<10; counter++){
+				uint8_t rgb_value[3];
+				rgb_value[0]= 0x18;
+				rgb_value[1]= 0xD5;
+				rgb_value[2]= 0xC8;
+				
+				Display.set_digit(y,counter,rgb_value);
+				sleep_ms(100);
 			}
-			sleep_ms(100);
+
 		}
 		*/
 
-		for(int y=0; y<4; y++){
-			for(int x=0; x<351; x++){
+/*			//set a given segment to be on
+			for(int counter=0; counter<10; counter++){
+				/*
+				for(int x=0; x<8; x++ ){
+					u_int8_t rgb_value[3];
+					rgb_value[0]= 0x00;
+					rgb_value[1]= 0x00;
+					rgb_value[2]= 0x00;
+					if (Led_digit[counter][x] == 1 ){
+						rgb_value[0]= 0x18;
+						rgb_value[1]= 0xD5;
+						rgb_value[2]= 0xC8;
+					}
+					Display.set_segment(y,x,rgb_value);
+					
+				}
+			
+				
 				u_int8_t rgb_value[3];
-				rgb_value[0]= 0x00;
-				rgb_value[1]= 0x00;
-				rgb_value[2]= 0x00;
-				Display.set_LED(x,rgb_value);
-			}
-			for(int x=0; x<8; x++){
-				u_int8_t rgb_value[3];
-				rgb_value[0]= 0xFF;
-				rgb_value[1]= 0xFF;
-				rgb_value[2]= 0xFF;
-
-				Display.set_segment(y,x,rgb_value);
+				rgb_value[0]= 0x18;
+				rgb_value[1]= 0xD5;
+				rgb_value[2]= 0xC8;
+				
+				Display.set_digit(y,counter,rgb_value);
+				
 				sleep_ms(1000);
+
 			}
 		}
-
-
-		value = value*2;
+*/		
 
 	}
   return 0;
