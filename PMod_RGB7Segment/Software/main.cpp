@@ -49,25 +49,59 @@ int main() {
 		rgb_value[1]= 0xD5;
 		rgb_value[2]= 0xC8;
 
-		for(int counter=0; counter<10; counter++){
+		for(int counter=0; counter<10000; counter++){
 			
 				for(int x=0; x<8; x++ ){
 					u_int8_t rgb_value[3];
-					rgb_value[0]= 0x00;
-					rgb_value[1]= 0x00;
-					rgb_value[2]= 0x00;
-					if (Led_digit[counter][x] == 1 ){
-						rgb_value[0]= 0x18;
-						rgb_value[1]= 0xD5;
-						rgb_value[2]= 0xC8;
+					if (Led_digit[counter/ 1000 % 10][x] == 1 ){
+						rgb_value[0]= gamma8[0x69];
+						rgb_value[1]= gamma8[0x50];
+						rgb_value[2]= gamma8[0xa1];
+					}
+					else {
+						rgb_value[0]= 0x00;
+						rgb_value[1]= 0x00;
+						rgb_value[2]= 0x00;
 					}
 					Display.set_segment(0,x,rgb_value);
-					
+					if (Led_digit[counter/ 100 % 10][x] == 1 ){
+						rgb_value[0]= gamma8[0x69];
+						rgb_value[1]= gamma8[0x50];
+						rgb_value[2]= gamma8[0xa1];
+					}
+					else {
+						rgb_value[0]= 0x00;
+						rgb_value[1]= 0x00;
+						rgb_value[2]= 0x00;
+					}
+					Display.set_segment(1,x,rgb_value);
+					if (Led_digit[counter/ 10 % 10][x] == 1 ){
+						rgb_value[0]= gamma8[0x69];
+						rgb_value[1]= gamma8[0x50];
+						rgb_value[2]= gamma8[0xa1];
+					}
+					else {
+						rgb_value[0]= 0x00;
+						rgb_value[1]= 0x00;
+						rgb_value[2]= 0x00;
+					}
+					Display.set_segment(2,x,rgb_value);
+					if (Led_digit[counter % 10][x] == 1 ){
+						rgb_value[0]= gamma8[0x69];
+						rgb_value[1]= gamma8[0x50];
+						rgb_value[2]= gamma8[0xa1];
+					}
+					else {
+						rgb_value[0]= 0x00;
+						rgb_value[1]= 0x00;
+						rgb_value[2]= 0x00;
+					}
+					Display.set_segment(3,x,rgb_value);
 				}
 		
 
 			//Display.set_digit(0,counter,rgb_value);
-			sleep_ms(5000);
+			sleep_ms(250);
 		}
 	
 		/*

@@ -197,7 +197,7 @@ void RGB7Seg::set_pixel(int pos, int value)
 void RGB7Seg::set_digit(uint8_t pos, uint8_t value, uint8_t my_rgb_value[3])
 {
     uint8_t rgb_value[3];
-    
+    /*
     uint8_t rgb_on[3];
     rgb_on[0]= 0x00;
     rgb_on[1]= 0x00;
@@ -224,6 +224,21 @@ void RGB7Seg::set_digit(uint8_t pos, uint8_t value, uint8_t my_rgb_value[3])
         }
     }
     printf("\n");
+    */
+
+    for(int x=0; x<8; x++ ){
+		uint8_t rgb_value[3];
+		rgb_value[0]= 0x00;
+		rgb_value[1]= 0x00;
+		rgb_value[2]= 0x00;
+		if (Led_digit[value][x] == 1 ){
+			rgb_value[0]= my_rgb_value[0];
+	    	rgb_value[1]= my_rgb_value[1];
+			rgb_value[2]= my_rgb_value[2];
+		}
+	    set_segment(0,x,rgb_value);
+					
+	}
 
     return;
 }	
