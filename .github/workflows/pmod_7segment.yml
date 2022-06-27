@@ -8,7 +8,7 @@ on:
     paths:
       - 'kibot.yml'
       - '.github/workflows/pmod_7segment.yml'
-      - 'PMod_7Segment/hardware/*.sch'
+      - 'PMod_7Segment/hardware/*.kicad_sch'
       - 'PMod_7Segment/hardware/*.kicad_pcb'
       - 'PMod_7Segment/Firmware/*'
       - 'PMod_7Segment/Software/*'
@@ -26,7 +26,7 @@ jobs:
         # optional - prefix to output defined in config
         dir: Hardware/Fabrication
         # optional - schematic file
-        schema: 'PMod_7Segment/hardware/PMod_7Segement.sch'
+        schema: 'PMod_7Segment/hardware/PMod_7Segement.kicad_sch'
         # optional - PCB design file
         board: 'PMod_7Segment/hardware/PMod_7Segement.kicad_pcb'
 
