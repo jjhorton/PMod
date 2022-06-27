@@ -24,9 +24,9 @@ jobs:
         # optional - prefix to output defined in config
         dir: Hardware/Fabrication
         # optional - schematic file
-        schema: 'PMod_RGB7Segment/Hardware/PMod_RGB7Segment.kicad_pcb'
+        schema: 'PMod_RGB7Segment/Hardware/PMod_RGB7Segment.kicad_sch'
         # optional - PCB design file
-        board: 'PMod_RGB7Segment/Hardware/PMod_RGB7Segment.kicad_sch'
+        board: 'PMod_RGB7Segment/Hardware/PMod_RGB7Segment.kicad_pcb'
 
     - name: Retrieve results
       if: ${{ always() }}
