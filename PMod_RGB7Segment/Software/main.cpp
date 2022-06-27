@@ -45,56 +45,73 @@ int main() {
 		}
 
 		uint8_t rgb_value[3];
-		rgb_value[0]= 0x18;
-		rgb_value[1]= 0xD5;
-		rgb_value[2]= 0xC8;
+		rgb_value[0]= 0xff;
+		rgb_value[1]= 0x00;
+		rgb_value[2]= 0x00;
+
+		uint8_t rgb_on[3];
+		rgb_on[0]= 0xff;
+		rgb_on[1]= 0x00;
+		rgb_on[2]= 0x00;
+
+
+		uint8_t rgb_off[3];
+		rgb_off[0]= 0x00;
+		rgb_off[1]= 0x00;
+		rgb_off[2]= 0x00;
+
 
 		for(int counter=0; counter<10000; counter++){
-			
+
+				//uint8_t rgb_on[3];
+				rgb_on[0] = RGB_LOOKUP[counter % 90][0];
+				rgb_on[1] = RGB_LOOKUP[counter % 90][1];
+				rgb_on[2] = RGB_LOOKUP[counter % 90][2];
+
 				for(int x=0; x<8; x++ ){
 					u_int8_t rgb_value[3];
 					if (Led_digit[counter/ 1000 % 10][x] == 1 ){
-						rgb_value[0]= gamma8[0x69];
-						rgb_value[1]= gamma8[0x50];
-						rgb_value[2]= gamma8[0xa1];
+						for(int a=0; a<3; a++){
+							rgb_value[a]= gamma8[rgb_on[a]];
+							}
 					}
 					else {
-						rgb_value[0]= 0x00;
-						rgb_value[1]= 0x00;
-						rgb_value[2]= 0x00;
+						for(int a=0; a<3; a++){
+							rgb_value[a]= gamma8[rgb_off[a]];
+							}
 					}
 					Display.set_segment(0,x,rgb_value);
 					if (Led_digit[counter/ 100 % 10][x] == 1 ){
-						rgb_value[0]= gamma8[0x69];
-						rgb_value[1]= gamma8[0x50];
-						rgb_value[2]= gamma8[0xa1];
+						for(int a=0; a<3; a++){
+							rgb_value[a]= gamma8[rgb_on[a]];
+							}
 					}
 					else {
-						rgb_value[0]= 0x00;
-						rgb_value[1]= 0x00;
-						rgb_value[2]= 0x00;
+						for(int a=0; a<3; a++){
+							rgb_value[a]= gamma8[rgb_off[a]];
+							}
 					}
 					Display.set_segment(1,x,rgb_value);
 					if (Led_digit[counter/ 10 % 10][x] == 1 ){
-						rgb_value[0]= gamma8[0x69];
-						rgb_value[1]= gamma8[0x50];
-						rgb_value[2]= gamma8[0xa1];
+						for(int a=0; a<3; a++){
+							rgb_value[a]= gamma8[rgb_on[a]];
+							}
 					}
 					else {
-						rgb_value[0]= 0x00;
-						rgb_value[1]= 0x00;
-						rgb_value[2]= 0x00;
+						for(int a=0; a<3; a++){
+							rgb_value[a]= gamma8[rgb_off[a]];
+							}
 					}
 					Display.set_segment(2,x,rgb_value);
 					if (Led_digit[counter % 10][x] == 1 ){
-						rgb_value[0]= gamma8[0x69];
-						rgb_value[1]= gamma8[0x50];
-						rgb_value[2]= gamma8[0xa1];
+						for(int a=0; a<3; a++){
+							rgb_value[a]= gamma8[rgb_on[a]];
+							}
 					}
 					else {
-						rgb_value[0]= 0x00;
-						rgb_value[1]= 0x00;
-						rgb_value[2]= 0x00;
+						for(int a=0; a<3; a++){
+							rgb_value[a]= gamma8[rgb_off[a]];
+							}
 					}
 					Display.set_segment(3,x,rgb_value);
 				}

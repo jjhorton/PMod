@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "RGB7Seg.h"
+#include "rgb7seg.h"
 #include "pico/stdlib.h"
 #include "pico/binary_info.h"
 #include "hardware/i2c.h"
