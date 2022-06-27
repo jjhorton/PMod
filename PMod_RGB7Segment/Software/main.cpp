@@ -64,27 +64,26 @@ int main() {
 
 		for(int counter=0; counter<10000; counter++){
 
-				//uint8_t rgb_on[3];
-				uint8_t rgb_on[3];
-				rgb_on[0] = RGB_LOOKUP[89-(counter/4 % 90)][0];
-				rgb_on[1] = RGB_LOOKUP[89-(counter/4 % 90)][1];
-				rgb_on[2] = RGB_LOOKUP[89-(counter/4 % 90)][2];
+			//uint8_t rgb_on[3];
+			uint8_t rgb_on[3];
+			rgb_on[0] = RGB_LOOKUP[89-(counter/4 % 90)][0];
+			rgb_on[1] = RGB_LOOKUP[89-(counter/4 % 90)][1];
+			rgb_on[2] = RGB_LOOKUP[89-(counter/4 % 90)][2];
 
-				for(int x=0; x<8; x++ ){
-					for(int digit_count = 0; digit_count < 4; digit_count++){
-					u_int8_t rgb_value[3];
+			for(int x=0; x<8; x++ ){
+				for(int digit_count = 0; digit_count < 4; digit_count++){
+				u_int8_t rgb_value[3];
 
-					int scale = pow(10,3-digit_count);
-					for(int a=0; a<3; a++){
-						rgb_value[a]= 0;
-						if (Led_digit[counter/ scale % 10][x] == 1 ){
-							rgb_value[a]= gamma8[rgb_on[a]];
-							}
-					}
-					Display.set_segment(digit_count,x,rgb_value);
-
-					}
+				int scale = pow(10,3-digit_count);
+				for(int a=0; a<3; a++){
+					rgb_value[a]= 0;
+					if (Led_digit[counter/ scale % 10][x] == 1 ){
+						rgb_value[a]= gamma8[rgb_on[a]];
+						}
 				}
+				Display.set_segment(digit_count,x,rgb_value);
+				}
+			}
 		
 
 			//Display.set_digit(0,counter,rgb_value);
