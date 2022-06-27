@@ -7,6 +7,7 @@
 
 
 #include <stdio.h>
+#include <math.h>
 #include "pico/stdlib.h"
 #include "pico/binary_info.h"
 #include "hardware/i2c.h"
@@ -64,13 +65,16 @@ int main() {
 		for(int counter=0; counter<10000; counter++){
 
 				//uint8_t rgb_on[3];
-				rgb_on[0] = RGB_LOOKUP[counter % 90][0];
-				rgb_on[1] = RGB_LOOKUP[counter % 90][1];
-				rgb_on[2] = RGB_LOOKUP[counter % 90][2];
+				rgb_on[0] = RGB_LOOKUP[90-(counter/4 % 89)][0];
+				rgb_on[1] = RGB_LOOKUP[90-(counter/4 % 89)][1];
+				rgb_on[2] = RGB_LOOKUP[90-(counter/4 % 89)][2];
 
 				for(int x=0; x<8; x++ ){
+					for(int digit_count = 0; digit_count < 4; digit_count++){
 					u_int8_t rgb_value[3];
-					if (Led_digit[counter/ 1000 % 10][x] == 1 ){
+
+					int scale = pow(10,3-digit_count);
+					if (Led_digit[counter/ scale % 10][x] == 1 ){
 						for(int a=0; a<3; a++){
 							rgb_value[a]= gamma8[rgb_on[a]];
 							}
@@ -80,40 +84,9 @@ int main() {
 							rgb_value[a]= gamma8[rgb_off[a]];
 							}
 					}
-					Display.set_segment(0,x,rgb_value);
-					if (Led_digit[counter/ 100 % 10][x] == 1 ){
-						for(int a=0; a<3; a++){
-							rgb_value[a]= gamma8[rgb_on[a]];
-							}
+					Display.set_segment(digit_count,x,rgb_value);
+
 					}
-					else {
-						for(int a=0; a<3; a++){
-							rgb_value[a]= gamma8[rgb_off[a]];
-							}
-					}
-					Display.set_segment(1,x,rgb_value);
-					if (Led_digit[counter/ 10 % 10][x] == 1 ){
-						for(int a=0; a<3; a++){
-							rgb_value[a]= gamma8[rgb_on[a]];
-							}
-					}
-					else {
-						for(int a=0; a<3; a++){
-							rgb_value[a]= gamma8[rgb_off[a]];
-							}
-					}
-					Display.set_segment(2,x,rgb_value);
-					if (Led_digit[counter % 10][x] == 1 ){
-						for(int a=0; a<3; a++){
-							rgb_value[a]= gamma8[rgb_on[a]];
-							}
-					}
-					else {
-						for(int a=0; a<3; a++){
-							rgb_value[a]= gamma8[rgb_off[a]];
-							}
-					}
-					Display.set_segment(3,x,rgb_value);
 				}
 		
 
