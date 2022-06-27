@@ -7,6 +7,7 @@ on:
     paths:
       - 'PMod_RGB7Segment/Hardware/*.kicad_sch'
       - 'PMod_RGB7Segment/Hardware/*.kicad_pcb'
+      - 'PMod_RGB7Segment/Software/*'
       - '.github/workflows/pmod_rgb7Segment.yml'
       - 'kibot.yml'
 
