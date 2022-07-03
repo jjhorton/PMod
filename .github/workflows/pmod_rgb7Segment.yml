@@ -7,12 +7,37 @@ on:
     paths:
       - 'PMod_RGB7Segment/Hardware/*.kicad_sch'
       - 'PMod_RGB7Segment/Hardware/*.kicad_pcb'
+      - 'PMod_RGB7Segment/Software/*'
       - '.github/workflows/pmod_rgb7Segment.yml'
       - 'kibot.yml'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   Fabrication:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: INTI-CMNB/KiBot@v2_k6
+      with:
+        # Required - kibot config file
+        config: kibot.yml
+        # optional - prefix to output defined in config
+        dir: Hardware/Fabrication
+        # optional - schematic file
+        schema: 'PMod_RGB7Segment/Hardware/PMod_RGB7Segment.kicad_sch'
+        # optional - PCB design file
+        board: 'PMod_RGB7Segment/Hardware/PMod_RGB7Segment.kicad_pcb'
+
+    - name: Retrieve results
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: Fabrication_Files
+        path: |
+          Hardware/Fabrication/
+        if-no-files-found: warn
+
+  Build-Software:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,60 +46,33 @@ jobs:
         with:
           path: project
 
-      - name: Checkout latest KiBot
+      - name: Checkout Pico SDK
         uses: actions/checkout@v2
         with:
-          repository: INTI-CMNB/KiBot
-          path: kibot
-
-      - name: Checkout latest Interactive Html Bom
-        uses: actions/checkout@v2
-        with:
-          repository: INTI-CMNB/InteractiveHtmlBom
-          path: InteractiveHtmlBom
+          repository: raspberrypi/pico-sdk
+          path: pico-sdk
+          submodules: true
 
       - name: Install deps
         run: |
-          sudo add-apt-repository --yes ppa:kicad/kicad-6.0-releases
-          sudo apt update && sudo apt install --install-recommends kicad
-          wget http://archive.ubuntu.com/ubuntu/pool/universe/p/pygtk/python-gtk2_2.24.0-5.1ubuntu2_amd64.deb
-          wget http://archive.ubuntu.com/ubuntu/pool/universe/g/gtk-recordmydesktop/gtk-recordmydesktop_0.3.8-4.1ubuntu1_all.deb
-          sudo apt-get install ./python-gtk2_2.24.0-5.1ubuntu2_amd64.deb ./gtk-recordmydesktop_0.3.8-4.1ubuntu1_all.deb
-          sudo apt-get -y install librsvg2-bin xdotool xclip imagemagick
-          identify -version
-
-      - name: install pcbdraw
-        run: |
-          pip3 install --no-compile pcbdraw
-
-      - name: install InteractiveHtmlBom
-        working-directory: InteractiveHtmlBom
-        run: |
-          pip3 install --no-compile .
-
-      - name: install kibot
-        working-directory: kibot
-        run: |
-          pip3 install --no-compile .
+          sudo apt update && sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
 
       - name: Make directory
-        working-directory: project
         run: |
-          mkdir Hardware
-          mkdir Hardware/Fabrication
-          mv kibot.yml kibot.yaml
-          ls -lh
+          mkdir project/PMod_RGB7Segment/Software/build
 
-      - name: Run KiBot
-        working-directory: project
+      - name: Build
+        working-directory: project/PMod_RGB7Segment/Software/build
+        shell: bash
         run: |
-          kibot -b 'PMod_RGB7Segment/Hardware/PMod_RGB7Segment.kicad_pcb' -e 'PMod_RGB7Segment/Hardware/PMod_RGB7Segment.kicad_sch' -d 'Hardware/Fabrication' -c 'kibot.yaml' -v
+          PICO_SDK_PATH=../../../pico-sdk cmake ..
+          make
 
       - name: Retrieve results
         if: ${{ always() }}
         uses: actions/upload-artifact@v2
         with:
-          name: Fabrication_Files
+          name: RP_Pico_Files
           path: |
-            project/Hardware/Fabrication/
+            project/PMod_RGB7Segment/Software/build/*.uf2
           if-no-files-found: warn
