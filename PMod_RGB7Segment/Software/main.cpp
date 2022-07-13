@@ -87,7 +87,7 @@ int main() {
 		
 
 			//Display.set_digit(0,counter,rgb_value);
-			sleep_ms(250);
+			sleep_ms(90);
 		}
 	
 		/*
