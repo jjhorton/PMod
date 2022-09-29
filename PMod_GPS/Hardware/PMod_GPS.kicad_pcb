@@ -368,7 +368,7 @@
       (net 9 "+3V3") (pinfunction "VCC") (pintype "power_in") (tstamp c7af8405-da2e-4a34-b9b8-518f342f8995))
     (pad "24" smd roundrect (at 6 -7 90) (size 1.8 0.8) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25)
       (net 8 "GND") (pinfunction "GND") (pintype "passive") (tstamp aa79024d-ca7e-4c24-b127-7df08bbd0c75))
-    (model "${KICAD6_3DMODEL_DIR}/RF_GPS.3dshapes/ublox_NEO.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/RF_GPS.3dshapes/ublox_NEO.wrl" hide
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
