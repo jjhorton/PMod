@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.12)
 include($ENV{PICO_SDK_PATH}/pico_sdk_init.cmake)
 
 # Change your executable name to something creative!
-set(NAME pSerial-GPS) # <-- Name your project/executable here!
+set(NAME serial_gps) # <-- Name your project/executable here!
 
 # Gooey boilerplate
 project(${NAME} C CXX ASM)
@@ -22,6 +22,7 @@ add_executable(${NAME}
 # Don't forget to link the libraries you need!
 target_link_libraries(${NAME}
 	 pico_stdlib
+     hardware_uart
 )
 
 # enables usb serial
