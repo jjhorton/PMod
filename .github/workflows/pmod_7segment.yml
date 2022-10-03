@@ -8,7 +8,7 @@ on:
     paths:
       - 'kibot.yml'
       - '.github/workflows/pmod_7segment.yml'
-      - 'PMod_7Segment/hardware/*.sch'
+      - 'PMod_7Segment/hardware/*.kicad_sch'
       - 'PMod_7Segment/hardware/*.kicad_pcb'
       - 'PMod_7Segment/Firmware/*'
       - 'PMod_7Segment/Software/*'
@@ -19,14 +19,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: INTI-CMNB/KiBot@v1
+    - uses: INTI-CMNB/KiBot@v2_k6
       with:
         # Required - kibot config file
         config: kibot.yml
         # optional - prefix to output defined in config
         dir: Hardware/Fabrication
         # optional - schematic file
-        schema: 'PMod_7Segment/hardware/PMod_7Segement.sch'
+        schema: 'PMod_7Segment/hardware/PMod_7Segement.kicad_sch'
         # optional - PCB design file
         board: 'PMod_7Segment/hardware/PMod_7Segement.kicad_pcb'
 
@@ -76,7 +76,7 @@ jobs:
         with:
           name: RP_Pico_Files
           path: |
-            project/PMod_7Segment /Software/build/*.uf2
+            project/PMod_7Segment/Software/build/*.uf2
           if-no-files-found: warn
   Build-Firmware:
     runs-on: ubuntu-latest

@@ -15,70 +15,27 @@ on:
 jobs:
   Fabrication:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-        with:
-          path: project
+    - uses: actions/checkout@v2
+    - uses: INTI-CMNB/KiBot@v2_k6
+      with:
+        # Required - kibot config file
+        config: kibot.yml
+        # optional - prefix to output defined in config
+        dir: Hardware/Fabrication
+        # optional - schematic file
+        schema: 'PMod_LEDArray/Hardware/PMOD_LEDArray.kicad_sch'
+        # optional - PCB design file
+        board: 'PMod_LEDArray/Hardware/PMOD_LEDArray.kicad_pcb'
 
-      - name: Checkout latest KiBot
-        uses: actions/checkout@v2
-        with:
-          repository: INTI-CMNB/KiBot
-          path: kibot
-
-      - name: Checkout latest Interactive Html Bom
-        uses: actions/checkout@v2
-        with:
-          repository: INTI-CMNB/InteractiveHtmlBom
-          path: InteractiveHtmlBom
-
-      - name: Install deps
-        run: |
-          sudo add-apt-repository --yes ppa:kicad/kicad-6.0-releases
-          sudo apt update && sudo apt install --install-recommends kicad
-          wget http://archive.ubuntu.com/ubuntu/pool/universe/p/pygtk/python-gtk2_2.24.0-5.1ubuntu2_amd64.deb
-          wget http://archive.ubuntu.com/ubuntu/pool/universe/g/gtk-recordmydesktop/gtk-recordmydesktop_0.3.8-4.1ubuntu1_all.deb
-          sudo apt-get install ./python-gtk2_2.24.0-5.1ubuntu2_amd64.deb ./gtk-recordmydesktop_0.3.8-4.1ubuntu1_all.deb
-          sudo apt-get -y install librsvg2-bin xdotool xclip imagemagick
-          identify -version
-
-      - name: install pcbdraw
-        run: |
-          pip3 install --no-compile pcbdraw
-
-      - name: install InteractiveHtmlBom
-        working-directory: InteractiveHtmlBom
-        run: |
-          pip3 install --no-compile .
-
-      - name: install kibot
-        working-directory: kibot
-        run: |
-          pip3 install --no-compile .
-
-      - name: Make directory
-        working-directory: project
-        run: |
-          mkdir Hardware
-          mkdir Hardware/Fabrication
-          mv kibot.yml kibot.yaml
-          ls -lh
-
-      - name: Run KiBot
-        working-directory: project
-        run: |
-          kibot -b 'PMod_LEDArray/Hardware/PMOD_LEDArray.kicad_pcb' -e 'PMod_LEDArray/Hardware/PMOD_LEDArray.kicad_sch' -d 'Hardware/Fabrication' -c 'kibot.yaml' -v
-
-      - name: Retrieve results
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: Fabrication_Files
-          path: |
-            project/Hardware/Fabrication/
-          if-no-files-found: warn
+    - name: Retrieve results
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: Fabrication_Files
+        path: |
+          Hardware/Fabrication/
+        if-no-files-found: warn
 
   Build-Software:
     runs-on: ubuntu-latest
