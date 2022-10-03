@@ -19,13 +19,33 @@ int main() {
     gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
     gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
 
+
+    //1pps LED
+    gpio_init(13);
+	gpio_set_dir(13, GPIO_IN);
+
+    gpio_init(24);
+	gpio_set_dir(24, GPIO_OUT);
+
+
     sleep_ms(2000);
     printf("hello world\n");
 
     while (1) {
         // send any chars from stdio straight to the host
-        char c = uart_getc(UART_ID);
-        if (c < 128) printf(c);
+        if (uart_is_readable(UART_ID)>0) {
+            char c = uart_getc(UART_ID);
+            if (c < 128) {
+                printf("%c",c);
+            }    
+        }
+        else{
+            sleep_ms(25);
+        }
+
+        //Read 1PPS and show on the board
+        gpio_put(24, gpio_get(13));
+
     }
 
 }
