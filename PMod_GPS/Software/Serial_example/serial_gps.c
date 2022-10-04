@@ -46,7 +46,7 @@ int main() {
                 {
                     //end of the line, process the line
                     char_count = 0;
-                    if(strncmp(message,"$GNRMC", 6)) {
+                    if(strncmp(message,"$GNRMC", 6)==0) {
                         printf("found GNRMC");
                     }
 
