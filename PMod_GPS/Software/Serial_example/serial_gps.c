@@ -53,7 +53,7 @@ int main() {
                         int mins = 10*(message[9]-'0') + (message[10]-'0');
                         int secs = 10*(message[11]-'0') + (message[12]-'0');
 
-                        printf("UTC time is: %i:%i:%i \n", hours, mins, secs);
+                        printf("UTC time is: %02i:%02i:%02i \n", hours, mins, secs);
 
                         //extract the date
                     }
