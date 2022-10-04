@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "pico/stdlib.h"
 #include "pico/stdio_usb.h"
 #include "hardware/uart.h"
@@ -31,12 +32,30 @@ int main() {
     sleep_ms(2000);
     printf("hello world\n");
 
+    int char_count = 0;
+    char message[128];
+
     while (1) {
         // send any chars from stdio straight to the host
         if (uart_is_readable(UART_ID)>0) {
             char c = uart_getc(UART_ID);
             if (c < 128) {
                 printf("%c",c);
+
+                if(c == '\n')
+                {
+                    //end of the line, process the line
+                    char_count = 0;
+                    if(strncmp(message,"$GNRMC", 6)) {
+                        printf("found GNRMC");
+                    }
+
+                }
+                else
+                {
+                    //add to the message arrary
+                    message[char_count++] = c;
+                }
             }    
         }
         else{
