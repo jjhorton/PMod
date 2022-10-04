@@ -33,30 +33,31 @@ int main() {
     printf("hello world\n");
 
     int char_count = 0;
-    char message[128];
+    char message[256];
 
     while (1) {
         // send any chars from stdio straight to the host
         if (uart_is_readable(UART_ID)>0) {
             char c = uart_getc(UART_ID);
             if (c < 128) {
-                printf("%c",c);
+                //printf("%c",c);
 
                 if(c == '\n')
                 {
                     //end of the line, process the line
-                    char_count = 0;
                     if(strncmp(message,"$GNRMC", 6)==0) {
                         printf("found GNRMC\n");
+                        printf("%s\n",message);
                         //extract the time
-                        int hours = 10*(message[8]-'0') + (message[9]-'0');
-                        int mins = 10*(message[10]-'0') + (message[11]-'0');
-                        int secs = 10*(message[12]-'0') + (message[13]-'0');
+                        int hours = 10*(message[7]-'0') + (message[8]-'0');
+                        int mins = 10*(message[9]-'0') + (message[10]-'0');
+                        int secs = 10*(message[11]-'0') + (message[12]-'0');
 
-                        printf("UTC time is: %i : %i : %i \n", hours, mins, secs);
+                        printf("UTC time is: %i:%i:%i \n", hours, mins, secs);
 
                         //extract the date
                     }
+                    char_count = 0;
 
                 }
                 else
