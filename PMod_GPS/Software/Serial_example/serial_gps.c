@@ -47,7 +47,15 @@ int main() {
                     //end of the line, process the line
                     char_count = 0;
                     if(strncmp(message,"$GNRMC", 6)==0) {
-                        printf("found GNRMC");
+                        printf("found GNRMC\n");
+                        //extract the time
+                        int hours = 10*(message[8]-'0') + (message[9]-'0');
+                        int mins = 10*(message[10]-'0') + (message[11]-'0');
+                        int secs = 10*(message[12]-'0') + (message[13]-'0');
+
+                        printf("UTC time is: %i : %i : %i \n", hours, mins, secs);
+
+                        //extract the date
                     }
 
                 }
