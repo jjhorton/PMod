@@ -19,8 +19,8 @@ jobs:
 
       # Do a string replacement in the PCB file to set the git HASH
     - name: Set outputs
-        id: vars
-        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      id: vars
+      run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
 
     - name: Set PCB version
       uses: jacobtomlinson/gha-find-replace@master
