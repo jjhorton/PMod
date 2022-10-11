@@ -19,11 +19,11 @@ jobs:
 
       # Do a string replacement in the PCB file to set the git HASH
     - name: Git hash
-      run: echo ${GITHUB_SHA} 
+      run: echo ${github.sha} 
 
     - name: Set outputs
       id: vars
-      run: echo "::set-output name=sha_short::$(echo ${GITHUB_SHA} | cut -c1-8)"
+      run: echo "::set-output name=sha_short::$(echo ${github.sha} | cut -c1-8)"
 
     - name: Set PCB version
       uses: jacobtomlinson/gha-find-replace@master
