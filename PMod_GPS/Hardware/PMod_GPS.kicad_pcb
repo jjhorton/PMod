@@ -1053,7 +1053,7 @@
   (gr_text "PMod GPS\n@JamesjHorton\njjhorton.co.uk" (at 160 91 -90) (layer "B.SilkS") (tstamp 6b783c6b-7739-4802-811e-4cc899f82829)
     (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
   )
-  (gr_text "%%GITHASH%%" (at 126 91 90) (layer "B.SilkS") (tstamp 78af7797-50e6-49c7-b2a4-a38625212e6b)
+  (gr_text "Ver: %%GITHASH%%" (at 126 91 270) (layer "B.SilkS") (tstamp 78af7797-50e6-49c7-b2a4-a38625212e6b)
     (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
   )
 
