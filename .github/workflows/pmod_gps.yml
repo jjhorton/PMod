@@ -20,14 +20,14 @@ jobs:
       # Do a string replacement in the PCB file to set the git HASH
     - name: Set outputs
       id: vars
-      run: echo "${{ github.event.pull_request.head.sha }}"
+      run: echo "${{ github.event.pull_request.head.sha::7 }}"
 
     - name: Set PCB version
       uses: jacobtomlinson/gha-find-replace@master
       with:
         include: "PMod_GPS/Hardware/PMod_GPS.kicad_pcb"
         find: "%%GITHASH%%"
-        replace: ${{ github.event.pull_request.head.sha }}
+        replace: ${{ github.event.pull_request.head.sha::7 }}
 
 
     - uses: INTI-CMNB/KiBot@v2_k6
