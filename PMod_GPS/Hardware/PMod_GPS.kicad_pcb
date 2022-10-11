@@ -87,6 +87,8 @@
     )
   )
 
+  (property "VER" "GITVER")
+
   (net 0 "")
   (net 1 "Net-(AE1-Pad1)")
   (net 2 "unconnected-(U1-Pad1)")
@@ -1049,6 +1051,9 @@
   (gr_arc (start 118 99) (mid 117.292893 98.707107) (end 117 98) (layer "Edge.Cuts") (width 0.1) (tstamp f5d3e87b-336f-4f9e-a70f-dcddd04e0227))
   (gr_arc (start 117 83) (mid 117.292893 82.292893) (end 118 82) (layer "Edge.Cuts") (width 0.1) (tstamp fa304a79-627e-40e2-957a-9c1bf1736039))
   (gr_text "PMod GPS\n@JamesjHorton\njjhorton.co.uk" (at 160 91 -90) (layer "B.SilkS") (tstamp 6b783c6b-7739-4802-811e-4cc899f82829)
+    (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
+  )
+  (gr_text "%%GITHASH%%" (at 126 91 90) (layer "B.SilkS") (tstamp 78af7797-50e6-49c7-b2a4-a38625212e6b)
     (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
   )
 

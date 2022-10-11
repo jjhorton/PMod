@@ -432,5 +432,7 @@
       ""
     ]
   ],
-  "text_variables": {}
+  "text_variables": {
+    "VER": "GITVER"
+  }
 }
