@@ -21,6 +21,12 @@ jobs:
     - name: Git hash
       run: echo "${{ github.sha }}"
 
+    - name: Git hash 2
+      run: echo "$(git log -1 --format='%H' )"
+
+    - name: Git hash 3
+      run: echo "$(git rev-parse --short HEAD))"
+      
     - name: Set outputs
       id: vars
       run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
