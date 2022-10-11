@@ -20,7 +20,7 @@ jobs:
       # Do a string replacement in the PCB file to set the git HASH
     - name: Set outputs
       id: vars
-      run: git rev-parse --short github.event.pull_request.head.sha
+      run: git rev-parse --short ${{ github.event.pull_request.head.sha }}
 
     - name: Set PCB version
       uses: jacobtomlinson/gha-find-replace@master
