@@ -19,7 +19,7 @@ jobs:
 
       # Do a string replacement in the PCB file to set the git HASH
     - name: Git hash
-      run: echo $(git rev-parse --short "$GITHUB_SHA")
+      run: echo $(git rev-parse --short HEAD)
 
     - name: Set outputs
       id: vars
