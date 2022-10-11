@@ -16,6 +16,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+
+      # Do a string replacement in the PCB file to set the git HASH
+    - name: Set outputs
+      id: vars
+      run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
+    - name: Set PCB version
+      uses: jacobtomlinson/gha-find-replace@master
+      with:
+        include: "PMod_GPS/Hardware/PMod_GPS.kicad_pcb"
+        find: "%%GITHASH%%"
+        replace: ${{ steps.vars.outputs.sha_short }}
+
+
     - uses: INTI-CMNB/KiBot@v2_k6
       with:
         # Required - kibot config file
