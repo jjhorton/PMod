@@ -20,14 +20,14 @@ jobs:
       # Do a string replacement in the PCB file to set the git HASH
     - name: Set outputs
       id: vars
-      run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+      run: echo "::set-output name=sha_short::$(echo ${GITHUB_SHA::7})"
 
     - name: Set PCB version
       uses: jacobtomlinson/gha-find-replace@master
       with:
         include: "PMod_GPS/Hardware/PMod_GPS.kicad_pcb"
         find: "%%GITHASH%%"
-        replace: ${SHORT_SHA}
+        replace: echo ${{ steps.vars.outputs.sha_short }}
 
 
     - uses: INTI-CMNB/KiBot@v2_k6
