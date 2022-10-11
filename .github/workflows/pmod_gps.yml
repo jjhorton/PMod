@@ -19,7 +19,7 @@ jobs:
 
       # Do a string replacement in the PCB file to set the git HASH
     - name: Git hash
-      run: echo ${{ github.event.workflow_run.head_sha }}
+      run: echo "${{ github.event.workflow_run.head_sha }}"
 
     - name: Set outputs
       id: vars
