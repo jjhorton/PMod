@@ -27,7 +27,7 @@ jobs:
       with:
         include: "PMod_GPS/Hardware/PMod_GPS.kicad_pcb"
         find: "%%GITHASH%%"
-        replace: ${{ github.event.pull_request.head.sha } | cut -c1-8}
+        replace: ${{ github.event.pull_request.head.sha }} | cut -c1-8
 
 
     - uses: INTI-CMNB/KiBot@v2_k6
