@@ -20,7 +20,12 @@ jobs:
       # Do a string replacement in the PCB file to set the git HASH
     - name: Set outputs
       id: vars
-      run: echo "::set-output name=sha_short::$(git rev-parse --short ${{ github.event.pull_request.head.sha }})"
+      run: |
+        if [${{ github.event.pull_request.head.sha }} == ""]; then
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+        else
+          echo "::set-output name=sha_short::$(git rev-parse --short ${{ github.event.pull_request.head.sha }})"
+        fi
 
     - name: Set PCB version
       uses: jacobtomlinson/gha-find-replace@master
