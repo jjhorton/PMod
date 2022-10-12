@@ -56,6 +56,23 @@ int main() {
                         printf("UTC time is: %02i:%02i:%02i \n", hours, mins, secs);
 
                         //extract the date
+
+                        int comma = 0;
+                        int date_start = 0;
+                        //find the number of commas
+                        for( int i=0; i < char_count; i++){
+                            if(message[i] == ','){
+                                comma++;
+                                if(comma == 9){
+                                    date_start = i+1;
+                                }
+                            }
+                        }
+                        int day = 10*(message[date_start]-'0') + (message[date_start+1]-'0');
+                        int month = 10*(message[date_start+2]-'0') + (message[date_start+3]-'0');
+                        int year =  10*(message[date_start+4]-'0') + (message[date_start+5]-'0');
+
+                        printf("UTC Date is: %02i/%02i/%02i\n", day, month, year);
                     }
                     char_count = 0;
 
