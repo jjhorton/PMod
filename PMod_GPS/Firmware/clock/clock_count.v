@@ -12,10 +12,11 @@ module clock_count(clk, in_tx, in_rx, pmod_tx, pmod_rx, pps, ledr, ledg);
 	output ledg;
 
 	parameter 	CLOCK_PER_SECOND=10_000_000;
+	parameter 	WIDTH=32;
 
 	reg last_pps;
-	reg [31:0] clock_count;
-	reg [31:0] clock_error;
+	reg [(WIDTH-1):0] clock_counter;
+	reg [(WIDTH-1):0] clock_error;
 
 	always @(posedge clk)
 	begin
@@ -24,16 +25,18 @@ module clock_count(clk, in_tx, in_rx, pmod_tx, pmod_rx, pps, ledr, ledg);
 		if ((last_pps== 1'b0) && (pps== 1'b1)) 
 		begin
 			//the rising edge of the 1pps clock
-			clock_error <= clock_count - CLOCK_PER_SECOND;
+			/* verilator lint_off WIDTH */
+			clock_error <= clock_counter - CLOCK_PER_SECOND;
+			/* verilator lint_on WIDTH */
 
 			//rest the clock counter
-			clock_count <= 32'b0;
+			clock_counter <= 0;
 			
 		end
 		else
 		begin
 			//count up for each clock cycle
-			clock_count <= clock_count + 1'b1;
+			clock_counter <= clock_counter + 1'b1;
 		end
 
 
