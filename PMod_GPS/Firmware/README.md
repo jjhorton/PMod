@@ -9,3 +9,8 @@ The command to see the GPS message from the GPS module the following command can
 ```bash
 screen /dev/tty.usbserial-ib2u9O9Z1 9600  
 ```
+
+## Clock test
+
+The purpose of this example is to compare the 1pps and the accuracey of the on-board clock on the devboard
+
