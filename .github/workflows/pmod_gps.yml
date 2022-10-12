@@ -21,7 +21,7 @@ jobs:
     - name: Set outputs
       id: vars
       run: |
-        if ${{ github.event.pull_request.head.sha }} == ""
+        if [${{ github.event.pull_request.head.sha }} == ""]; then
           echo "::set-output name=sha_short::$(git rev-parse --short HEAD"
         else
           echo "::set-output name=sha_short::$(git rev-parse --short ${{ github.event.pull_request.head.sha }})"
