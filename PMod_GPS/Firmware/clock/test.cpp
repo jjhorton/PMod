@@ -39,12 +39,13 @@ int main(int argc, char **argv){
 	tfp->open("trace.vcd");
 
 
-	for(int i=0; i<8; i++){
+	for(int i=0; i<32; i++){
         tb->pps = 1;
-        for(int j=0; j<=16; j++){
+        for(int j=0; j<=(i+1); j++){
             tick(++tickcount, tb, tfp);
             tb->pps = 0;
         }
+		printf("Input cycles %i Error %i\n", (signed char) (i), (signed char) (tb->my_error));
 	}
 
 	//write the coverage data out

@@ -1,4 +1,4 @@
-module clock_count(clk, in_tx, in_rx, pmod_tx, pmod_rx, pps, ledr, ledg);
+module clock_count(clk, in_tx, in_rx, pmod_tx, pmod_rx, pps, ledr, ledg, my_error);
 	input clk;
 	input in_rx;
 	output in_tx;
@@ -10,6 +10,8 @@ module clock_count(clk, in_tx, in_rx, pmod_tx, pmod_rx, pps, ledr, ledg);
 
 	output ledr;
 	output ledg;
+
+	output [(WIDTH-1):0] my_error;
 
 	parameter 	CLOCK_PER_SECOND=10_000_000;
 	parameter 	WIDTH=32;
@@ -25,6 +27,7 @@ module clock_count(clk, in_tx, in_rx, pmod_tx, pmod_rx, pps, ledr, ledg);
 		if ((last_pps== 1'b0) && (pps== 1'b1)) 
 		begin
 			//the rising edge of the 1pps clock
+			
 			/* verilator lint_off WIDTH */
 			clock_error <= clock_counter - CLOCK_PER_SECOND;
 			/* verilator lint_on WIDTH */
@@ -43,6 +46,7 @@ module clock_count(clk, in_tx, in_rx, pmod_tx, pmod_rx, pps, ledr, ledg);
 
 	end
 
+	assign my_error = clock_error;
 	assign ledg = 1'b1;
 
 	assign pmod_tx = in_rx;
