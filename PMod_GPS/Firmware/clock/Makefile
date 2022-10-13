@@ -12,7 +12,7 @@ build:
 	icepack $(PROJ).asc $(PROJ).bin
 
 test:
-	verilator -Wall -GWIDTH=8 -GCLOCK_PER_SECOND=16 --trace --build --coverage -cc --exe $(PROJ).v test.cpp
+	verilator -Wall -GWIDTH=32 -GCLOCK_RATE_HZ=4000 -GBAUD_RATE=40 --trace --build --coverage -cc --exe $(PROJ).v test.cpp
 	./obj_dir/Vclock_count
 	verilator_coverage logs/coverage.dat --annotate logs/annotated --write-info logs/coverage.info --write logs/results.txt --rank
 	genhtml logs/coverage.info --output-directory logs/html

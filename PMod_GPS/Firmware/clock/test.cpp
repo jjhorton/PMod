@@ -39,9 +39,9 @@ int main(int argc, char **argv){
 	tfp->open("trace.vcd");
 
 
-	for(int i=0; i<32; i++){
+	for(int i=0; i<30; i++){
         tb->pps = 1;
-        for(int j=0; j<=(i+1); j++){
+        for(int j=0; j<=(i+3990); j++){
             tick(++tickcount, tb, tfp);
             tb->pps = 0;
         }
