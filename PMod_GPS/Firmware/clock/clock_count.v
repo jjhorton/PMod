@@ -1,6 +1,6 @@
 `include "txuart.v"
 
-module clock_count(clk, in_tx, in_rx, pmod_tx, pmod_rx, pps, ledr, ledg, my_error);
+module clock_count(clk, in_tx, in_rx, pmod_tx, pmod_rx, pps, ledr, ledg);
 	input clk;
 	input in_rx;
 	output in_tx;
@@ -13,9 +13,7 @@ module clock_count(clk, in_tx, in_rx, pmod_tx, pmod_rx, pps, ledr, ledg, my_erro
 	output ledr;
 	output ledg;
 
-	output [(WIDTH-1):0] my_error;
-
-	parameter 	CLOCK_RATE_HZ = 32'd10_000_000;
+	parameter 	CLOCK_RATE_HZ = 32'd12_000_000;
 	parameter 	BAUD_RATE = 32'd115_200;
 	parameter 	CLK_PERBAUD = (CLOCK_RATE_HZ/BAUD_RATE);
 	parameter 	CLOCK_PER_SECOND=CLOCK_RATE_HZ;
@@ -54,7 +52,6 @@ module clock_count(clk, in_tx, in_rx, pmod_tx, pmod_rx, pps, ledr, ledg, my_erro
 
 	end
 
-	assign my_error = clock_error;
 	assign ledg = 1'b1;
 
 	assign pmod_tx = in_rx;
