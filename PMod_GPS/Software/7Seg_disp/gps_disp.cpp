@@ -6,10 +6,10 @@
 #include "My7Seg.h"
 
 //uart parameters
-#define UART_ID uart1
+#define UART_ID uart0
 #define BAUD_RATE 9600
-#define UART_TX_PIN 8
-#define UART_RX_PIN 9
+#define UART_TX_PIN 16
+#define UART_RX_PIN 17
 
 
 int main() {
@@ -22,7 +22,7 @@ int main() {
     gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
 
     //enable the 7segment display
-    My7Seg Display1A(16,18);
+    My7Seg Display1A(8,10);
     Display1A.enable();
     Display1A.setValue(double(0),0);
 
