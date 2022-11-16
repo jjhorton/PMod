@@ -11,6 +11,8 @@
 #define UART_TX_PIN 16
 #define UART_RX_PIN 17
 
+#define PPS1_PIN 21
+#define LED_PIN 25
 
 int main() {
 
@@ -27,13 +29,13 @@ int main() {
     Display1A.setValue(double(0),0);
 
     //1pps LED
-    gpio_init(13);
-	gpio_set_dir(13, GPIO_IN);
+    gpio_init(PPS1_PIN);
+	gpio_set_dir(PPS1_PIN, GPIO_IN);
 
-    gpio_init(24);
-	gpio_set_dir(24, GPIO_OUT);
+    gpio_init(LED_PIN );
+	gpio_set_dir(LED_PIN , GPIO_OUT);
 
-
+    gpio_put(LED_PIN , 1);
     sleep_ms(2000);
     printf("hello world\n");
 
@@ -121,7 +123,7 @@ int main() {
         }
 
         //Read 1PPS and show on the board
-        gpio_put(24, gpio_get(13));
+        gpio_put(LED_PIN , gpio_get(PPS1_PIN));
 
     }
 
