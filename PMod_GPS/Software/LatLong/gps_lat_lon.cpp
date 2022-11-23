@@ -69,7 +69,7 @@ int main() {
 
                         //Display1A.setValue(double(end_of_day),0);
 
-                        printf("UTC time is: %02i:%02i:%02i \n", hours, mins, secs);
+                        //printf("UTC time is: %02i:%02i:%02i \n", hours, mins, secs);
 
                         //extract the date
 
