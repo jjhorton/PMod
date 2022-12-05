@@ -86,7 +86,7 @@ int main() {
                         printf("UTC Date is: %02i/%02i/%02i\n", day, month, year);
 
                         if ( (0 < year)&&  (year <100)){
-                            if((month < 12) && (day < 25)){
+                            if((month <= 12) && (day < 25)){
                                 //calculate seconds to 25th december
                                 int days_per_month[] = {31,28,31,30,31,30,31,31,30,31,30,31};
 
