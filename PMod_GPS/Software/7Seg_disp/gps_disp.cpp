@@ -40,9 +40,24 @@ int main() {
     printf("hello world\n");
 
     int char_count = 0;
+    int last_pps = 0;
     char message[256];
+    int seconds_remaining = 0;
 
     while (1) {
+
+        int current_pps = gpio_get(PPS1_PIN);
+        if (current_pps && !last_pps){
+            if (seconds_remaining > 0){
+                Display1A.setValue(double(seconds_remaining-1),0);
+            }
+            else{
+                Display1A.setValue(double(0),0);
+            }
+        }
+        last_pps = current_pps;
+
+
         // send any chars from stdio straight to the host
         if (uart_is_readable(UART_ID)>0) {
             char c = uart_getc(UART_ID);
@@ -62,7 +77,7 @@ int main() {
 
                         int end_of_day = ((hours*60 + mins)*60 +secs);
 
-                        Display1A.setValue(double(end_of_day),0);
+                        //Display1A.setValue(double(end_of_day),0);
 
                         printf("UTC time is: %02i:%02i:%02i \n", hours, mins, secs);
 
@@ -96,16 +111,20 @@ int main() {
                                 } 
                                 int end_of_year = (24*60*60)*(365-7-day_so_far-day);
                                 int end_of_day = (24*60*60)-((hours*60 + mins)*60 +secs);
-                                Display1A.setValue(double(end_of_year+end_of_day),0);
+
+                                seconds_remaining = end_of_year+end_of_day;
+                                //Display1A.setValue(double(end_of_year+end_of_day),0);
                             }
                             else {
                                 // between christmas and new year
-                                Display1A.setValue(double(0),0);
+                                //Display1A.setValue(double(0),0);
+                                seconds_remaining = 0;
                             }
                         }
                         else {
                             // not a valid date/time
-                            Display1A.setValue(double(0),0);
+                            seconds_remaining = 0;
+                            //Display1A.setValue(double(0),0);
                         }
                     }
                     char_count = 0;
@@ -118,10 +137,19 @@ int main() {
                 }
             }    
         }
-        else{
-            sleep_ms(25);
-        }
 
+/*
+        int current_pps = gpio_get(PPS1_PIN);
+        if (current_pps && !last_pps){
+            if (seconds_remaining > 0){
+                Display1A.setValue(double(seconds_remaining-1),0);
+            }
+            else{
+                Display1A.setValue(double(0),0);
+            }
+        }
+        last_pps = current_pps;
+*/
         //Read 1PPS and show on the board
         gpio_put(LED_PIN , gpio_get(PPS1_PIN));
 
