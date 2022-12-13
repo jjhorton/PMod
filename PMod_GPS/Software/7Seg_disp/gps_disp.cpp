@@ -57,7 +57,7 @@ int main() {
         }
         last_pps = current_pps;
 
-
+        
         // send any chars from stdio straight to the host
         if (uart_is_readable(UART_ID)>0) {
             char c = uart_getc(UART_ID);
