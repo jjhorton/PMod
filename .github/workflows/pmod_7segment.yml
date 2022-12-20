@@ -89,12 +89,12 @@ jobs:
 
       - name: Install verilator tools
         run: |
-          sudo apt-get install git perl python3 make autoconf g++ flex bison ccache
-          sudo apt-get install libgoogle-perftools-dev numactl perl-doc
-          sudo apt-get install libfl2  # Ubuntu only (ignore if gives error)
-          sudo apt-get install libfl-dev  # Ubuntu only (ignore if gives error)
-          sudo apt-get install zlibc zlib1g zlib1g-dev  # Ubuntu only (ignore if gives error)
-          sudo apt-get install lcov
+          sudo apt install -y libunwind-dev
+          sudo apt install -y git perl python3 make autoconf g++ flex bison ccache
+          sudo apt install -y libgoogle-perftools-dev numactl perl-doc
+          sudo apt install -y libfl2  # Ubuntu only (ignore if gives error)
+          sudo apt install -y libfl-dev  # Ubuntu only (ignore if gives error)
+          sudo apt install -y lcov
           wget https://github.com/sifive/verilator/releases/download/4.204-0sifive3/verilator_4.204-0sifive3_amd64.deb
           sudo dpkg -i verilator_4.204-0sifive3_amd64.deb
 
