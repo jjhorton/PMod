@@ -95,8 +95,8 @@ jobs:
           sudo apt install -y libfl2  # Ubuntu only (ignore if gives error)
           sudo apt install -y libfl-dev  # Ubuntu only (ignore if gives error)
           sudo apt install -y lcov
-          wget https://github.com/sifive/verilator/releases/download/4.224-0sifive3/verilator_4.224-0sifive3_amd64.deb
-          sudo dpkg -i verilator_4.224-0sifive3_amd64.deb
+          wget https://github.com/sifive/verilator/releases/download/4.204-0sifive3/verilator_4.204-0sifive3_amd64.deb
+          sudo dpkg -i verilator_4.204-0sifive3_amd64.deb
 
       - name: Run coverage
         working-directory: project/PMod_7Segment/Firmware
