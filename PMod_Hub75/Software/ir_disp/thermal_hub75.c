@@ -39,8 +39,8 @@ const int I2C_SDA = 0;
 const int I2C_SCL = 1;
 
 // varribles for the images
-uint16_t my_temps[64];
-uint16_t upscaled_temps[4096];
+float my_temps[64];
+float upscaled_temps[4096];
 int select_img; 
 uint16_t my_values_1[WIDTH * HEIGHT];
 uint16_t my_values_2[WIDTH * HEIGHT];
@@ -184,19 +184,15 @@ int main() {
             result = result*0.25;
             printf("%6.2f, ", result);
 
-            if (result > 25) {
-                my_temps[i]  = (int16_t)(result) ;
-            }
-            else{
-                my_temps[i] = (int16_t)(result) ;
-            }
+            my_temps[i]  = result;
         }
         printf("\n");
 
 
         //uint16_t upscaled_temps[64*64];
 
-        
+        /*
+        //upscale in 8x8 blocks of color
         for (int i = 0; i<8; i++){
             for (int j = 0; j<8; j++){
                 for(int a = 0; a < 8; a++){
@@ -206,7 +202,62 @@ int main() {
                 }
             }
         }
+        */
         
+        // 2D linear interpolation 
+        for (int i = 0; i<8; i++){
+            for (int j = 0; j<8; j++){
+
+                if(i<7){
+                    //first cell is the actual value from the sensor
+                    upscaled_temps[(((j*8))*WIDTH)+((i*9))] = my_temps[(j*8)+i];
+
+                    //calculate inter factor between each of the pixelsa
+                    float i_diff = (my_temps[(j*8)+(i+1)] - my_temps[(j*8)+i])/9;
+
+                    for(int a = 1; a < 9; a++){
+                        float step = i_diff*a;
+                        upscaled_temps[(((j*8))*WIDTH)+((i*9)+a)] = my_temps[(j*8)+i] + step;
+                    }
+                }
+                else{
+                    upscaled_temps[(((j*8))*WIDTH)+(((i+1)*8)-1)] = my_temps[(j*8)+i];
+                }
+
+            }
+        }
+
+        for (int i = 0; i<(WIDTH); i++){
+            for (int j = 0; j<8; j++){
+                for(int a = 0; a < 8; a++){
+                    float diff = 0;
+                    float ref_start; 
+                    float ref_end;
+                    if (j==7){
+                        //end pixels
+                        ref_start = upscaled_temps[(((j*8))*WIDTH)+i];
+                        ref_end = upscaled_temps[((((j-1)*8))*WIDTH)+i];
+                        diff = (ref_start-ref_end)/8;
+                    }
+                    else {
+                        //middle pixels
+                        ref_start = upscaled_temps[(((j*8))*WIDTH)+i];
+                        ref_end = upscaled_temps[((((j+1)*8))*WIDTH)+i];
+                        diff = (ref_end -ref_start)/8;
+                    }
+
+                    if(i==2 && j==2){
+                        printf("Start: %6.2f, ", ref_start);
+                        printf("End: %6.2f, ", ref_end);
+                        printf("Diff: %6.2f \n ", diff);
+                    }
+                    for(int b = 1; b < 8; b++){
+                        float step = diff*b;
+                        upscaled_temps[(((j*8)+b)*WIDTH)+i] = ref_start + step;
+                    }
+                }
+            }
+        }
 
         //for (int i = 0; i<(WIDTH * HEIGHT); i++){
         //    my_values[i] = 0xc7;
@@ -216,9 +267,9 @@ int main() {
         for (int i = 0; i<HEIGHT; i++){
             for (int j = 0; j<WIDTH; j++){
   
-                uint16_t value_r = ((RGB_LOOKUP[upscaled_temps[(j*WIDTH)+i]][0] >> 3) & 0x1f) << 11;
-                uint16_t value_g = ((RGB_LOOKUP[upscaled_temps[(j*WIDTH)+i]][1] >> 2) & 0x3f) << 5;
-                uint16_t value_b = (RGB_LOOKUP[upscaled_temps[(j*WIDTH)+i]][2] >> 3) & 0x1f;
+                uint16_t value_r = (( RGB_LOOKUP[(int16_t)(upscaled_temps[(j*WIDTH)+i])][0] >> 3) & 0x1f) << 11;
+                uint16_t value_g = (( RGB_LOOKUP[(int16_t)(upscaled_temps[(j*WIDTH)+i])][1] >> 2) & 0x3f) << 5;
+                uint16_t value_b = (  RGB_LOOKUP[(int16_t)(upscaled_temps[(j*WIDTH)+i])][2] >> 3) & 0x1f;
 
                 uint16_t rgb_value = (uint16_t) (value_r | value_g | value_b);
 
@@ -237,8 +288,6 @@ int main() {
             select_img = 1;
         }
 
-        
-        sleep_ms(200);
     }
 
 }
