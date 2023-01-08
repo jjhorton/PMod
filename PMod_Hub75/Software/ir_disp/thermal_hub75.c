@@ -40,6 +40,7 @@ const int I2C_SCL = 1;
 
 // varribles for the images
 uint16_t my_temps[64];
+uint16_t upscaled_temps[4096];
 int select_img; 
 uint16_t my_values_1[WIDTH * HEIGHT];
 uint16_t my_values_2[WIDTH * HEIGHT];
@@ -192,27 +193,40 @@ int main() {
         }
         printf("\n");
 
-        //for (int i = 0; i<(WIDTH * HEIGHT); i++){
-        //    my_values[i] = 0xc7;
-        //}   
 
+        //uint16_t upscaled_temps[64*64];
+
+        
         for (int i = 0; i<8; i++){
             for (int j = 0; j<8; j++){
                 for(int a = 0; a < 8; a++){
                     for(int b = 0; b< 8; b++){
-                        uint16_t value_r = ((RGB_LOOKUP[my_temps[(j*8)+i]][0] >> 3) & 0x1f) << 11;
-                        uint16_t value_g = ((RGB_LOOKUP[my_temps[(j*8)+i]][1] >> 2) & 0x3f) << 5;
-                        uint16_t value_b = (RGB_LOOKUP[my_temps[(j*8)+i]][2] >> 3) & 0x1f;
+                        upscaled_temps[(((j*8)+b)*WIDTH)+((i*8)+a)] = my_temps[(j*8)+i];
+                    }
+                }
+            }
+        }
+        
 
-                        uint16_t rgb_value = (uint16_t) (value_r | value_g | value_b);
+        //for (int i = 0; i<(WIDTH * HEIGHT); i++){
+        //    my_values[i] = 0xc7;
+        //}   
 
-                        if (select_img==2){
-                            my_values_1[(((i*8)+b)*WIDTH)+((j*8)+a) ] = rgb_value;
-                        }
-                        else{
-                            my_values_2[(((i*8)+b)*WIDTH)+((j*8)+a) ] = rgb_value;
-                        }
-                    }      
+        
+        for (int i = 0; i<HEIGHT; i++){
+            for (int j = 0; j<WIDTH; j++){
+  
+                uint16_t value_r = ((RGB_LOOKUP[upscaled_temps[(j*WIDTH)+i]][0] >> 3) & 0x1f) << 11;
+                uint16_t value_g = ((RGB_LOOKUP[upscaled_temps[(j*WIDTH)+i]][1] >> 2) & 0x3f) << 5;
+                uint16_t value_b = (RGB_LOOKUP[upscaled_temps[(j*WIDTH)+i]][2] >> 3) & 0x1f;
+
+                uint16_t rgb_value = (uint16_t) (value_r | value_g | value_b);
+
+                if (select_img==2){
+                    my_values_1[(i*WIDTH)+j ] = rgb_value;
+                }
+                else{
+                    my_values_2[(i*WIDTH)+j ] = rgb_value;
                 }
             }
         }
@@ -223,6 +237,7 @@ int main() {
             select_img = 1;
         }
 
+        
         sleep_ms(200);
     }
 
