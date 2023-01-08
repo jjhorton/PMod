@@ -236,8 +236,8 @@ int main() {
                     if (j==7){
                         //end pixels
                         ref_start = upscaled_temps[(((j*8))*WIDTH)+i];
-                        ref_end = upscaled_temps[((((j-1)*8))*WIDTH)+i];
-                        diff = (ref_start-ref_end)/8;
+                        ref_end = upscaled_temps[((((j)*8)-1)*WIDTH)+i];
+                        diff = (ref_end-ref_start)/8;
                     }
                     else {
                         //middle pixels
@@ -246,11 +246,6 @@ int main() {
                         diff = (ref_end -ref_start)/8;
                     }
 
-                    if(i==2 && j==2){
-                        printf("Start: %6.2f, ", ref_start);
-                        printf("End: %6.2f, ", ref_end);
-                        printf("Diff: %6.2f \n ", diff);
-                    }
                     for(int b = 1; b < 8; b++){
                         float step = diff*b;
                         upscaled_temps[(((j*8)+b)*WIDTH)+i] = ref_start + step;
@@ -266,10 +261,26 @@ int main() {
         
         for (int i = 0; i<HEIGHT; i++){
             for (int j = 0; j<WIDTH; j++){
+
+                float max_temp = 45;
+                float min_temp = 5;
+                float steps_temp = 80;
+
+                float scale_temp = steps_temp/(max_temp-min_temp);
+
+                int16_t lookup_value = 80 - ((upscaled_temps[(j*WIDTH)+i]-min_temp)*scale_temp);
+
+                if(i==2 && j==2){
+                        printf("Start: %6.2f, ", max_temp);
+                        printf("End: %6.2f, ", min_temp);
+                        printf("Step: %6.2f \n ", scale_temp);
+                        printf("Step: %6.2f \n ",upscaled_temps[(j*WIDTH)+i]);
+                        printf("Step: %6.2f \n ",lookup_value );
+                    }
   
-                uint16_t value_r = (( RGB_LOOKUP[(int16_t)(upscaled_temps[(j*WIDTH)+i])][0] >> 3) & 0x1f) << 11;
-                uint16_t value_g = (( RGB_LOOKUP[(int16_t)(upscaled_temps[(j*WIDTH)+i])][1] >> 2) & 0x3f) << 5;
-                uint16_t value_b = (  RGB_LOOKUP[(int16_t)(upscaled_temps[(j*WIDTH)+i])][2] >> 3) & 0x1f;
+                uint16_t value_r = (( RGB_LOOKUP[lookup_value][0] >> 3) & 0x1f) << 11;
+                uint16_t value_g = (( RGB_LOOKUP[lookup_value][1] >> 2) & 0x3f) << 5;
+                uint16_t value_b = (  RGB_LOOKUP[lookup_value][2] >> 3) & 0x1f;
 
                 uint16_t rgb_value = (uint16_t) (value_r | value_g | value_b);
 
