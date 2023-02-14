@@ -140,7 +140,7 @@ jobs:
       - name: Install deps
         run: |
           sudo -H pip3 install yowasp-yosys
-          sudo -H pip3 install yowasp-nextpnr-ice40-all
+          sudo -H pip3 install yowasp-nextpnr-ice40
            # Runs a set of commands using the runners shell
 
       - name: Run yosys on the files
