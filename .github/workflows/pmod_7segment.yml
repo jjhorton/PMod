@@ -2,7 +2,7 @@ name: "PMod 7 Segment Display"
 
 on:
   schedule:
-    - cron: "0 8 * * 1"
+    - cron: "0 8 * * *"
   
   pull_request:
     paths:
@@ -131,7 +131,7 @@ jobs:
           echo '```'  >> test-results.txt
 
       - name: comment test results in PR
-        if: github.event.schedule != '0 8 * * 1'
+        if: github.event.schedule != '0 8 * * *'
         uses: machine-learning-apps/pr-comment@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -182,7 +182,7 @@ jobs:
           rm utilisation.txt
 
       - name: comment PR
-        if: github.event.schedule != '0 8 * * 1'
+        if: github.event.schedule != '0 8 * * *'
         uses: machine-learning-apps/pr-comment@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

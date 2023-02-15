@@ -2,7 +2,7 @@ name: "PMod LED"
 
 on:
   schedule:
-    - cron: "0 8 * * 1"
+    - cron: "0 8 * * *"
 
   pull_request:
     paths:
@@ -138,7 +138,7 @@ jobs:
           echo '```'  >> test-results.txt
 
       - name: comment test results in PR
-        if: github.event.schedule != '0 8 * * 1' && github.ref != 'refs/heads/master'
+        if: github.event.schedule != '0 8 * * *' && github.ref != 'refs/heads/master'
         uses: machine-learning-apps/pr-comment@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -189,7 +189,7 @@ jobs:
           rm utilisation.txt
 
       - name: comment PR
-        if: github.event.schedule != '0 8 * * 1' && github.ref != 'refs/heads/master'
+        if: github.event.schedule != '0 8 * * *' && github.ref != 'refs/heads/master'
         uses: machine-learning-apps/pr-comment@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

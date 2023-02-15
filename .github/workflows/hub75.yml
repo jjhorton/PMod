@@ -2,7 +2,7 @@ name: "PMod Hub75"
 
 on:
   schedule:
-    - cron: "0 8 * * 1"
+    - cron: "0 8 * * *"
   pull_request:
     paths:
       - 'PMod_Hub75/Hardware/*.kicad_sch'

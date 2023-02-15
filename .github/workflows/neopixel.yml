@@ -2,7 +2,7 @@ name: "PMod NeoPixel"
 
 on:
   schedule:
-    - cron: "0 8 * * 1"
+    - cron: "0 8 * * *"
   pull_request:
     paths:
       - 'PMod_Neopixel/Hardware/Compact/*'
@@ -152,7 +152,7 @@ jobs:
           echo '```'  >> results.txt
 
       - name: comment PR
-        if: github.event.schedule != '0 8 * * 1'
+        if: github.event.schedule != '0 8 * * *'
         uses: machine-learning-apps/pr-comment@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
