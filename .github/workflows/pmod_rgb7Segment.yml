@@ -2,7 +2,7 @@ name: "PMod RGB 7 Segment Display"
 
 on:
   schedule:
-    - cron: "0 8 * * 1"
+    - cron: "0 8 * * *"
   pull_request:
     paths:
       - 'PMod_RGB7Segment/Hardware/*.kicad_sch'
