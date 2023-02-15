@@ -131,7 +131,7 @@ jobs:
           echo '```'  >> test-results.txt
 
       - name: comment test results in PR
-        if: github.event.schedule != '0 8 * * 1'
+        if: github.event.schedule != '0 8 * * *'
         uses: machine-learning-apps/pr-comment@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
