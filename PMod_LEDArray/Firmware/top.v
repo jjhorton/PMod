@@ -1,7 +1,9 @@
 module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
 
     input   wire    CLK;
+    /* verilator lint_off UNUSEDSIGNAL */
 	input 	wire 	RX;
+    /* verilator lint_on UNUSEDSIGNAL */
 
 	output 	wire 	[7:0]	o_PMOD1A;
 	output 	wire 	[7:0]	o_PMOD1B;
@@ -11,18 +13,18 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
     reg [7:0] tx_value [0:15];
     reg [1:0] system_state = 2'b00;
 	reg [7:0] pmod1a;
-	reg [7:0] pmod1b = 8'b00000000;
+	//reg [7:0] pmod1b = 8'b00000000;
     reg valid;
     reg [7:0] value;
     reg busy;
 
     initial begin 
-        tx_value[0][7:0]  = 8'b00000110;
-        tx_value[1][7:0]  = 8'b01011011;
-        tx_value[2][7:0]  = 8'b01001111;
-        tx_value[3][7:0]  = 8'b11100110;
-        tx_value[4][7:0]  = 8'b01101101;
-        tx_value[5][7:0]  = 8'b01111101;
+        tx_value[0][7:0]  = 8'b11111111;
+        tx_value[1][7:0]  = 8'b10000001;
+        tx_value[2][7:0]  = 8'b10000001;
+        tx_value[3][7:0]  = 8'b10000001;
+        tx_value[4][7:0]  = 8'b11111111;
+        tx_value[5][7:0]  = 8'b00000000;
         tx_value[6][7:0]  = 8'b00000111;
         tx_value[7][7:0]  = 8'b01111111;
         tx_value[8][7:0]  = 8'b11111111;
