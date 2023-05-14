@@ -19,7 +19,7 @@ build:
 	icepack $(PROJ).asc $(PROJ).bin
 
 build-ecp:
-	yosys -p 'synth_ecp5 -top top -json $(PROJ).json' top.v writepixels.v
+	yosys -p 'synth_ecp5 -top top -json $(PROJ).json' top.v writepixels.v rxuart.v
 	nextpnr-ecp5 --25k --package CABGA256 --json $(PROJ).json --lpf icesugarpro.lpf --textcfg $(PROJ).config --freq 25
 	ecppack --compress --bit $(PROJ).bin $(PROJ).config
 
