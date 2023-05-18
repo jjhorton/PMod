@@ -33,4 +33,4 @@ prog-ecp5:
 	ecpdap program $(PROJ).bin
 
 clean:
-	rm -rf obj_dir logs trace.vcd $(PROJ).json $(PROJ).asc $(PROJ).rpt $(PROJ).bin test_top writepixel
+	rm -rf obj_dir logs trace.vcd $(PROJ).json $(PROJ).asc $(PROJ).rpt $(PROJ).bin $(PROJ).config test_top writepixel
