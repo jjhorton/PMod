@@ -185,12 +185,12 @@ jobs:
         working-directory: project/PMod_LEDArray/Firmware
         run: |
           yowasp-yosys -p 'synth_ecp5 -top top -json pixel-ecp5.json' top.v writepixels.v rxuart.v
-	
+      
       - name: Run nextpnr on the files
         working-directory: project/PMod_LEDArray/Firmware
         run: |
           yowasp-nextpnr-ecp5 --25k --package CABGA256 --json pixel-ecp5.json --lpf icesugarpro.lpf --textcfg pixel-ecp5.config --freq 25
-	        yowasp-ecppack --compress --bit pixel-ecp5.bin pixel-ecp5.config
+          yowasp-ecppack --compress --bit pixel-ecp5.bin pixel-ecp5.config
 
       - name: Retrieve results
         if: ${{ always() }}
