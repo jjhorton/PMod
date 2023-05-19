@@ -5,9 +5,9 @@ on:
     - cron: "0 8 * * *"
   pull_request:
     paths:
-      - 'PMod_LEDArray/Hardware/*'
-      - 'PMod_LEDArray/Software/*'
-      - 'PMod_LEDArray/Firmware/*'
+      - 'PMod_LEDArray/Hardware/**'
+      - 'PMod_LEDArray/Software/**'
+      - 'PMod_LEDArray/Firmware/**'
       - '.github/workflows/LedArray.yml'
       - 'kibot.yml'
 
