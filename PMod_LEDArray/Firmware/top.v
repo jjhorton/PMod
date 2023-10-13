@@ -92,7 +92,7 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
                         if(uart_counter < 15)
                             data_state <= RECEIVING;
                         else
-                            data_state <= INITIAL;
+                            data_state <= WAIT;
                     end
                     end
             endcase
