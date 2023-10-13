@@ -3,7 +3,7 @@ name: "PMod LED Array"
 on:
   schedule:
     - cron: "0 8 * * *"
-  workflow_dispatch
+  workflow_dispatch:
   pull_request:
     paths:
       - 'PMod_LEDArray/Hardware/**'
