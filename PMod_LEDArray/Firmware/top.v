@@ -17,6 +17,10 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
     reg valid;
     reg [7:0] value;
     reg busy;
+    reg uart_valid;
+    reg [7:0] uart_value;
+    reg [3:0] uart_counter;
+    reg [3:0] data_state;
 
     initial begin 
         tx_value[0][7:0]  = 8'b11111111;
@@ -43,7 +47,7 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
     reg pps;
 
     always @(posedge CLK) begin
-        if (clk_counter < clk_in_rate_hz)
+        if (clk_counter < (clk_in_rate_hz/10))
             begin
                 clk_counter <= clk_counter + 1;
                 pps <= 0;
@@ -54,6 +58,47 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
                 pps <= 1;
             end
     end
+
+    //uart statemachine
+    parameter 	WAIT 	    = 0;
+    parameter   START_CHAR  = 1;
+    parameter 	RECEIVING	= 2;
+
+    always @(posedge CLK) begin
+        //check if there is valid serial data
+        
+            case(data_state)
+                WAIT:
+                    begin
+                    data_state <= START_CHAR;
+                    uart_counter <= 0;
+                    end
+
+                START_CHAR:
+                    begin
+                        if(uart_valid == 1) begin
+                            if(uart_value == 8'b01000001) //check for 'a'
+                                data_state <= RECEIVING;
+                            else 
+                                data_state <= START_CHAR;
+                        end
+                    end
+
+                RECEIVING:
+                    begin
+                    if(uart_valid == 1) begin
+                        uart_counter <= uart_counter + 1;  
+                        tx_value[uart_counter][7:0] <= uart_value[7:0];
+                        if(uart_counter < 15)
+                            data_state <= RECEIVING;
+                        else
+                            data_state <= INITIAL;
+                    end
+                    end
+            endcase
+        
+    end
+
 
     // state Machine for setting display
     // State Machine States
@@ -130,6 +175,7 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
     end
 
     writepixels writepixels(CLK ,valid, pos, value, pmod1a[6], pmod1a[7], busy);
+    rxuart rxuart(CLK, RX, uart_value, uart_valid);
 
     assign pmod1a[5:0] = 6'b000000;
 
