@@ -94,13 +94,14 @@ jobs:
           sudo apt install -y libgoogle-perftools-dev numactl perl-doc
           sudo apt install -y libfl2  # Ubuntu only (ignore if gives error)
           sudo apt install -y libfl-dev  # Ubuntu only (ignore if gives error)
+          sudo apt install -y sphinx-rtd-theme-common
           
           sudo apt install -y lcov
           # sudo apt-get install -y source --compile verilator
           # wget https://github.com/sifive/verilator/releases/download/4.204-0sifive3/verilator_4.204-0sifive3_amd64.deb
           # sudo dpkg -i verilator_4.204-0sifive3_amd64.deb
           wget http://archive.ubuntu.com/ubuntu/pool/universe/v/verilator/verilator_5.006-3_amd64.deb
-          sudo dpkg -i verilator_5.006-3_amd64.deb
+          sudo dpkg --force-all -i verilator_5.006-3_amd64.deb
 
       - name: Run coverage
         working-directory: project/PMod_LEDArray/Firmware
