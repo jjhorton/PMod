@@ -109,27 +109,9 @@ jobs:
           export VINC=/usr/share/verilator/include
           make test
 
-      - name: Checkout vcd2json
-        uses: actions/checkout@v2
-        with:
-          repository: nanamake/vcd2json
-          path: vcd2json
-
-      - name: Generate plot of the waveform
-        working-directory: project/PMod_LEDArray/Firmware
-        run: |
-          sed -i '/^$/d' trace.vcd
-          python3 generate_wave.py
-
-
       - name: Extract the test data
         working-directory: project/PMod_LEDArray/Firmware
         run: |
-          echo 'Testing Output:' >> test-results.txt
-          echo -n '<img src="https://svg.wavedrom.com/' >> test-results.txt
-          sed -i "s/\"/'/g" trace.json
-          echo '"/>' >> trace.json
-          cat trace.json | tr -d '\n' >> test-results.txt
           echo 'Coverage Stats:' >> test-results.txt
           echo '```'  >> test-results.txt
           cat logs/coverage.txt >> test-results.txt
