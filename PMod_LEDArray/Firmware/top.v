@@ -11,7 +11,8 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
     reg [7:0] tx_value [0:15];
     reg [1:0] system_state = 2'b00;
 	reg [7:0] pmod1a;
-	//reg [7:0] pmod1b = 8'b00000000;
+	reg [7:0] pmod1b;
+    reg [7:0] pmod2a;
     reg valid;
     reg [7:0] value;
     reg busy;
@@ -176,11 +177,13 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
     rxuart rxuart(CLK, RX, uart_value, uart_valid);
 
     assign pmod1a[5:0] = 6'b000000;
+    assign pmod1b[6:0] = pmod1a[6:0];
+    assign pmod1b[7] = RX;
+    assign pmod2a[3:0] = data_state[3:0];
+    assign pmod2a[7:4] = pmod1a[7:4];
 
 	assign o_PMOD1A = pmod1a;
-	assign o_PMOD1B[0:6] = pmod1a[0:6];
-    assign o_PMOD1B[7] = RX;
-    assign o_PMOD2[0:3] = data_state[0:3];
-    assign o_PMOD2[4:7] = pmod1a[4:7];
+	assign o_PMOD1B = pmod1b;
+    assign o_PMOD2 = pmod2a;
 
 endmodule
