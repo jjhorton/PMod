@@ -1,9 +1,7 @@
 module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
 
     input   wire    CLK;
-    /* verilator lint_off UNUSEDSIGNAL */
 	input 	wire 	RX;
-    /* verilator lint_on UNUSEDSIGNAL */
 
 	output 	wire 	[7:0]	o_PMOD1A;
 	output 	wire 	[7:0]	o_PMOD1B;
@@ -42,7 +40,7 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
     end
 
     // generate one pulse per second to update display on
-    parameter 	clk_in_rate_hz = 12_000_000;
+    parameter 	clk_in_rate_hz = 25_000_000;
     reg [31:0] clk_counter=7900;
     reg pps;
 
@@ -180,7 +178,9 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
     assign pmod1a[5:0] = 6'b000000;
 
 	assign o_PMOD1A = pmod1a;
-	assign o_PMOD1B = pmod1a;
-    assign o_PMOD2 = pmod1a;
+	assign o_PMOD1B[0:6] = pmod1a[0:6];
+    assign o_PMOD1B[7] = RX;
+    assign o_PMOD2[0:3] = data_state[0:3];
+    assign o_PMOD2[4:7] = pmod1a[4:7];
 
 endmodule

@@ -26,21 +26,22 @@ print("* recording")
 
 largest = np.zeros(2000)
 
-for a in range(2000):
+for a in range(0,2000):
     data = stream.read(CHUNK)
     values = np.frombuffer(data, np.int16)
-    values = np.array(np.divide(values,32767),dtype=float) 
-    #values = values - np.mean(values)
+    values = values - np.mean(values)
     largest[a] = np.max(values)
-    #freq_amp = np.log2(np.abs(np.fft.fftshift(np.fft.fft(values)))[512:512+15])
     freq_amp = np.log2(np.abs(np.fft.fftshift(np.fft.fft(values,32))))[16:32]
-    #upscale = np.divide(freq_amp)
-    upscale = 0.5
-    in_scaled = freq_amp
+    upscale = 1
+    in_scaled = (freq_amp*upscale)-4
     tx_amp = np.power(2,np.abs(np.array(in_scaled, dtype=np.int8)))-1
 
     ser.write(b'A')
     ser.write(bytes(tx_amp))
+
+    # Testing random values
+    #ser.write(bytes(np.random.randint(-127,128,size=16, dtype=np.int8)))
+    #time.sleep(0.1)
 
 print(np.max(largest))
 
