@@ -18,11 +18,19 @@ build:
 	nextpnr-ice40 --$(DEVICE) --package $(PACKAGE) --json $(PROJ).json --pcf $(PIN_DEF) --asc $(PROJ).asc
 	icepack $(PROJ).asc $(PROJ).bin
 
+build-ecp:
+	yosys -p 'synth_ecp5 -top top -json $(PROJ).json' top.v writepixels.v rxuart.v
+	nextpnr-ecp5 --25k --package CABGA256 --json $(PROJ).json --lpf icesugarpro.lpf --textcfg $(PROJ).config --freq 25
+	ecppack --compress --bit $(PROJ).bin $(PROJ).config
+
 time:
 	icetime -c 12 -d $(DEVICE) $(PROJ).asc
 
 prog:
 	iceprog $(PROJ).bin
 
+prog-ecp5:
+	ecpdap program $(PROJ).bin
+
 clean:
-	rm -rf obj_dir logs trace.vcd $(PROJ).json $(PROJ).asc $(PROJ).rpt $(PROJ).bin test_top writepixel
+	rm -rf obj_dir logs trace.vcd $(PROJ).json $(PROJ).asc $(PROJ).rpt $(PROJ).bin $(PROJ).config test_top writepixel

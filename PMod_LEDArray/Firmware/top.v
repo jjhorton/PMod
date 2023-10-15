@@ -11,18 +11,23 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
     reg [7:0] tx_value [0:15];
     reg [1:0] system_state = 2'b00;
 	reg [7:0] pmod1a;
-	reg [7:0] pmod1b = 8'b00000000;
+	reg [7:0] pmod1b;
+    reg [7:0] pmod2a;
     reg valid;
     reg [7:0] value;
     reg busy;
+    reg uart_valid;
+    reg [7:0] uart_value;
+    reg [3:0] uart_counter;
+    reg [3:0] data_state;
 
     initial begin 
-        tx_value[0][7:0]  = 8'b00000110;
-        tx_value[1][7:0]  = 8'b01011011;
-        tx_value[2][7:0]  = 8'b01001111;
-        tx_value[3][7:0]  = 8'b11100110;
-        tx_value[4][7:0]  = 8'b01101101;
-        tx_value[5][7:0]  = 8'b01111101;
+        tx_value[0][7:0]  = 8'b11111111;
+        tx_value[1][7:0]  = 8'b10000001;
+        tx_value[2][7:0]  = 8'b10000001;
+        tx_value[3][7:0]  = 8'b10000001;
+        tx_value[4][7:0]  = 8'b11111111;
+        tx_value[5][7:0]  = 8'b00000000;
         tx_value[6][7:0]  = 8'b00000111;
         tx_value[7][7:0]  = 8'b01111111;
         tx_value[8][7:0]  = 8'b11111111;
@@ -36,12 +41,12 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
     end
 
     // generate one pulse per second to update display on
-    parameter 	clk_in_rate_hz = 12_000_000;
+    parameter 	clk_in_rate_hz = 25_000_000;
     reg [31:0] clk_counter=7900;
     reg pps;
 
     always @(posedge CLK) begin
-        if (clk_counter < clk_in_rate_hz)
+        if (clk_counter < (clk_in_rate_hz/10))
             begin
                 clk_counter <= clk_counter + 1;
                 pps <= 0;
@@ -52,6 +57,47 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
                 pps <= 1;
             end
     end
+
+    //uart statemachine
+    parameter 	WAIT 	    = 0;
+    parameter   START_CHAR  = 1;
+    parameter 	RECEIVING	= 2;
+
+    always @(posedge CLK) begin
+        //check if there is valid serial data
+        
+            case(data_state)
+                WAIT:
+                    begin
+                    data_state <= START_CHAR;
+                    uart_counter <= 0;
+                    end
+
+                START_CHAR:
+                    begin
+                        if(uart_valid == 1) begin
+                            if(uart_value == 8'b01000001) //check for 'a'
+                                data_state <= RECEIVING;
+                            else 
+                                data_state <= START_CHAR;
+                        end
+                    end
+
+                RECEIVING:
+                    begin
+                    if(uart_valid == 1) begin
+                        uart_counter <= uart_counter + 1;  
+                        tx_value[uart_counter][7:0] <= uart_value[7:0];
+                        if(uart_counter < 15)
+                            data_state <= RECEIVING;
+                        else
+                            data_state <= WAIT;
+                    end
+                    end
+            endcase
+        
+    end
+
 
     // state Machine for setting display
     // State Machine States
@@ -128,11 +174,16 @@ module top (CLK, RX, o_PMOD1A, o_PMOD1B, o_PMOD2);
     end
 
     writepixels writepixels(CLK ,valid, pos, value, pmod1a[6], pmod1a[7], busy);
+    rxuart rxuart(CLK, RX, uart_value, uart_valid);
 
     assign pmod1a[5:0] = 6'b000000;
+    assign pmod1b[6:0] = pmod1a[6:0];
+    assign pmod1b[7] = RX;
+    assign pmod2a[3:0] = data_state[3:0];
+    assign pmod2a[7:4] = pmod1a[7:4];
 
 	assign o_PMOD1A = pmod1a;
-	assign o_PMOD1B = pmod1a;
-    assign o_PMOD2 = pmod1a;
+	assign o_PMOD1B = pmod1b;
+    assign o_PMOD2 = pmod2a;
 
 endmodule
