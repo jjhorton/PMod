@@ -6,10 +6,10 @@
 #include "cc1101.h"
 
 // for PMOD0 output
-#define SPI_RX_PIN 12
-#define SPI_SCK_PIN 10
-#define SPI_TX_PIN 11
-#define SPI_CSN_PIN 13
+#define SPI_RX_PIN 0
+#define SPI_SCK_PIN 2
+#define SPI_TX_PIN 3
+#define SPI_CSN_PIN 1
 
 /*
 // for PMOD1 output
@@ -40,7 +40,7 @@ static void write_register(uint8_t reg, uint8_t data) {
     buf[0] = reg & 0x7f;  // remove read bit as this is a write
     buf[1] = data;
     cs_select();
-    spi_write_blocking(spi1, buf, 2);
+    spi_write_blocking(spi0, buf, 2);
     cs_deselect();
     sleep_ms(10);
 }
@@ -52,12 +52,35 @@ static void read_registers(uint8_t reg, uint8_t *buf, uint16_t len) {
     // so we don't need to keep sending the register we want, just the first.
     reg |= READ_BIT;
     cs_select();
-    spi_write_blocking(spi1, &reg, 1);
+    spi_write_blocking(spi0, &reg, 1);
     sleep_ms(10);
-    spi_read_blocking(spi1, 0, buf, len);
+    spi_read_blocking(spi0, 0, buf, len);
     cs_deselect();
     sleep_ms(10);
 }
+
+/* set the radio frequency in Hz */
+void set_radio_freq(uint32_t freq) {
+	/* the frequency setting is in units of 396.728515625 Hz */
+
+	uint32_t setting = (uint32_t) (freq * .0025206154);
+	write_register(CC1101_FREQ2,(setting >> 16) & 0xff);
+	write_register(CC1101_FREQ1,(setting >> 8) & 0xff);
+	write_register(CC1101_FREQ0,setting & 0xff);
+
+	uint8_t band = BAND_400;
+
+	if ((band == BAND_300 && freq < MID_300) ||
+			(band == BAND_400 && freq < MID_400) ||
+			(band == BAND_900 && freq < MID_900)){
+		/* select low VCO */
+		write_register(CC1101_FSCAL2,0x0A);
+		}
+	else{
+		/* select high VCO */
+		write_register(CC1101_FSCAL2,0x2A);
+		}
+	}
 
 // initalise the CC1101
 static void setup_cc1101(){
@@ -144,7 +167,7 @@ int main(){
 	printf("Hello, Reading raw data from registers via SPI...\n");
 
 	// initalise the required pins
-	spi_init(spi1, 500 * 1000);
+	spi_init(spi0, 500 * 1000);
   gpio_set_function(SPI_RX_PIN, GPIO_FUNC_SPI);
   gpio_set_function(SPI_SCK_PIN, GPIO_FUNC_SPI);
   gpio_set_function(SPI_TX_PIN, GPIO_FUNC_SPI);
