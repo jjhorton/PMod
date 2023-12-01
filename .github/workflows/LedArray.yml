@@ -89,6 +89,7 @@ jobs:
 
       - name: Install verilator tools
         run: |
+          sudo apt update
           sudo apt install -y libunwind-dev
           sudo apt install -y git perl python3 make autoconf g++ flex bison ccache
           sudo apt install -y libgoogle-perftools-dev numactl perl-doc
@@ -97,9 +98,7 @@ jobs:
           sudo apt install -y sphinx-rtd-theme-common
           
           sudo apt install -y lcov
-          # sudo apt-get install -y source --compile verilator
-          # wget https://github.com/sifive/verilator/releases/download/4.204-0sifive3/verilator_4.204-0sifive3_amd64.deb
-          # sudo dpkg -i verilator_4.204-0sifive3_amd64.deb
+          
           wget http://archive.ubuntu.com/ubuntu/pool/universe/v/verilator/verilator_5.006-3_amd64.deb
           sudo dpkg --force-all -i verilator_5.006-3_amd64.deb
 
