@@ -1143,7 +1143,7 @@
     (tstamp 00000000-0000-0000-0000-000060f22ccf)
     (at 153.35 63.5 180)
     (attr through_hole)
-    (fp_text reference "G***" (at 0 0) (layer "B.SilkS") hide
+    (fp_text reference "Logo1" (at 0 0) (layer "B.SilkS") hide
         (effects (font (size 1.524 1.524) (thickness 0.3)) (justify mirror))
       (tstamp d0a69488-dfce-4060-a752-756b38fe71ae)
     )
