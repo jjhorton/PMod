@@ -1,12 +1,9 @@
 name: "PMod CC1101"
 
 on:
-  push:
-    paths:
-      - 'PMod_CC1101/Hardware/*'
-      - 'PMod_CC1101/Software/*'
-      - '.github/workflows/cc1101.yml'
-      - 'kibot.yml'
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch:
   pull_request:
     paths:
       - 'PMod_CC1101/Hardware/*'
