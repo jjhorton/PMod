@@ -1220,10 +1220,15 @@
       (net 17 "SPI_TX") (pinfunction "SI") (pintype "input") (tstamp 66b6c18a-b7a5-456b-87f1-b269b28f8b39))
     (pad "21" smd rect (at 0 0) (size 2.5 2.5) (layers "F.Cu" "F.Paste" "F.Mask")
       (net 2 "GND") (pinfunction "GND") (pintype "input") (tstamp 04904064-4ce1-475b-8516-6ec1471a1a4c))
-    (model "CC1101RGPR.stp"
+    (model "CC1101RGPR.stp" hide
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
+    )
+    (model "${JJH}/SamacSys_Parts.3dshapes/CC1101.STEP"
+      (offset (xyz 0 0 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz -90 0 0))
     )
   )
 
