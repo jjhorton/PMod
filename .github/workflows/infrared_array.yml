@@ -1,14 +1,9 @@
 name: "PMod Infrared Array"
 
 on:
-  push:
-    paths:
-      - 'PMod_Infrared_Array/Hardware/*.sch'
-      - 'PMod_Infrared_Array/Hardware/*.kicad_pcb'
-      - 'kibot.yml'
-      - 'PMod_Infrared_Array/Software/CMakelists.txt'
-      - 'PMod_Infrared_Array/Software/main.c'
-      - '.github/workflows/infrared_array.yml'
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch:
   pull_request:
     paths:
       - 'PMod_Infrared_Array/Hardware/*.sch'
