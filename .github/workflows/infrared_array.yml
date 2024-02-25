@@ -1,14 +1,9 @@
 name: "PMod Infrared Array"
 
 on:
-  push:
-    paths:
-      - 'PMod_Infrared_Array/Hardware/*.sch'
-      - 'PMod_Infrared_Array/Hardware/*.kicad_pcb'
-      - 'kibot.yml'
-      - 'PMod_Infrared_Array/Software/CMakelists.txt'
-      - 'PMod_Infrared_Array/Software/main.c'
-      - '.github/workflows/infrared_array.yml'
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch:
   pull_request:
     paths:
       - 'PMod_Infrared_Array/Hardware/*.sch'
@@ -24,14 +19,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: INTI-CMNB/KiBot@v2
+    - uses: INTI-CMNB/KiBot@v2_k7
       with:
         # Required - kibot config file
         config: kibot.yml
         # optional - prefix to output defined in config
         dir: Hardware/Fabrication
         # optional - schematic file
-        schema: 'PMod_Infrared_Array/Hardware/PMod_Infrared_Array.sch'
+        schema: 'PMod_Infrared_Array/Hardware/PMod_Infrared_Array.kicad_sch'
         # optional - PCB design file
         board: 'PMod_Infrared_Array/Hardware/PMod_Infrared_Array.kicad_pcb'
 
