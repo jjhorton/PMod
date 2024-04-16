@@ -5934,7 +5934,7 @@
     (descr "Mounting Hole 2.2mm, no annular, M2")
     (tags "mounting hole 2.2mm no annular m2")
     (attr exclude_from_pos_files exclude_from_bom)
-    (fp_text reference "REF**" (at 0 -3.2) (layer "F.SilkS") hide
+    (fp_text reference "H4" (at 0 -3.2) (layer "F.SilkS") hide
       (effects (font (size 1 1) (thickness 0.15)))
       (tstamp 6aeb3dfe-0505-43e0-a590-4aac6bd04d18)
     )
@@ -5957,7 +5957,7 @@
     (descr "Mounting Hole 2.2mm, no annular, M2")
     (tags "mounting hole 2.2mm no annular m2")
     (attr exclude_from_pos_files exclude_from_bom)
-    (fp_text reference "REF**" (at 0 -3.2) (layer "F.SilkS") hide
+    (fp_text reference "H2" (at 0 -3.2) (layer "F.SilkS") hide
       (effects (font (size 1 1) (thickness 0.15)))
       (tstamp d46bdf2a-1124-4fea-af8f-34f8f4677f71)
     )
@@ -5978,7 +5978,7 @@
     (tedit 6134FB05) (tstamp 00000000-0000-0000-0000-000061358aa3)
     (at 188.5 98.5 90)
     (attr through_hole)
-    (fp_text reference "G***" (at 0 0 90) (layer "F.Cu") hide
+    (fp_text reference "Logo2" (at 0 0 90) (layer "F.Cu") hide
       (effects (font (size 1.524 1.524) (thickness 0.3)))
       (tstamp 5ecd194d-1d9a-49e3-b4bf-9a9cd093df38)
     )
@@ -6151,7 +6151,7 @@
     (descr "Mounting Hole 2.2mm, no annular, M2")
     (tags "mounting hole 2.2mm no annular m2")
     (attr exclude_from_pos_files exclude_from_bom)
-    (fp_text reference "REF**" (at 0 -3.2) (layer "F.SilkS") hide
+    (fp_text reference "H1" (at 0 -3.2) (layer "F.SilkS") hide
       (effects (font (size 1 1) (thickness 0.15)))
       (tstamp 9388b239-aa43-468d-9624-7a1ee3469048)
     )
@@ -6174,7 +6174,7 @@
     (descr "Mounting Hole 2.2mm, no annular, M2")
     (tags "mounting hole 2.2mm no annular m2")
     (attr exclude_from_pos_files exclude_from_bom)
-    (fp_text reference "REF**" (at 0 -3.2) (layer "F.SilkS") hide
+    (fp_text reference "H3" (at 0 -3.2) (layer "F.SilkS") hide
       (effects (font (size 1 1) (thickness 0.15)))
       (tstamp 4b30ead3-1d42-46f1-ad3a-c9bc891ea896)
     )
@@ -6277,7 +6277,7 @@
     (tedit 0) (tstamp 00000000-0000-0000-0000-00006135783f)
     (at 176.8 98.4 90)
     (attr through_hole)
-    (fp_text reference "G***" (at 0 0 90) (layer "B.SilkS") hide
+    (fp_text reference "LOGO1" (at 0 0 90) (layer "B.SilkS") hide
       (effects (font (size 1.524 1.524) (thickness 0.3)) (justify mirror))
       (tstamp 150704fa-293a-4697-a5cf-8b313726b01c)
     )
