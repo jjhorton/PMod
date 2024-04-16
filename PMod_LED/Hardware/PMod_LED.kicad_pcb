@@ -1377,7 +1377,7 @@
     (tstamp 08fae221-7b6f-4c57-be73-6210c6206091)
     (at 141.4 95.2)
     (attr through_hole)
-    (fp_text reference "REF**" (at 0 0.5) (layer "F.SilkS") hide
+    (fp_text reference "HOLE" (at 0 0.5) (layer "F.SilkS") hide
         (effects (font (size 1 1) (thickness 0.15)))
       (tstamp f34c0711-f117-4c9f-8a86-53faad5a7f3d)
     )
@@ -2144,7 +2144,7 @@
     (tstamp 21a4e5f9-158c-4a1e-a6d3-12c826291e62)
     (at 142.4 90.798)
     (attr through_hole)
-    (fp_text reference "REF**" (at 0 0.5) (layer "F.SilkS") hide
+    (fp_text reference "HOLE" (at 0 0.5) (layer "F.SilkS") hide
         (effects (font (size 1 1) (thickness 0.15)))
       (tstamp cfa5c16e-7859-460d-a0b8-cea7d7ea629c)
     )
@@ -3264,7 +3264,7 @@
     (tstamp 3b5147db-69cc-4871-96a7-79c3437a6213)
     (at 141.4 90.798)
     (attr through_hole)
-    (fp_text reference "REF**" (at 0 0.5) (layer "F.SilkS") hide
+    (fp_text reference "HOLE" (at 0 0.5) (layer "F.SilkS") hide
         (effects (font (size 1 1) (thickness 0.15)))
       (tstamp 55031538-85c1-4081-bcca-e6ae77e948fd)
     )
@@ -4291,7 +4291,7 @@
     (tstamp 646182ef-83d3-48ef-8f13-39bd3cf49786)
     (at 143.4 90.798)
     (attr through_hole)
-    (fp_text reference "REF**" (at 0 0.5) (layer "F.SilkS") hide
+    (fp_text reference "HOLE" (at 0 0.5) (layer "F.SilkS") hide
         (effects (font (size 1 1) (thickness 0.15)))
       (tstamp f40d350f-0d3e-4f8a-b004-d950f2f8f1ba)
     )
@@ -5447,7 +5447,7 @@
     (tstamp 8fa4f87a-9012-4f6f-a6c0-ec1c5f716184)
     (at 142.4 95.2)
     (attr through_hole)
-    (fp_text reference "REF**" (at 0 0.5) (layer "F.SilkS") hide
+    (fp_text reference "HOLE" (at 0 0.5) (layer "F.SilkS") hide
         (effects (font (size 1 1) (thickness 0.15)))
       (tstamp 33859785-1c1f-4d76-97ab-2edbd3c62d44)
     )
@@ -6101,7 +6101,7 @@
     (tstamp 9ad54c14-6dd1-4741-ab11-80a0275cae72)
     (at 140.4 95.2)
     (attr through_hole)
-    (fp_text reference "REF**" (at 0 0.5) (layer "F.SilkS") hide
+    (fp_text reference "HOLE" (at 0 0.5) (layer "F.SilkS") hide
         (effects (font (size 1 1) (thickness 0.15)))
       (tstamp 8dbfe973-c2d6-47f0-a765-cdb7a6ee0cbe)
     )
@@ -6116,7 +6116,7 @@
     (tstamp 9e39ed40-271f-40f8-b1c9-20b888c10512)
     (at 144.4 90.798)
     (attr through_hole)
-    (fp_text reference "REF**" (at 0 0.5) (layer "F.SilkS") hide
+    (fp_text reference "HOLE" (at 0 0.5) (layer "F.SilkS") hide
         (effects (font (size 1 1) (thickness 0.15)))
       (tstamp 67763d19-f622-4e1e-81e5-5b24da7c3f99)
     )
@@ -6741,7 +6741,7 @@
     (tstamp b90997e2-4c7f-4479-862f-ab35dfea4f77)
     (at 143.4 95.2)
     (attr through_hole)
-    (fp_text reference "REF**" (at 0 0.5) (layer "F.SilkS") hide
+    (fp_text reference "HOLE" (at 0 0.5) (layer "F.SilkS") hide
         (effects (font (size 1 1) (thickness 0.15)))
       (tstamp e8c50f1b-c316-4110-9cce-5c24c65a1eaa)
     )
@@ -7074,7 +7074,7 @@
     (tstamp c6e8924b-3698-49bc-af6d-d7a327eada39)
     (at 144.4 95.2)
     (attr through_hole)
-    (fp_text reference "REF**" (at 0 0.5) (layer "F.SilkS") hide
+    (fp_text reference "HOLE" (at 0 0.5) (layer "F.SilkS") hide
         (effects (font (size 1 1) (thickness 0.15)))
       (tstamp 6c7a8b96-b512-4ccd-8e6c-3adc507d5f35)
     )
@@ -8557,7 +8557,7 @@
     (tstamp dc2e4d69-ab4d-4864-999d-7aa340dd63c7)
     (at 140.4 90.798)
     (attr through_hole)
-    (fp_text reference "REF**" (at 0 0.5) (layer "F.SilkS") hide
+    (fp_text reference "HOLE" (at 0 0.5) (layer "F.SilkS") hide
         (effects (font (size 1 1) (thickness 0.15)))
       (tstamp bf846a17-e8a6-4d45-8f48-bcc985af5861)
     )
@@ -10705,11 +10705,11 @@
     (attr through_hole)
     (fp_text reference "Logo3" (at 0 0 90) (layer "B.SilkS") hide
         (effects (font (size 1.524 1.524) (thickness 0.3)) (justify mirror))
-      (tstamp 253bb241-464b-4114-8894-5352c7f5d446)
+      (tstamp cbc46fc3-0f4b-4fbb-8dd1-6e85f2cd08da)
     )
     (fp_text value "LOGO" (at 0.75 0 90) (layer "B.SilkS") hide
         (effects (font (size 1.524 1.524) (thickness 0.3)) (justify mirror))
-      (tstamp 6d5a4ae2-2d45-498e-954f-1e6e51ff8d07)
+      (tstamp f8867b4a-fab2-466d-a502-868bc91389b6)
     )
     (fp_poly
       (pts
@@ -10828,7 +10828,7 @@
         (xy 1.594781 7.503024)
       )
 
-      (stroke (width 0.01) (type solid)) (fill solid) (layer "B.SilkS") (tstamp ea06c2d0-3a3e-4953-bd4a-b981bf05f35f))
+      (stroke (width 0.01) (type solid)) (fill solid) (layer "B.SilkS") (tstamp 080973fc-9193-45b6-a6b6-411dae07992f))
     (fp_poly
       (pts
         (xy -2.542242 6.828419)
@@ -11021,7 +11021,7 @@
         (xy -2.542242 6.828419)
       )
 
-      (stroke (width 0.01) (type solid)) (fill solid) (layer "B.SilkS") (tstamp 881f41e3-e8c6-447c-8618-5d987a5a945f))
+      (stroke (width 0.01) (type solid)) (fill solid) (layer "B.SilkS") (tstamp 0e26f074-fd0b-4c6a-ace9-4fd5841fbd1a))
     (fp_poly
       (pts
         (xy 6.55668 6.796721)
@@ -11258,7 +11258,7 @@
         (xy 6.55668 6.796721)
       )
 
-      (stroke (width 0.01) (type solid)) (fill solid) (layer "B.SilkS") (tstamp d2d58b97-1d81-4e30-91ef-45be63d46529))
+      (stroke (width 0.01) (type solid)) (fill solid) (layer "B.SilkS") (tstamp 6b7dc529-a225-4b29-8447-a8ffa0ee3156))
   )
 
   (gr_line (start 129.5 75) (end 129.5 90)
