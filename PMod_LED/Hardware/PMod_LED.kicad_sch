@@ -265,7 +265,7 @@
       (property "Datasheet" "" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (property "ki_keywords" "power-flag" (at 0 0 0)
+      (property "ki_keywords" "global power" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
       (property "ki_description" "Power symbol creates a global label with name \"GND\" , ground" (at 0 0 0)
@@ -305,7 +305,7 @@
       (property "Datasheet" "" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (property "ki_keywords" "power-flag" (at 0 0 0)
+      (property "ki_keywords" "global power" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
       (property "ki_description" "Power symbol creates a global label with name \"GND2\" , ground" (at 0 0 0)
@@ -345,7 +345,7 @@
       (property "Datasheet" "~" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (property "ki_keywords" "power-flag" (at 0 0 0)
+      (property "ki_keywords" "flag power" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
       (property "ki_description" "Special symbol for telling ERC where power comes from" (at 0 0 0)
@@ -1849,7 +1849,7 @@
   (symbol (lib_id "power:PWR_FLAG") (at 111.76 45.72 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 38f1f681-d503-49fe-ab87-4225bebb7b32)
-    (property "Reference" "#FLG?" (at 111.76 43.815 0)
+    (property "Reference" "#FLG0102" (at 111.76 43.815 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "PWR_FLAG" (at 111.76 42.1442 0)
@@ -1865,7 +1865,7 @@
     (instances
       (project "PMod_LED"
         (path "/5d0de0a5-ba86-476a-a7ef-11424019a5ab"
-          (reference "#FLG?") (unit 1)
+          (reference "#FLG0102") (unit 1)
         )
       )
     )
@@ -2130,7 +2130,7 @@
   (symbol (lib_id "power:GND") (at 111.76 93.98 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 5f7b9d88-eb12-47e8-8ae8-265c4903ec29)
-    (property "Reference" "#PWR?" (at 111.76 100.33 0)
+    (property "Reference" "#PWR0131" (at 111.76 100.33 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 111.887 97.2312 90)
@@ -2146,7 +2146,7 @@
     (instances
       (project "PMod_LED"
         (path "/5d0de0a5-ba86-476a-a7ef-11424019a5ab"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0131") (unit 1)
         )
       )
     )
@@ -2473,7 +2473,7 @@
   (symbol (lib_id "power:PWR_FLAG") (at 111.76 93.98 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid a65a0ec5-b875-4912-98d6-d80bfa23e356)
-    (property "Reference" "#FLG?" (at 111.76 92.075 0)
+    (property "Reference" "#FLG0101" (at 111.76 92.075 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "PWR_FLAG" (at 111.76 90.4042 0)
@@ -2489,7 +2489,7 @@
     (instances
       (project "PMod_LED"
         (path "/5d0de0a5-ba86-476a-a7ef-11424019a5ab"
-          (reference "#FLG?") (unit 1)
+          (reference "#FLG0101") (unit 1)
         )
       )
     )
@@ -2653,7 +2653,7 @@
   (symbol (lib_id "power:GND2") (at 111.76 45.72 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid b437d0ad-354b-4121-8f7d-c3f7ed4b8537)
-    (property "Reference" "#PWR?" (at 111.76 52.07 0)
+    (property "Reference" "#PWR0132" (at 111.76 52.07 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND2" (at 113.665 47.4238 0)
@@ -2669,7 +2669,7 @@
     (instances
       (project "PMod_LED"
         (path "/5d0de0a5-ba86-476a-a7ef-11424019a5ab"
-          (reference "#PWR?") (unit 1)
+          (reference "#PWR0132") (unit 1)
         )
       )
     )
