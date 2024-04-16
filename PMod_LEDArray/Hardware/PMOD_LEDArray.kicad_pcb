@@ -6277,7 +6277,7 @@
     (tedit 0) (tstamp 00000000-0000-0000-0000-00006135783f)
     (at 176.8 98.4 90)
     (attr through_hole)
-    (fp_text reference "G***" (at 0 0 90) (layer "B.SilkS") hide
+    (fp_text reference "LOGO1" (at 0 0 90) (layer "B.SilkS") hide
       (effects (font (size 1.524 1.524) (thickness 0.3)) (justify mirror))
       (tstamp 150704fa-293a-4697-a5cf-8b313726b01c)
     )
