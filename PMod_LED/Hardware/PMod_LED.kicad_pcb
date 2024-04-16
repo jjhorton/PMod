@@ -1622,11 +1622,11 @@
     (tags "svg2mod")
     (attr board_only exclude_from_pos_files exclude_from_bom)
     (fp_text reference "kibuzzard-62214DA9" (at 0 -0.915728) (layer "F.SilkS") hide
-        (effects (font (size 0.000254 0.000254) (thickness 0.000003)))
+        (effects (font (size 0.0254 0.0254) (thickness 0.000003)))
       (tstamp a070a78d-392b-4c1a-9c53-7a2b2e9876ae)
     )
-    (fp_text value "G***" (at 0 0.915728) (layer "F.SilkS") hide
-        (effects (font (size 0.000254 0.000254) (thickness 0.000003)))
+    (fp_text value "LED" (at 0 0.915728) (layer "F.SilkS") hide
+        (effects (font (size 0.0254 0.0254) (thickness 0.000003)))
       (tstamp 5f4ff5c9-c5c3-455f-8b5a-f369da7a9574)
     )
     (fp_poly
@@ -1780,11 +1780,11 @@
     (tags "svg2mod")
     (attr board_only exclude_from_pos_files exclude_from_bom)
     (fp_text reference "kibuzzard-62214DCC" (at 0 -0.915728) (layer "F.SilkS") hide
-        (effects (font (size 0.000254 0.000254) (thickness 0.000003)))
+        (effects (font (size 0.0254 0.0254) (thickness 0.000003)))
       (tstamp 30df39c0-a6f5-48d4-aebc-48ba2496c446)
     )
-    (fp_text value "G***" (at 0 0.915728) (layer "F.SilkS") hide
-        (effects (font (size 0.000254 0.000254) (thickness 0.000003)))
+    (fp_text value "LED" (at 0 0.915728) (layer "F.SilkS") hide
+        (effects (font (size 0.0254 0.0254) (thickness 0.000003)))
       (tstamp 7c18e8d0-81c4-4a44-93c0-160b03c32aa6)
     )
     (fp_poly
@@ -1929,11 +1929,11 @@
     (tags "svg2mod")
     (attr board_only exclude_from_pos_files exclude_from_bom)
     (fp_text reference "kibuzzard-62214DB4" (at 0 -0.918903) (layer "F.SilkS") hide
-        (effects (font (size 0.000254 0.000254) (thickness 0.000003)))
+        (effects (font (size 0.0254 0.0254) (thickness 0.000003)))
       (tstamp cdf26929-46d8-416f-834e-5a6d774e7f40)
     )
-    (fp_text value "G***" (at 0 0.918903) (layer "F.SilkS") hide
-        (effects (font (size 0.000254 0.000254) (thickness 0.000003)))
+    (fp_text value "LED" (at 0 0.918903) (layer "F.SilkS") hide
+        (effects (font (size 0.0254 0.0254) (thickness 0.000003)))
       (tstamp 4906c747-58e0-41d6-ad3c-04467e0e8b1e)
     )
     (fp_poly
@@ -3689,11 +3689,11 @@
     (tags "svg2mod")
     (attr board_only exclude_from_pos_files exclude_from_bom)
     (fp_text reference "kibuzzard-62214D6E" (at 0 -0.920173) (layer "F.SilkS") hide
-        (effects (font (size 0.000254 0.000254) (thickness 0.000003)))
+        (effects (font (size 0.0254 0.0254) (thickness 0.000003)))
       (tstamp eb7b74d0-4a89-4d5e-b252-038cb7df6c7d)
     )
-    (fp_text value "G***" (at 0 0.920173) (layer "F.SilkS") hide
-        (effects (font (size 0.000254 0.000254) (thickness 0.000003)))
+    (fp_text value "LED" (at 0 0.920173) (layer "F.SilkS") hide
+        (effects (font (size 0.0254 0.0254) (thickness 0.000003)))
       (tstamp 8e68edfd-0ebb-43b1-a6d3-27427b18f5ab)
     )
     (fp_poly
@@ -4745,11 +4745,11 @@
     (tags "svg2mod")
     (attr board_only exclude_from_pos_files exclude_from_bom)
     (fp_text reference "kibuzzard-62214D8E" (at 0 -0.923348) (layer "F.SilkS") hide
-        (effects (font (size 0.000254 0.000254) (thickness 0.000003)))
+        (effects (font (size 0.0254 0.0254) (thickness 0.000003)))
       (tstamp 7184670c-7656-49ee-9a6f-5771dc120d69)
     )
-    (fp_text value "G***" (at 0 0.923348) (layer "F.SilkS") hide
-        (effects (font (size 0.000254 0.000254) (thickness 0.000003)))
+    (fp_text value "LED" (at 0 0.923348) (layer "F.SilkS") hide
+        (effects (font (size 0.0254 0.0254) (thickness 0.000003)))
       (tstamp 325f33ca-3e2f-400b-a27c-dce9977a2780)
     )
     (fp_poly
@@ -5307,11 +5307,11 @@
     (tags "svg2mod")
     (attr board_only exclude_from_pos_files exclude_from_bom)
     (fp_text reference "kibuzzard-62214D83" (at 0 -0.915728) (layer "F.SilkS") hide
-        (effects (font (size 0.000254 0.000254) (thickness 0.000003)))
+        (effects (font (size 0.0254 0.0254) (thickness 0.000003)))
       (tstamp 8e981540-9cda-414d-abbb-d34e005f000e)
     )
-    (fp_text value "G***" (at 0 0.915728) (layer "F.SilkS") hide
-        (effects (font (size 0.000254 0.000254) (thickness 0.000003)))
+    (fp_text value "LED" (at 0 0.915728) (layer "F.SilkS") hide
+        (effects (font (size 0.0254 0.0254) (thickness 0.000003)))
       (tstamp e7f989f7-95da-4be3-9e33-743523ae1ee0)
     )
     (fp_poly
@@ -6564,11 +6564,11 @@
     (tags "svg2mod")
     (attr board_only exclude_from_pos_files exclude_from_bom)
     (fp_text reference "kibuzzard-62214DC1" (at 0 -0.918903) (layer "F.SilkS") hide
-        (effects (font (size 0.000254 0.000254) (thickness 0.000003)))
+        (effects (font (size 0.0254 0.0254) (thickness 0.000003)))
       (tstamp 7f9c0307-e84d-4f8a-93be-34fc4b3feb89)
     )
-    (fp_text value "G***" (at 0 0.918903) (layer "F.SilkS") hide
-        (effects (font (size 0.000254 0.000254) (thickness 0.000003)))
+    (fp_text value "LED" (at 0 0.918903) (layer "F.SilkS") hide
+        (effects (font (size 0.0254 0.0254) (thickness 0.000003)))
       (tstamp db97118a-0872-4a5d-aaa5-b35f9498f22a)
     )
     (fp_poly
@@ -7144,11 +7144,11 @@
     (tags "svg2mod")
     (attr board_only exclude_from_pos_files exclude_from_bom)
     (fp_text reference "kibuzzard-62214D9F" (at 0 -0.923348) (layer "F.SilkS") hide
-        (effects (font (size 0.000254 0.000254) (thickness 0.000003)))
+        (effects (font (size 0.0254 0.0254) (thickness 0.000003)))
       (tstamp a454c2ff-c5fa-4264-8e86-6c54179c9309)
     )
-    (fp_text value "G***" (at 0 0.923348) (layer "F.SilkS") hide
-        (effects (font (size 0.000254 0.000254) (thickness 0.000003)))
+    (fp_text value "LED" (at 0 0.923348) (layer "F.SilkS") hide
+        (effects (font (size 0.0254 0.0254) (thickness 0.000003)))
       (tstamp d420221c-c6ab-4917-a9f8-4c807e89ee99)
     )
     (fp_poly
