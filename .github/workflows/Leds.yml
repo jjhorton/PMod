@@ -139,11 +139,11 @@ jobs:
 
       - name: comment test results in PR
         if: github.event.schedule != '0 8 * * *' && github.ref != 'refs/heads/master'
-        uses: machine-learning-apps/pr-comment@master
+        uses: thollander/actions-comment-pull-request@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          path: project/PMod_LED/Firmware/test-results.txt
+          filepath: project/PMod_LED/Firmware/test-results.txt
 
       - name: Install deps
         run: |
@@ -190,8 +190,8 @@ jobs:
 
       - name: comment PR
         if: github.event.schedule != '0 8 * * *' && github.ref != 'refs/heads/master'
-        uses: machine-learning-apps/pr-comment@master
+        uses: thollander/actions-comment-pull-request@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          path: project/PMod_LED/Firmware/results.txt
+          filepath: project/PMod_LED/Firmware/results.txt
