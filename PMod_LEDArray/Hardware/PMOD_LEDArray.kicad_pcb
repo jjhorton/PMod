@@ -5978,7 +5978,7 @@
     (tedit 6134FB05) (tstamp 00000000-0000-0000-0000-000061358aa3)
     (at 188.5 98.5 90)
     (attr through_hole)
-    (fp_text reference "G***" (at 0 0 90) (layer "F.Cu") hide
+    (fp_text reference "Logo2" (at 0 0 90) (layer "F.Cu") hide
       (effects (font (size 1.524 1.524) (thickness 0.3)))
       (tstamp 5ecd194d-1d9a-49e3-b4bf-9a9cd093df38)
     )
