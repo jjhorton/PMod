@@ -3,7 +3,9 @@ name: "PMod LED Array"
 on:
   schedule:
     - cron: "0 8 * * *"
+
   workflow_dispatch:
+
   pull_request:
     paths:
       - 'PMod_LEDArray/Hardware/**'
@@ -31,7 +33,7 @@ jobs:
 
     - name: Retrieve results
       if: ${{ always() }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: Fabrication_Files
         path: |
@@ -71,7 +73,7 @@ jobs:
 
       - name: Retrieve results
         if: ${{ always() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: RP_Pico_Files
           path: |
@@ -160,7 +162,7 @@ jobs:
 
       - name: Retrieve results
         if: ${{ always() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: Ice40_5K_Firmware
           path: |
