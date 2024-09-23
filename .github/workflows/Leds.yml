@@ -37,7 +37,7 @@ jobs:
 
     - name: Retrieve results
       if: ${{ always() }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: Fabrication_Files
         path: |
@@ -78,7 +78,7 @@ jobs:
 
       - name: Retrieve results
         if: ${{ always() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: RP_Pico_Files
           path: |
@@ -112,7 +112,7 @@ jobs:
           make coverage
 
       - name: Checkout vcd2json
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: nanamake/vcd2json
           path: vcd2json
@@ -164,7 +164,7 @@ jobs:
 
       - name: Retrieve results
         if: ${{ always() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: Ice40_5K_Firmware
           path: |
