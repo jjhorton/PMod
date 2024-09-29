@@ -30,7 +30,7 @@ jobs:
 
     - name: Retrieve results
       if: ${{ always() }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: Fabrication_Files
         path: |
@@ -78,7 +78,7 @@ jobs:
 
       - name: Retrieve results
         if: ${{ always() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: RP_Pico_Files
           path: |
