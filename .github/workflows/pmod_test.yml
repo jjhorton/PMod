@@ -3,6 +3,8 @@ name: "PMod Test"
 on:
   schedule:
     - cron: "0 8 * * *"
+
+  workflow_dispatch:
   
   pull_request:
     paths:
@@ -30,7 +32,7 @@ jobs:
 
     - name: Retrieve results
       if: ${{ always() }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: Fabrication_Files
         path: |

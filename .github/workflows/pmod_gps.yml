@@ -3,6 +3,9 @@ name: "PMod GPS"
 on:
   schedule:
     - cron: "0 8 * * *"
+
+  workflow_dispatch:
+  
   pull_request:
     paths:
       - 'PMod_GPS/Hardware/*.kicad_sch'
@@ -50,7 +53,7 @@ jobs:
 
     - name: Retrieve results
       if: ${{ always() }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: Fabrication_Files
         path: |
@@ -90,7 +93,7 @@ jobs:
 
       - name: Retrieve results
         if: ${{ always() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: RP_Pico_Files
           path: |
