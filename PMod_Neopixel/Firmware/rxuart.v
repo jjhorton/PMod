@@ -3,12 +3,14 @@
 module rxuart(i_clk, i_uart_rx, o_rx_byte, o_rx_valid);
 
 	//standard value set for 12MHz clock with 19200 baud
-	parameter CLKS_PERBAUD = 625;
+	//parameter CLKS_PERBAUD = 625;
+    //standard value set for 12MHz clock with 19200 baud
+	parameter CLKS_PERBAUD = (50_000_000)/(19200);
 
-	input	wire	i_clk;
-	input 	wire	i_uart_rx;
-	output	[7:0]	o_rx_byte;
-	output	wire	o_rx_valid;
+	input	wire	       i_clk;
+	input 	wire	       i_uart_rx;
+	output	wire    [7:0]  o_rx_byte;
+	output	wire	       o_rx_valid;
 
 	// possible states
 	localparam [3:0] IDLE		=	4'h0,

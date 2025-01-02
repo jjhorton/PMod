@@ -3,14 +3,14 @@ module writepixel(
 	pixel_r, pixel_g, pixel_b,
 	d_out, busy);
 
-	input 	wire 	clk;
-	input 	wire 	valid;
-	input 	wire [7:0]	pixel_r;
-	input 	wire	[7:0]	pixel_g;
-	input 	wire	[7:0]	pixel_b;
+	input 	 	clk;
+	input 	 	valid;
+	input 	    [7:0]	pixel_r;
+	input 		[7:0]	pixel_g;
+	input 		[7:0]	pixel_b;
 
-	output 	wire 	d_out;
-	output 	wire		busy;
+	output 	    reg    d_out;
+	output		reg    busy;
 
 	reg [2:0] state = 0;
 	reg [31:0] counter =0;
@@ -42,7 +42,10 @@ module writepixel(
 			pixel_clk <= ~pixel_clk;
 			end
 		else
+		    begin
 			counter <= counter + 1'b1;
+			//pixel_clk <= 1'b0;
+			end
 	end
 
 	// data_ready used to trigger the next bit each time
@@ -67,6 +70,9 @@ module writepixel(
 			busy_out <= 1'b1;
 		else
 			busy_out <= 1'b0;
+
+        d_out <= data_out;
+		busy <= busy_out;
 	end
 
 	//state machine for sending each value
@@ -89,12 +95,14 @@ module writepixel(
 				begin
 					// high for a 1, low for 0
 					data_out <= my_value[count_bit];
+					//data_out <= 1'b1;
 					state <= STATE3;
 				end
 			STATE3:
 				begin
 					// high for a 1, low for 0
 					data_out <= my_value[count_bit];
+					//data_out <= 1'b1;
 					state <= STATE4;
 				end
 			STATE4:
@@ -111,7 +119,7 @@ module writepixel(
 
 		end
 
-		assign d_out = data_out;
-		assign busy = busy_out;
+		//assign d_out = data_out;
+		//assign busy = busy_out;
 
 endmodule
