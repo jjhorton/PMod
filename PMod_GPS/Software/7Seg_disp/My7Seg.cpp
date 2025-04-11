@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "My7Seg.h"
 #include "pico/stdlib.h"
+#include "My7Seg.h"
 
 My7Seg::My7Seg(int data_pin , int clk_pin)
 {
