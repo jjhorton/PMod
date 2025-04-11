@@ -72,7 +72,7 @@ int main() {
 
 			for(int x=0; x<8; x++ ){
 				for(int digit_count = 0; digit_count < 4; digit_count++){
-				u_int8_t rgb_value[3];
+				uint8_t rgb_value[3];
 
 				int scale = pow(10,3-digit_count);
 				for(int a=0; a<3; a++){
