@@ -6,9 +6,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "My7Seg.h"
-
 #include "pico/stdlib.h"
+#include "My7Seg.h"
 
 int main() {
 
@@ -24,11 +23,13 @@ int main() {
 
 		for(int value=0; value<16; ++value){
 			//for(int i = 0; i<16; ++i){
-				Display2.setdigit(value, rand() % 10, true);
+				Display1A.setdigit(value, rand() % 10, true);
 			//}
 		}
-		Display1A.setValue2(double(987.6), double(123.4),1);
-		Display1B.setValue(double(1234.5678), 4);
+		double my_number = rand()%100000000;
+
+		Display1B.setValue2(double(rand()), double(123.4),1);
+		Display2.setValue(double(my_number), 0);
 
 		sleep_ms(1000);
 
