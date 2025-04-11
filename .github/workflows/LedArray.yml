@@ -101,8 +101,8 @@ jobs:
           
           sudo apt install -y lcov
           
-          wget http://archive.ubuntu.com/ubuntu/pool/universe/v/verilator/verilator_5.006-3_amd64.deb
-          sudo dpkg --force-all -i verilator_5.006-3_amd64.deb
+          wget http://archive.ubuntu.com/ubuntu/pool/universe/v/verilator/verilator_5.032-1_amd64.deb
+          sudo dpkg --force-all -i verilator_5.032-1_amd64.deb
 
       - name: Run coverage
         working-directory: project/PMod_LEDArray/Firmware
