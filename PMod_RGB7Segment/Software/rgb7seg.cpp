@@ -1,9 +1,8 @@
 #include <stdio.h>
-
-#include "rgb7seg.h"
 #include "pico/stdlib.h"
 #include "pico/binary_info.h"
 #include "hardware/i2c.h"
+#include "rgb7seg.h"
 
 RGB7Seg::RGB7Seg()
 {
