@@ -6,9 +6,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "MyLedDisp.h"
-
 #include "pico/stdlib.h"
+#include "MyLedDisp.h"
 
 int main() {
 
