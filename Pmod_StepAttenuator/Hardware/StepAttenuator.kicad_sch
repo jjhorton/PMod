@@ -1600,6 +1600,14 @@
 		(color 0 0 0 0)
 		(uuid "fc0b96be-c4fb-444e-b834-6fe97c0e3d81")
 	)
+	(no_connect
+		(at 176.53 93.98)
+		(uuid "32014517-b418-4074-a284-9f2d6a6bcc20")
+	)
+	(no_connect
+		(at 176.53 91.44)
+		(uuid "c420feab-51a0-48e5-8b03-0667dd801526")
+	)
 	(wire
 		(pts
 			(xy 74.93 95.25) (xy 80.01 95.25)
@@ -1972,7 +1980,7 @@
 	)
 	(wire
 		(pts
-			(xy 133.35 88.9) (xy 175.26 88.9)
+			(xy 133.35 88.9) (xy 176.53 88.9)
 		)
 		(stroke
 			(width 0)
@@ -2046,7 +2054,7 @@
 	)
 	(global_label "Data_C16"
 		(shape input)
-		(at 85.09 90.17 0)
+		(at 85.09 85.09 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2056,7 +2064,7 @@
 		)
 		(uuid "334c5aa7-842d-4747-a3d0-3effdcc634e4")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 97.0255 90.17 0)
+			(at 97.0255 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2090,22 +2098,22 @@
 	)
 	(global_label "Data_C1"
 		(shape input)
-		(at 50.8 87.63 180)
+		(at 85.09 90.17 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
 		(uuid "386ce2f8-ed78-463c-9f19-75a58ef4f5b9")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 40.074 87.63 0)
+			(at 95.816 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -2134,7 +2142,7 @@
 	)
 	(global_label "Data_C4"
 		(shape input)
-		(at 85.09 85.09 0)
+		(at 85.09 87.63 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2144,7 +2152,7 @@
 		)
 		(uuid "66dfb1d6-0363-429e-ad9c-45cfed1142ad")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 95.816 85.09 0)
+			(at 95.816 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2156,7 +2164,7 @@
 	)
 	(global_label "Data_C5"
 		(shape input)
-		(at 50.8 85.09 180)
+		(at 50.8 90.17 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2166,7 +2174,7 @@
 		)
 		(uuid "75e06133-f344-4be7-a385-c578dc4092fb")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 40.074 85.09 0)
+			(at 40.074 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2222,7 +2230,7 @@
 	)
 	(global_label "Data_C2"
 		(shape input)
-		(at 50.8 90.17 180)
+		(at 50.8 87.63 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2232,7 +2240,7 @@
 		)
 		(uuid "a36b71ea-0905-4774-8b97-75e60efaa94c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 40.074 90.17 0)
+			(at 40.074 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2288,22 +2296,22 @@
 	)
 	(global_label "Data_C8"
 		(shape input)
-		(at 85.09 87.63 0)
+		(at 50.8 85.09 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
 		(uuid "d62f8d99-90be-4422-9525-afcdc3a78ec5")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 95.816 87.63 0)
+			(at 40.074 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -2313,8 +2321,8 @@
 		(at 67.31 90.17 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
+		(in_bom no)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "03fcc7f6-6c12-479c-b71c-44595fe43e80")
@@ -2608,8 +2616,8 @@
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
+		(in_bom no)
+		(on_board no)
 		(dnp no)
 		(uuid "0d61cf8d-723b-43a2-bd21-656ea2685c7f")
 		(property "Reference" "J3"
@@ -2630,7 +2638,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_132289_EdgeMount"
 			(at 128.27 88.9 0)
 			(effects
 				(font
@@ -2962,7 +2970,7 @@
 				)
 			)
 		)
-		(property "Footprint" "easyeda2kicad:QFN-20_L4.0-W4.0-P0.50-BL-EP2.2"
+		(property "Footprint" "easyeda:QFN-20_L4.0-W4.0-P0.50-BL-EP2.2"
 			(at 190.5 115.57 0)
 			(effects
 				(font
@@ -3479,7 +3487,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "7bd327cc-b53e-44d9-b17b-93f5e5875ccc")
 		(property "Reference" "J2"
@@ -3500,7 +3508,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_132289_EdgeMount"
 			(at 265.43 88.9 0)
 			(effects
 				(font
