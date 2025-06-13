@@ -1605,6 +1605,10 @@
 		(uuid "32014517-b418-4074-a284-9f2d6a6bcc20")
 	)
 	(no_connect
+		(at 74.93 92.71)
+		(uuid "32a47c0e-d13d-499b-934f-1dba8e442085")
+	)
+	(no_connect
 		(at 176.53 91.44)
 		(uuid "c420feab-51a0-48e5-8b03-0667dd801526")
 	)
@@ -2323,7 +2327,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "03fcc7f6-6c12-479c-b71c-44595fe43e80")
 		(property "Reference" "J1"
@@ -2618,7 +2622,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(dnp no)
+		(dnp yes)
 		(uuid "0d61cf8d-723b-43a2-bd21-656ea2685c7f")
 		(property "Reference" "J3"
 			(at 124.46 87.9231 0)
