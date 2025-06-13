@@ -28,7 +28,7 @@ jobs:
         # optional - schematic file
         schema: 'Pmod_StepAttenuator/Hardware/StepAttenuator.kicad_sch'  
         # optional - PCB design file
-        board: 'PMod_StepAttenuator/Hardware/StepAttenuator.kicad_pcb'
+        board: 'Pmod_StepAttenuator/Hardware/StepAttenuator.kicad_pcb'
 
     - name: Retrieve results
       if: ${{ always() }}
