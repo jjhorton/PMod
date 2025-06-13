@@ -805,7 +805,7 @@
 		(path "/7bd327cc-b53e-44d9-b17b-93f5e5875ccc")
 		(sheetname "/")
 		(sheetfile "StepAttenuator.kicad_sch")
-		(attr smd dnp)
+		(attr smd exclude_from_bom dnp)
 		(fp_line
 			(start -3.71 -0.25)
 			(end -3.71 0.25)
@@ -1181,7 +1181,7 @@
 		(path "/03fcc7f6-6c12-479c-b71c-44595fe43e80")
 		(sheetname "/")
 		(sheetfile "StepAttenuator.kicad_sch")
-		(attr through_hole)
+		(attr through_hole exclude_from_bom dnp)
 		(fp_line
 			(start -1.38 -1.38)
 			(end 0 -1.38)
@@ -1448,7 +1448,7 @@
 			(remove_unused_layers no)
 			(net 6 "unconnected-(J1-Pin_8-Pad8)")
 			(pinfunction "Pin_8")
-			(pintype "passive")
+			(pintype "passive+no_connect")
 			(uuid "1f09f045-e6ba-470e-b4d0-8b064f1e5c13")
 		)
 		(pad "9" thru_hole circle
@@ -1765,7 +1765,7 @@
 		(path "/0d61cf8d-723b-43a2-bd21-656ea2685c7f")
 		(sheetname "/")
 		(sheetfile "StepAttenuator.kicad_sch")
-		(attr smd)
+		(attr smd exclude_from_bom dnp)
 		(fp_line
 			(start -3.71 0.25)
 			(end -3.21 0)
