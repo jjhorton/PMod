@@ -26,9 +26,9 @@ jobs:
         # optional - prefix to output defined in config
         dir: Hardware/Fabrication
         # optional - schematic file
-        schema: 'PMod_Test/Hardware/PMod_StepAttenuator.kicad_sch'
+        schema: 'PMod_StepAttenuator/Hardware/PMod_StepAttenuator.kicad_sch'
         # optional - PCB design file
-        board: 'PMod_Test/Hardware/PMod_StepAttenuator.kicad_pcb'
+        board: 'PMod_StepAttenuator/Hardware/PMod_StepAttenuator.kicad_pcb'
 
     - name: Retrieve results
       if: ${{ always() }}
