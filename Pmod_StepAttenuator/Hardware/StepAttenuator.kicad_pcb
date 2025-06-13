@@ -600,6 +600,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" "C1525"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f73c2cf1-4657-4f7f-8133-0ab1b711a2fd")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "C_*")
 		(path "/7d8aeb2e-cd8b-4659-8925-2163d121f2b9")
 		(sheetname "/")
@@ -1556,6 +1569,19 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC Part" "C1546"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "64937e23-6ddd-47c0-99d8-01127b7d7197")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 			)
