@@ -1,0 +1,40 @@
+name: "PMod Test"
+
+on:
+  schedule:
+    - cron: "0 8 * * *"
+
+  workflow_dispatch:
+  
+  pull_request:
+    paths:
+      - 'PMod_StepAttenuator/Hardware/*.kicad_sch'
+      - 'PMod_StepAttenuator/Hardware/*.kicad_pcb'
+      - '.github/workflows/pmod_attenuator.yml'
+      - 'kibot.yml'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  Fabrication:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: INTI-CMNB/KiBot@v2_k9
+      with:
+        # Required - kibot config file
+        config: kibot.yml
+        # optional - prefix to output defined in config
+        dir: Hardware/Fabrication
+        # optional - schematic file
+        schema: 'Pmod_StepAttenuator/Hardware/StepAttenuator.kicad_sch'  
+        # optional - PCB design file
+        board: 'Pmod_StepAttenuator/Hardware/StepAttenuator.kicad_pcb'
+
+    - name: Retrieve results
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: Fabrication_Files
+        path: |
+          Hardware/Fabrication/
+        if-no-files-found: warn
