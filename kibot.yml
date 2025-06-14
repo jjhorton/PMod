@@ -3,7 +3,9 @@ kibot:
   version: 1
 
 preflight:
-  run_erc: true
+  erc: 
+    enabled: true
+    dont_stop: true
   drc: 
     enabled: true
     dont_stop: true
