@@ -26,25 +26,26 @@ int main() {
 	while(1){
 		uint8_t my_value = 0b00000001;
 
-		//set the LE pin low
-		gpio_put(OUTPUT_PINS[0], 1);
-		sleep_ms(10);
-		// set the data pins
+		for(int x =0; x<64; x++){
+			//set the LE pin low
+			gpio_put(OUTPUT_PINS[0], 1);
+			sleep_ms(10);
+			// set the data pins
 
-		gpio_put(OUTPUT_PINS[3], 1); // 0.5
-		gpio_put(OUTPUT_PINS[2], 1); // 1
-		gpio_put(OUTPUT_PINS[5], 1); // 2
-		gpio_put(OUTPUT_PINS[4], 1); // 4
-		gpio_put(OUTPUT_PINS[7], 1); // 8
-		gpio_put(OUTPUT_PINS[6], 1); // 16
+			gpio_put(OUTPUT_PINS[2], (x >> 1) & 1U); // 0.5
+			gpio_put(OUTPUT_PINS[3], (x >> 2) & 1U); // 1
+			gpio_put(OUTPUT_PINS[4], (x >> 3) & 1U); // 2
+			gpio_put(OUTPUT_PINS[5], (x >> 4) & 1U); // 4
+			gpio_put(OUTPUT_PINS[6], (x >> 5) & 1U); // 8
+			gpio_put(OUTPUT_PINS[7], (x >> 6) & 1U); // 16
 
 		// set the LE Pin High to enable the output
 
-		gpio_put(8, 1); // set the LED pin high
-		sleep_ms(1000);
+			gpio_put(8, 1); // set the LED pin high
+			sleep_ms(2000);
+		}
 
-
-		sleep_ms(10);
+		/*sleep_ms(10);
 		
 		gpio_put(OUTPUT_PINS[3], 0);
 		gpio_put(OUTPUT_PINS[2], 0);
@@ -54,6 +55,6 @@ int main() {
 		gpio_put(OUTPUT_PINS[6], 0); // set LE low again
 		
 		gpio_put(8, 0); // set the LED pin low
-		sleep_ms(1000);
+		sleep_ms(2000);*/
 	}
 }
